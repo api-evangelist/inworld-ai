@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/inworld-ai/main/json-schema/inworld-router-chat-completion-schema.json",
+  "title": "InworldRouterChatCompletionRequest",
+  "description": "Inworld LLM Router chat completions request body for POST /v1/chat/completions. OpenAI-compatible.",
+  "type": "object",
+  "required": ["model", "messages"],
+  "properties": {
+    "model": {
+      "type": "string",
+      "description": "Model id, provider/model id, `auto`, or `inworld/<router-name>`."
+    },
+    "messages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["role", "content"],
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": ["system", "user", "assistant", "tool", "developer"]
+          },
+          "content": {
+            "oneOf": [
+              { "type": "string" },
+              {
+                "type": "array",
+                "items": { "type": "object" }
+              }
+            ]
+          },
+          "name": { "type": "string" },
+          "tool_calls": {
+            "type": "array",
+            "items": { "type": "object" }
+          },
+          "tool_call_id": { "type": "string" }
+        }
+      }
+    },
+    "stream": { "type": "boolean" },
+    "temperature": { "type": "number" },
+    "top_p": { "type": "number" },
+    "max_tokens": { "type": "integer" },
+    "max_completion_tokens": { "type": "integer" },
+    "presence_penalty": { "type": "number" },
+    "frequency_penalty": { "type": "number" },
+    "seed": { "type": "integer" },
+    "stop": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" } }
+      ]
+    },
+    "logit_bias": {
+      "type": "object",
+      "additionalProperties": { "type": "number" }
+    },
+    "reasoning_effort": { "type": "string" },
+    "user": { "type": "string" },
+    "web_search": { "type": "boolean" },
+    "web_search_options": { "type": "object" },
+    "modalities": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "image_config": { "type": "object" },
+    "extra_body": { "type": "object" }
+  }
+}

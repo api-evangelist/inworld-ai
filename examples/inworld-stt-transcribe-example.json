@@ -1,0 +1,43 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.inworld.ai/stt/v1/transcribe",
+    "headers": {
+      "Authorization": "Basic $INWORLD_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "transcribeConfig": {
+        "modelId": "groq/whisper-large-v3",
+        "audioEncoding": "LINEAR16",
+        "language": "en-US",
+        "sampleRateHertz": 16000,
+        "numberOfChannels": 1,
+        "includeWordTimestamps": true,
+        "prompts": ["delivery", "shipping", "order status"]
+      },
+      "audioData": {
+        "content": "<base64-encoded-audio-bytes>"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "transcription": {
+        "transcript": "Hey, I just wanted to check in on the delivery status for my order.",
+        "isFinal": true,
+        "wordTimestamps": [
+          { "word": "Hey",      "startTimeSeconds": 0.00, "endTimeSeconds": 0.24, "confidence": 0.99 },
+          { "word": "I",        "startTimeSeconds": 0.41, "endTimeSeconds": 0.49, "confidence": 0.98 },
+          { "word": "just",     "startTimeSeconds": 0.49, "endTimeSeconds": 0.71, "confidence": 0.98 },
+          { "word": "wanted",   "startTimeSeconds": 0.71, "endTimeSeconds": 1.02, "confidence": 0.97 }
+        ]
+      },
+      "usage": {
+        "transcribedAudioMs": 3520,
+        "modelId": "groq/whisper-large-v3"
+      }
+    }
+  }
+}

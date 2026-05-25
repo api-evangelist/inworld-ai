@@ -1,0 +1,147 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Inworld Voice API — Voices
+  description: 'Inworld Voice — clone, design, publish, list, get, update, and delete
+    custom voices used by TTS and Realtime. 7 operations covering the full voice
+    lifecycle.'
+  tags:
+  - Inworld
+  - Voice
+  - Voice Cloning
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    INWORLD_API_KEY: INWORLD_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: voice-voices
+    baseUri: https://api.inworld.ai
+    description: Inworld Voice — voice lifecycle.
+    resources:
+    - name: voices
+      path: /voices/v1/voices
+      operations:
+      - name: listvoices
+        method: GET
+        description: List Voices
+        outputRawFormat: json
+    - name: voices-clone
+      path: /voices/v1/voices:clone
+      operations:
+      - name: clonevoice
+        method: POST
+        description: Clone Voice
+        outputRawFormat: json
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: voices-design
+      path: /voices/v1/voices:design
+      operations:
+      - name: designvoice
+        method: POST
+        description: Design Voice
+        outputRawFormat: json
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: voices-publish
+      path: /voices/v1/voices:publish
+      operations:
+      - name: publishvoice
+        method: POST
+        description: Publish Voice
+        outputRawFormat: json
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: voices-id
+      path: /voices/v1/voices/{voiceId}
+      operations:
+      - name: getvoice
+        method: GET
+        description: Get Voice
+        outputRawFormat: json
+        inputParameters:
+        - name: voiceId
+          in: path
+          type: string
+          required: true
+      - name: updatevoice
+        method: PATCH
+        description: Update Voice
+        outputRawFormat: json
+        inputParameters:
+        - name: voiceId
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true
+      - name: deletevoice
+        method: DELETE
+        description: Delete Voice
+        inputParameters:
+        - name: voiceId
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: basic
+      value: '{{env.INWORLD_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: voice-voices-rest
+    port: 8080
+    description: REST adapter for Inworld Voice API.
+    resources:
+    - path: /voices/v1/voices
+      name: voices
+      operations:
+      - method: GET
+        name: listvoices
+        description: List Voices
+        call: voice-voices.listvoices
+    - path: /voices/v1/voices:clone
+      name: voices-clone
+      operations:
+      - method: POST
+        name: clonevoice
+        description: Clone Voice
+        call: voice-voices.clonevoice
+        with:
+          body: rest.body
+  - type: mcp
+    namespace: voice-voices-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Inworld Voice API.
+    tools:
+    - name: inworld-clone-voice
+      description: Clone an Inworld voice from audio samples.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: voice-voices.clonevoice
+      with:
+        body: tools.body
+    - name: inworld-list-voices
+      description: List Inworld voices in the workspace.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: voice-voices.listvoices

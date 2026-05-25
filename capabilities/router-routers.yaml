@@ -1,0 +1,118 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Inworld LLM Router API — Routers
+  description: 'Inworld LLM Router — manage named reusable routers with provider,
+    conditional, and split routing rules. 5 operations: Create, List, Get, Update,
+    Delete.'
+  tags:
+  - Inworld
+  - LLM
+  - Router
+  - Configuration
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    INWORLD_API_KEY: INWORLD_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: router-routers
+    baseUri: https://api.inworld.ai
+    description: Inworld Router lifecycle management.
+    resources:
+    - name: routers
+      path: /v1/routers
+      operations:
+      - name: listrouters
+        method: GET
+        description: List Routers
+        outputRawFormat: json
+      - name: createrouter
+        method: POST
+        description: Create Router
+        outputRawFormat: json
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: routers-id
+      path: /v1/routers/{routerId}
+      operations:
+      - name: getrouter
+        method: GET
+        description: Get Router
+        outputRawFormat: json
+        inputParameters:
+        - name: routerId
+          in: path
+          type: string
+          required: true
+      - name: updaterouter
+        method: PATCH
+        description: Update Router
+        outputRawFormat: json
+        inputParameters:
+        - name: routerId
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true
+      - name: deleterouter
+        method: DELETE
+        description: Delete Router
+        inputParameters:
+        - name: routerId
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: basic
+      value: '{{env.INWORLD_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: router-routers-rest
+    port: 8080
+    description: REST adapter for Inworld Router lifecycle.
+    resources:
+    - path: /v1/routers
+      name: routers
+      operations:
+      - method: GET
+        name: listrouters
+        description: List Routers
+        call: router-routers.listrouters
+      - method: POST
+        name: createrouter
+        description: Create Router
+        call: router-routers.createrouter
+        with:
+          body: rest.body
+  - type: mcp
+    namespace: router-routers-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Inworld Router lifecycle.
+    tools:
+    - name: inworld-create-router
+      description: Create a named Inworld LLM Router.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: router-routers.createrouter
+      with:
+        body: tools.body
+    - name: inworld-list-routers
+      description: List named Inworld LLM Routers.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: router-routers.listrouters

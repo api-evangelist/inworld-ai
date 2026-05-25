@@ -1,0 +1,73 @@
+extends:
+  - "spectral:oas"
+formats:
+  - oas3_1
+rules:
+  # ---- Naming conventions observed in Inworld's API surface ----
+  inworld-paths-lowercase:
+    description: All paths use lowercase ASCII letters, digits, hyphens, slashes, and the `:verb` action suffix; no camelCase or underscores.
+    message: Inworld paths should be lowercase (`/tts/v1/voice`, `/voices/v1/voices:clone`).
+    severity: error
+    given: "$.paths.*~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^/[a-z0-9/:_{}-]+$"
+
+  inworld-camelcase-properties:
+    description: Inworld schemas use camelCase property names (e.g. `voiceId`, `audioConfig`, `langCode`).
+    message: Schema properties should be camelCase.
+    severity: warn
+    given: "$..properties.*~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  inworld-api-version-prefix:
+    description: Endpoints should be versioned with `/v1/` somewhere in the path.
+    message: Inworld paths should include `/v1/`.
+    severity: error
+    given: "$.paths.*~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "/v1/"
+
+  inworld-basic-auth-required:
+    description: All HTTP REST endpoints require Basic API-key authentication unless explicitly overridden for Realtime JWT.
+    message: Every operation should declare the BasicAuth security scheme.
+    severity: warn
+    given: "$.paths.*[get,post,put,patch,delete]"
+    then:
+      field: security
+      function: truthy
+
+  inworld-operation-summary-title-case:
+    description: Operation summaries must use Title Case.
+    message: Operation summary should be Title Case.
+    severity: warn
+    given: "$.paths.*[get,post,put,patch,delete].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^([A-Z][a-zA-Z0-9]*)( [A-Z0-9][a-zA-Z0-9]*)*$"
+
+  inworld-action-suffix-verbs:
+    description: When an action verb is used in the path it should follow the `:verb` suffix convention (e.g. `:clone`, `:design`, `:publish`, `:stream`, `:websocket`).
+    message: Use `:verb` action suffix for non-CRUD operations.
+    severity: warn
+    given: "$.paths.*~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(?!.*[:](?!clone|design|publish|stream|websocket)).*$"
+
+  inworld-error-schema:
+    description: 4XX responses should reference the canonical Error schema.
+    message: Error responses should point at #/components/schemas/Error.
+    severity: warn
+    given: "$.paths.*.*.responses.4XX"
+    then:
+      field: "$ref"
+      function: truthy

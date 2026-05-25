@@ -1,0 +1,98 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Inworld LLM Router API — Chat Completions
+  description: 'Inworld LLM Router — OpenAI-compatible chat completions over hundreds
+    of provider models. 2 operations: Create Chat Completion, List Models.'
+  tags:
+  - Inworld
+  - LLM
+  - Router
+  - OpenAI Compatible
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    INWORLD_API_KEY: INWORLD_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: router-chat-completions
+    baseUri: https://api.inworld.ai
+    description: Inworld Router chat completions and model discovery.
+    resources:
+    - name: chat-completions
+      path: /v1/chat/completions
+      operations:
+      - name: createchatcompletion
+        method: POST
+        description: Create Chat Completion
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: models
+      path: /v1/models
+      operations:
+      - name: listroutermodels
+        method: GET
+        description: List Router Models
+        outputRawFormat: json
+        outputParameters:
+        - name: data
+          type: array
+          value: $.data
+    authentication:
+      type: basic
+      value: '{{env.INWORLD_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: router-chat-completions-rest
+    port: 8080
+    description: REST adapter for Inworld Router chat completions.
+    resources:
+    - path: /v1/chat/completions
+      name: chat-completions
+      operations:
+      - method: POST
+        name: createchatcompletion
+        description: Create Chat Completion
+        call: router-chat-completions.createchatcompletion
+        with:
+          body: rest.body
+    - path: /v1/models
+      name: models
+      operations:
+      - method: GET
+        name: listroutermodels
+        description: List Router Models
+        call: router-chat-completions.listroutermodels
+  - type: mcp
+    namespace: router-chat-completions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Inworld Router chat completions.
+    tools:
+    - name: inworld-create-chat-completion
+      description: Create an OpenAI-compatible chat completion through the Inworld Router.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: router-chat-completions.createchatcompletion
+      with:
+        body: tools.body
+    - name: inworld-list-router-models
+      description: List models available through the Inworld Router.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: router-chat-completions.listroutermodels

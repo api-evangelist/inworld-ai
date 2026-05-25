@@ -1,0 +1,122 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Inworld AI
+providerId: inworld-ai
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: true
+tags:
+  - AI
+  - Voice
+  - Pricing
+  - Plans
+description: API Commons Plans 0.1 capture of Inworld AI's commercial surface — five
+  subscription tiers (On-Demand free, Creator, Developer, Growth, Enterprise) plus
+  per-unit rates for the Realtime TTS-2, Realtime TTS 1.5 Max, Realtime TTS 1.5 Mini,
+  STT, and LLM Router products.
+sources:
+  - https://inworld.ai/pricing
+  - https://docs.inworld.ai/tts/resources/billing
+  - https://docs.inworld.ai/stt/resources/billing
+  - https://docs.inworld.ai/realtime/resources/billing
+  - https://docs.inworld.ai/router/resources/billing
+billingCurrency: USD
+billingModel: subscription-plus-usage
+creditModel: rollover-up-to-3-months-while-paid
+plans:
+  - id: on-demand
+    name: On-Demand
+    monthlyFee: 0
+    customVoices: 5
+    includedTtsMinutes: 40
+    description: Free entry tier.
+    rates:
+      ttsRealtime2: 35       # per 1M characters
+      tts15Max: 35
+      tts15Mini: 25
+      sttPerAudioHour: 0.35
+      router: provider-cost
+  - id: creator
+    name: Creator
+    monthlyFee: 25
+    monthlyCredits: 25
+    customVoices: 100
+    audioDownloads: true
+    description: Small projects.
+    rates:
+      ttsRealtime2: 35
+      tts15Max: 35
+      tts15Mini: 25
+      sttPerAudioHour: 0.35
+      router: provider-cost
+  - id: developer
+    name: Developer
+    monthlyFee: 300
+    monthlyCredits: 300
+    discount: up-to-20-percent
+    customVoices: 1000
+    description: Production applications.
+    rates:
+      ttsRealtime2: 30
+      tts15Max: 30
+      tts15Mini: 20
+      sttPerAudioHour: 0.28
+      router: provider-cost
+  - id: growth
+    name: Growth
+    monthlyFee: 1500
+    monthlyCredits: 1500
+    discount: up-to-40-percent
+    customVoices: 3000
+    description: High-volume deployments.
+    rates:
+      ttsRealtime2: 25
+      tts15Max: 25
+      tts15Mini: 15
+      sttPerAudioHour: 0.21
+      router: provider-cost
+  - id: enterprise
+    name: Enterprise
+    monthlyFee: contact-sales
+    description: Custom contract, on-prem, data residency, ZDR.
+    rates:
+      ttsRealtime2: 10        # as low as
+      tts15Max: 10
+      tts15Mini: 5
+      sttPerAudioHour: contact-sales
+      router: provider-cost
+products:
+  - id: realtime-tts-2
+    name: Realtime TTS-2
+    type: latest
+    unit: 1M characters
+    description: 100+ languages, natural-language steering, sub-200 ms latency.
+  - id: realtime-tts-1-5-max
+    name: Realtime TTS 1.5 Max
+    type: production
+    unit: 1M characters
+    description: 15 languages, ~200 ms latency, #1 Artificial Analysis Speech Arena.
+  - id: realtime-tts-1-5-mini
+    name: Realtime TTS 1.5 Mini
+    type: cost-optimized
+    unit: 1M characters
+    description: 15 languages, ~120 ms latency.
+  - id: stt-1
+    name: STT 1
+    type: production
+    unit: per audio hour
+    description: Whisper-family via Groq with multi-provider routing.
+  - id: llm-router
+    name: LLM Router
+    type: routing
+    unit: passthrough
+    description: Billed at provider cost across all tiers.
+credits:
+  rollover:
+    enabled: true
+    maxMonths: 3
+    requires: active-paid-subscription
+  topUp:
+    enabled: true
+    expiresAfterMonths: 12

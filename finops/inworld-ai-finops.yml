@@ -1,0 +1,129 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Inworld AI
+providerId: inworld-ai
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: true
+tags:
+  - FinOps
+  - Cost Management
+  - FOCUS
+  - AI
+  - Voice
+description: >
+  FOCUS-aligned FinOps definition for the Inworld AI platform. Character-, audio-second-,
+  and token-based metering across five product lines (TTS, STT, Realtime, Router,
+  Voice), invoiced in USD against monthly plan credits with passthrough billing
+  for third-party LLM Router usage.
+sources:
+  - https://inworld.ai/pricing
+  - https://docs.inworld.ai/portal/billing
+  - https://docs.inworld.ai/tts/resources/billing
+  - https://docs.inworld.ai/stt/resources/billing
+  - https://docs.inworld.ai/realtime/resources/billing
+  - https://docs.inworld.ai/router/resources/billing
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Inworld AI
+serviceCategory: AI and Machine Learning
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+    - Usage
+    - Purchase
+    - Credit
+    - Adjustment
+    - Tax
+  primaryUnit: character
+  secondaryUnits:
+    - audio_hour
+    - session_hour
+    - token
+focusColumns:
+  ServiceName: Inworld AI Platform
+  ServiceCategory: AI and Machine Learning
+  ProviderName: Inworld AI
+  PublisherName: Inworld AI
+  InvoiceIssuerName: Inworld AI
+  PricingCategory: Usage-Based
+  PricingUnit: 1M characters
+  BillingCurrency: USD
+meters:
+  - name: tts_characters_synthesized
+    unit: character
+    aggregation: sum
+    dimensions:
+      - model           # inworld-tts-2 | inworld-tts-1.5-max | inworld-tts-1.5-mini
+      - voiceSource     # INWORLD | IVC | DESIGN
+      - workspace
+  - name: stt_audio_hours_transcribed
+    unit: audio_hour
+    aggregation: sum
+    dimensions:
+      - model           # provider/model
+      - workspace
+  - name: realtime_session_seconds
+    unit: second
+    aggregation: sum
+    dimensions:
+      - workspace
+      - model
+      - voice
+  - name: router_input_tokens
+    unit: token
+    aggregation: sum
+    dimensions:
+      - provider
+      - model
+      - router          # named router id, if any
+      - workspace
+  - name: router_output_tokens
+    unit: token
+    aggregation: sum
+    dimensions:
+      - provider
+      - model
+      - router
+      - workspace
+allocations:
+  - by: workspace
+  - by: router
+  - by: model
+  - by: voice
+  - by: ProviderName
+discountLanes:
+  - name: Plan Tier Discount
+    description: Developer (~20% off), Growth (~40% off), Enterprise (negotiated).
+  - name: Plan Credits
+    description: Monthly subscription credits applied against metered usage; roll over up
+      to 3 months while subscription remains active.
+  - name: Top-up Credits
+    description: Account-purchased credits expire 12 months after purchase.
+  - name: Router Passthrough
+    description: LLM Router usage is billed at upstream provider cost; Inworld bills the
+      LLM cost as a passthrough usage line rather than as Inworld revenue margin.
+budgets:
+  - dimension: workspace
+    enforcement: soft
+    signal: monthly_credit_balance
+  - dimension: workspace
+    enforcement: hard
+    signal: plan_spend_cap
+deploymentModels:
+  - hosted-saas
+  - on-prem-tts
+  - bring-your-own-cloud-tts
+dataRetention:
+  zeroDataRetention:
+    available: true
+    appliesTo:
+      - tts
+      - realtime

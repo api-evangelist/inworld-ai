@@ -1,0 +1,292 @@
+openapi: 3.1.0
+info:
+  title: Inworld Voice API
+  description: >
+    Manage custom voices used by the Inworld TTS and Realtime APIs. Clone voices
+    from short audio samples (instant voice cloning), design voices from text
+    descriptions, publish voices for workspace-wide use, and list / get / update /
+    delete voices in your workspace.
+  version: v1
+  contact:
+    name: Inworld Support
+    url: https://docs.inworld.ai/tts/resources/support
+  license:
+    name: Inworld Terms of Service
+    url: https://inworld.ai/legal/terms-of-service
+servers:
+  - url: https://api.inworld.ai
+    description: Inworld Production API
+security:
+  - BasicAuth: []
+tags:
+  - name: Voices
+    description: Voice cloning, design, and lifecycle.
+paths:
+  /voices/v1/voices:
+    get:
+      summary: List Voices
+      description: List all voices in the caller's workspace.
+      operationId: listVoices
+      tags: [Voices]
+      parameters:
+        - name: pageSize
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: pageToken
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Voices returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListVoicesResponse'
+        '4XX':
+          $ref: '#/components/responses/ErrorResponse'
+  /voices/v1/voices:clone:
+    post:
+      summary: Clone Voice
+      description: >
+        Instant voice cloning. Submit one or more short audio samples (WAV or MP3,
+        base64-encoded) and receive a new custom voice that can be used immediately
+        in TTS and Realtime calls.
+      operationId: cloneVoice
+      tags: [Voices]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CloneVoiceRequest'
+      responses:
+        '200':
+          description: Cloned voice returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloneVoiceResponse'
+        '4XX':
+          $ref: '#/components/responses/ErrorResponse'
+  /voices/v1/voices:design:
+    post:
+      summary: Design Voice
+      description: >
+        Generate a brand-new voice from a natural-language description plus optional
+        reference audio. Returns a candidate voice that can be previewed and then
+        published.
+      operationId: designVoice
+      tags: [Voices]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DesignVoiceRequest'
+      responses:
+        '200':
+          description: Designed voice returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Voice'
+        '4XX':
+          $ref: '#/components/responses/ErrorResponse'
+  /voices/v1/voices:publish:
+    post:
+      summary: Publish Voice
+      description: Publish a designed or cloned voice so it is available for use in TTS and Realtime.
+      operationId: publishVoice
+      tags: [Voices]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [voiceId]
+              properties:
+                voiceId:
+                  type: string
+      responses:
+        '200':
+          description: Voice published.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Voice'
+        '4XX':
+          $ref: '#/components/responses/ErrorResponse'
+  /voices/v1/voices/{voiceId}:
+    parameters:
+      - name: voiceId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get Voice
+      operationId: getVoice
+      tags: [Voices]
+      responses:
+        '200':
+          description: Voice returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Voice'
+        '4XX':
+          $ref: '#/components/responses/ErrorResponse'
+    patch:
+      summary: Update Voice
+      operationId: updateVoice
+      tags: [Voices]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateVoiceRequest'
+      responses:
+        '200':
+          description: Updated voice returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Voice'
+        '4XX':
+          $ref: '#/components/responses/ErrorResponse'
+    delete:
+      summary: Delete Voice
+      operationId: deleteVoice
+      tags: [Voices]
+      responses:
+        '204':
+          description: Voice deleted.
+        '4XX':
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+  schemas:
+    CloneVoiceRequest:
+      type: object
+      required: [displayName, langCode, voiceSamples]
+      properties:
+        displayName:
+          type: string
+        langCode:
+          type: string
+          enum: [EN_US, ZH_CN, KO_KR, JA_JP, RU_RU, AUTO, IT_IT, ES_ES, PT_BR, DE_DE, FR_FR, AR_SA, PL_PL, NL_NL, HI_IN, HE_IL]
+        description:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        voiceSamples:
+          type: array
+          items:
+            type: object
+            required: [audioData]
+            properties:
+              audioData:
+                type: string
+                format: byte
+                description: Base64-encoded WAV or MP3 audio.
+              transcription:
+                type: string
+        audioProcessingConfig:
+          type: object
+          properties:
+            removeBackgroundNoise:
+              type: boolean
+    CloneVoiceResponse:
+      type: object
+      properties:
+        voice:
+          $ref: '#/components/schemas/Voice'
+        audioSamplesValidated:
+          type: array
+          items:
+            type: object
+            properties:
+              valid:
+                type: boolean
+              reason:
+                type: string
+    DesignVoiceRequest:
+      type: object
+      required: [displayName, prompt, langCode]
+      properties:
+        displayName:
+          type: string
+        prompt:
+          type: string
+          description: Natural-language description of the voice (gender, age, accent, tone).
+        langCode:
+          type: string
+        referenceAudio:
+          type: string
+          format: byte
+          description: Optional base64 reference audio.
+    UpdateVoiceRequest:
+      type: object
+      properties:
+        displayName:
+          type: string
+        description:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+    ListVoicesResponse:
+      type: object
+      properties:
+        voices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Voice'
+        nextPageToken:
+          type: string
+    Voice:
+      type: object
+      properties:
+        voiceId:
+          type: string
+        displayName:
+          type: string
+        description:
+          type: string
+        langCode:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        source:
+          type: string
+          enum: [INWORLD, IVC, DESIGN]
+        published:
+          type: boolean
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+  responses:
+    ErrorResponse:
+      description: Error response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

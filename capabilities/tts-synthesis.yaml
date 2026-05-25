@@ -1,0 +1,111 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Inworld TTS API — Synthesis
+  description: 'Inworld TTS — synthesize text to speech. 4 operations: Synthesize, Stream
+    Synthesize, WebSocket Synthesize, List Voices. Self-contained Naftiko capability
+    for converting text into Inworld voice audio with optional alignment metadata.'
+  tags:
+  - Inworld
+  - TTS
+  - Voice
+  - Audio
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    INWORLD_API_KEY: INWORLD_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tts-synthesis
+    baseUri: https://api.inworld.ai
+    description: Inworld TTS — synchronous and streamed speech synthesis.
+    resources:
+    - name: tts-voice
+      path: /tts/v1/voice
+      operations:
+      - name: synthesizespeech
+        method: POST
+        description: Synthesize Speech
+        outputRawFormat: json
+        outputParameters:
+        - name: audio
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: tts-voice-stream
+      path: /tts/v1/voice:stream
+      operations:
+      - name: streamsynthesizespeech
+        method: POST
+        description: Stream Synthesize Speech
+        outputRawFormat: json
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: tts-voices
+      path: /tts/v1/voices
+      operations:
+      - name: listttsvoices
+        method: GET
+        description: List TTS Voices
+        outputRawFormat: json
+        outputParameters:
+        - name: voices
+          type: array
+          value: $.voices
+    authentication:
+      type: basic
+      value: '{{env.INWORLD_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: tts-synthesis-rest
+    port: 8080
+    description: REST adapter for the Inworld TTS API.
+    resources:
+    - path: /tts/v1/voice
+      name: tts-voice
+      operations:
+      - method: POST
+        name: synthesizespeech
+        description: Synthesize Speech
+        call: tts-synthesis.synthesizespeech
+        with:
+          body: rest.body
+    - path: /tts/v1/voices
+      name: tts-voices
+      operations:
+      - method: GET
+        name: listttsvoices
+        description: List TTS Voices
+        call: tts-synthesis.listttsvoices
+  - type: mcp
+    namespace: tts-synthesis-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for the Inworld TTS API.
+    tools:
+    - name: inworld-synthesize-speech
+      description: Synthesize Speech with Inworld TTS
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tts-synthesis.synthesizespeech
+      with:
+        body: tools.body
+    - name: inworld-list-tts-voices
+      description: List Inworld TTS Voices
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tts-synthesis.listttsvoices

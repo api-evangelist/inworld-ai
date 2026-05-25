@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/inworld-ai/main/json-schema/inworld-tts-synthesis-schema.json",
+  "title": "InworldTtsSynthesizeRequest",
+  "description": "Inworld TTS synthesis request body for POST /tts/v1/voice.",
+  "type": "object",
+  "required": ["text", "voiceId", "modelId", "audioConfig"],
+  "properties": {
+    "text": {
+      "type": "string",
+      "maxLength": 2000,
+      "description": "Text to synthesize. Maximum 2,000 characters."
+    },
+    "voiceId": {
+      "type": "string",
+      "description": "Voice id (shipped voice name or custom voice id)."
+    },
+    "modelId": {
+      "type": "string",
+      "enum": ["inworld-tts-2", "inworld-tts-1.5-max", "inworld-tts-1.5-mini"]
+    },
+    "audioConfig": {
+      "type": "object",
+      "required": ["audioEncoding"],
+      "properties": {
+        "audioEncoding": {
+          "type": "string",
+          "enum": ["LINEAR16", "MP3", "OGG_OPUS", "ALAW", "MULAW", "FLAC", "PCM", "WAV"]
+        },
+        "sampleRateHertz": {
+          "type": "integer",
+          "minimum": 8000,
+          "maximum": 48000,
+          "default": 48000
+        },
+        "bitRate": {
+          "type": "integer",
+          "default": 128000
+        },
+        "speakingRate": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 1.5,
+          "default": 1.0
+        }
+      }
+    },
+    "language": {
+      "type": "string",
+      "description": "BCP-47 language tag."
+    },
+    "deliveryMode": {
+      "type": "string",
+      "enum": ["STABLE", "BALANCED", "CREATIVE"],
+      "default": "BALANCED",
+      "description": "TTS-2 only."
+    },
+    "temperature": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 2,
+      "default": 1.0
+    },
+    "timestampType": {
+      "type": "string",
+      "enum": ["WORD", "CHARACTER"]
+    },
+    "applyTextNormalization": {
+      "type": "string",
+      "enum": ["ON", "OFF"]
+    }
+  }
+}

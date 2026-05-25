@@ -1,0 +1,39 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.inworld.ai/tts/v1/voice",
+    "headers": {
+      "Authorization": "Basic $INWORLD_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "text": "Hello, world! What a wonderful day to be a text-to-speech model.",
+      "voiceId": "Dennis",
+      "modelId": "inworld-tts-2",
+      "audioConfig": {
+        "audioEncoding": "LINEAR16",
+        "sampleRateHertz": 22050
+      },
+      "deliveryMode": "BALANCED",
+      "applyTextNormalization": "ON",
+      "timestampType": "WORD"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "audioContent": "UklGRiRQAQBXQVZFZm10IBAAAAABAAEA...truncated...",
+      "usage": {
+        "processedCharactersCount": 64,
+        "modelId": "inworld-tts-2"
+      },
+      "timestampInfo": {
+        "wordAlignment": {
+          "words": ["Hello,", "world!", "What", "a", "wonderful", "day", "to", "be", "a", "text-to-speech", "model."],
+          "wordStartTimeSeconds": [0, 0.51, 1.08, 1.32, 1.41, 1.93, 2.18, 2.31, 2.45, 2.55, 3.18],
+          "wordEndTimeSeconds":   [0.51, 1.04, 1.31, 1.40, 1.92, 2.17, 2.30, 2.44, 2.54, 3.17, 3.62]
+        }
+      }
+    }
+  }
+}

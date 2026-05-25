@@ -1,0 +1,108 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://schema.org/",
+    "inworld": "https://api.inworld.ai/v1/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "SynthesizeRequest": {
+      "@id": "inworld:SynthesizeRequest",
+      "@context": {
+        "text": { "@id": "inworld:SynthesizeRequest/text", "@type": "xsd:string" },
+        "voiceId": { "@id": "inworld:SynthesizeRequest/voiceId", "@type": "xsd:string" },
+        "modelId": { "@id": "inworld:SynthesizeRequest/modelId", "@type": "xsd:string" },
+        "language": { "@id": "inworld:SynthesizeRequest/language", "@type": "xsd:string" },
+        "deliveryMode": { "@id": "inworld:SynthesizeRequest/deliveryMode", "@type": "xsd:string" },
+        "audioConfig": { "@id": "inworld:SynthesizeRequest/audioConfig", "@type": "inworld:AudioConfig" }
+      }
+    },
+
+    "AudioConfig": {
+      "@id": "inworld:AudioConfig",
+      "@context": {
+        "audioEncoding": { "@id": "inworld:AudioConfig/audioEncoding", "@type": "xsd:string" },
+        "sampleRateHertz": { "@id": "inworld:AudioConfig/sampleRateHertz", "@type": "xsd:integer" },
+        "bitRate": { "@id": "inworld:AudioConfig/bitRate", "@type": "xsd:integer" },
+        "speakingRate": { "@id": "inworld:AudioConfig/speakingRate", "@type": "xsd:decimal" }
+      }
+    },
+
+    "Voice": {
+      "@id": "inworld:Voice",
+      "@context": {
+        "voiceId": { "@id": "inworld:Voice/voiceId", "@type": "xsd:string" },
+        "displayName": { "@id": "inworld:Voice/displayName", "@type": "xsd:string" },
+        "description": { "@id": "inworld:Voice/description", "@type": "xsd:string" },
+        "langCode": { "@id": "inworld:Voice/langCode", "@type": "xsd:string" },
+        "tags": {
+          "@id": "inworld:Voice/tags",
+          "@container": "@list"
+        },
+        "source": { "@id": "inworld:Voice/source", "@type": "xsd:string" }
+      }
+    },
+
+    "TranscribeRequest": {
+      "@id": "inworld:TranscribeRequest",
+      "@context": {
+        "transcribeConfig": { "@id": "inworld:TranscribeRequest/transcribeConfig", "@type": "inworld:TranscribeConfig" },
+        "audioData": { "@id": "inworld:TranscribeRequest/audioData" }
+      }
+    },
+
+    "TranscribeConfig": {
+      "@id": "inworld:TranscribeConfig",
+      "@context": {
+        "modelId": { "@id": "inworld:TranscribeConfig/modelId", "@type": "xsd:string" },
+        "audioEncoding": { "@id": "inworld:TranscribeConfig/audioEncoding", "@type": "xsd:string" },
+        "language": { "@id": "inworld:TranscribeConfig/language", "@type": "xsd:string" },
+        "sampleRateHertz": { "@id": "inworld:TranscribeConfig/sampleRateHertz", "@type": "xsd:integer" },
+        "prompts": {
+          "@id": "inworld:TranscribeConfig/prompts",
+          "@container": "@list"
+        }
+      }
+    },
+
+    "ChatCompletionRequest": {
+      "@id": "inworld:ChatCompletionRequest",
+      "@context": {
+        "model": { "@id": "inworld:ChatCompletionRequest/model", "@type": "xsd:string" },
+        "messages": {
+          "@id": "inworld:ChatCompletionRequest/messages",
+          "@container": "@list"
+        },
+        "stream": { "@id": "inworld:ChatCompletionRequest/stream", "@type": "xsd:boolean" },
+        "temperature": { "@id": "inworld:ChatCompletionRequest/temperature", "@type": "xsd:decimal" },
+        "max_tokens": { "@id": "inworld:ChatCompletionRequest/maxTokens", "@type": "xsd:integer" }
+      }
+    },
+
+    "Router": {
+      "@id": "inworld:Router",
+      "@context": {
+        "id": { "@id": "inworld:Router/id", "@type": "xsd:string" },
+        "name": { "@id": "inworld:Router/name", "@type": "xsd:string" },
+        "description": { "@id": "inworld:Router/description", "@type": "xsd:string" },
+        "defaultModel": { "@id": "inworld:Router/defaultModel", "@type": "xsd:string" },
+        "rules": {
+          "@id": "inworld:Router/rules",
+          "@container": "@list"
+        }
+      }
+    },
+
+    "RealtimeSession": {
+      "@id": "inworld:RealtimeSession",
+      "@context": {
+        "model": { "@id": "inworld:RealtimeSession/model", "@type": "xsd:string" },
+        "instructions": { "@id": "inworld:RealtimeSession/instructions", "@type": "xsd:string" },
+        "voice": { "@id": "inworld:RealtimeSession/voice", "@type": "xsd:string" },
+        "inputAudioFormat": { "@id": "inworld:RealtimeSession/inputAudioFormat", "@type": "xsd:string" },
+        "outputAudioFormat": { "@id": "inworld:RealtimeSession/outputAudioFormat", "@type": "xsd:string" }
+      }
+    }
+  }
+}

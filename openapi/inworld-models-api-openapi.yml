@@ -1,0 +1,97 @@
+openapi: 3.1.0
+info:
+  title: Inworld Models API
+  description: >
+    List every model available behind the Inworld platform — first-party TTS, STT,
+    and Realtime models plus all third-party LLMs reachable through the LLM Router.
+    Returns provider, model id, capabilities (chat, vision, tool use, speech,
+    streaming), and pricing tier metadata for runtime discovery.
+  version: v1
+  contact:
+    name: Inworld Support
+    url: https://docs.inworld.ai/tts/resources/support
+  license:
+    name: Inworld Terms of Service
+    url: https://inworld.ai/legal/terms-of-service
+servers:
+  - url: https://api.inworld.ai
+    description: Inworld Production API
+security:
+  - BasicAuth: []
+tags:
+  - name: Models
+    description: Discover available models.
+paths:
+  /v1/models:
+    get:
+      summary: List Models
+      description: List models exposed by Inworld and the Router.
+      operationId: listModels
+      tags: [Models]
+      responses:
+        '200':
+          description: Models returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListModelsResponse'
+        '4XX':
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+  schemas:
+    ListModelsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Model'
+    Model:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          enum: [model]
+        provider:
+          type: string
+        family:
+          type: string
+        capabilities:
+          type: array
+          items:
+            type: string
+            enum: [chat, vision, audio, tts, stt, realtime, tool-use, streaming, embedding]
+        contextWindow:
+          type: integer
+        maxOutputTokens:
+          type: integer
+        pricing:
+          type: object
+          properties:
+            inputPricePer1M:
+              type: number
+            outputPricePer1M:
+              type: number
+            currency:
+              type: string
+              default: USD
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+  responses:
+    ErrorResponse:
+      description: Error response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

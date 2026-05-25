@@ -1,0 +1,503 @@
+aid: inworld-ai
+url: https://raw.githubusercontent.com/api-evangelist/inworld-ai/refs/heads/main/apis.yml
+name: Inworld AI
+apis:
+- aid: inworld-ai:inworld-tts-api
+  name: Inworld TTS API
+  tags:
+  - AI
+  - Artificial Intelligence
+  - Text To Speech
+  - Voice
+  - Audio
+  humanURL: https://docs.inworld.ai/tts/tts
+  properties:
+  - url: https://docs.inworld.ai/tts/tts
+    type: Documentation
+  - url: https://docs.inworld.ai/quickstart-tts
+    type: GettingStarted
+  - url: https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech
+    type: Documentation
+  - url: https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech-stream
+    type: Documentation
+  - url: https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech-websocket
+    type: Documentation
+  - url: https://docs.inworld.ai/tts/voice-cloning
+    type: Documentation
+  - url: https://docs.inworld.ai/tts/voice-design
+    type: Documentation
+  - url: https://docs.inworld.ai/tts/on-premises
+    type: Documentation
+  - url: openapi/inworld-tts-api-openapi.yml
+    type: OpenAPI
+  - url: json-schema/inworld-tts-synthesis-schema.json
+    type: JSONSchema
+  - url: json-ld/inworld-ai-context.jsonld
+    type: JSONLD
+  - type: NaftikoCapability
+    url: capabilities/tts-synthesis.yaml
+  description: Inworld TTS — real-time text-to-speech API with the #1-ranked voice models on the Artificial
+    Analysis Speech Arena. Supports the Realtime TTS-2 model (100+ languages, natural-language steering),
+    Realtime TTS 1.5 Max (15 languages), and Realtime TTS 1.5 Mini (cost-optimized, sub-120 ms first-token).
+    Provides synchronous synthesis, server-streamed synthesis, and a streaming WebSocket interface with
+    instant + professional voice cloning, voice design from text prompts, custom pronunciation, pause
+    controls, word/character/phoneme alignment for lipsync, and zero-data-retention plus on-premise
+    deployment options.
+- aid: inworld-ai:inworld-voice-api
+  name: Inworld Voice API
+  tags:
+  - AI
+  - Artificial Intelligence
+  - Voice
+  - Voice Cloning
+  - Voice Design
+  humanURL: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/list-voices
+  properties:
+  - url: https://docs.inworld.ai/tts/voice-cloning
+    type: Documentation
+  - url: https://docs.inworld.ai/tts/voice-design
+    type: Documentation
+  - url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/clone-voice
+    type: Documentation
+  - url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/design-voice
+    type: Documentation
+  - url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/publish-voice
+    type: Documentation
+  - url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/list-voices
+    type: Documentation
+  - url: openapi/inworld-voice-api-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/voice-voices.yaml
+  description: Inworld Voice API — manage custom voices used by the TTS and Realtime APIs. Clone voices
+    from short audio samples (instant voice cloning) or design voices from natural-language descriptions
+    plus optional reference audio. Lists, gets, updates, and deletes voices, and exposes a publish
+    endpoint for sharing voices across a workspace.
+- aid: inworld-ai:inworld-stt-api
+  name: Inworld STT API
+  tags:
+  - AI
+  - Artificial Intelligence
+  - Speech To Text
+  - Transcription
+  - Voice
+  humanURL: https://docs.inworld.ai/stt/overview
+  properties:
+  - url: https://docs.inworld.ai/stt/overview
+    type: Documentation
+  - url: https://docs.inworld.ai/stt/quickstart
+    type: GettingStarted
+  - url: https://docs.inworld.ai/api-reference/sttAPI/speechtotext/transcribe
+    type: Documentation
+  - url: https://docs.inworld.ai/api-reference/sttAPI/speechtotext/transcribe-stream-websocket
+    type: Documentation
+  - url: https://docs.inworld.ai/stt/voice-profiles
+    type: Documentation
+  - url: openapi/inworld-stt-api-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/stt-transcription.yaml
+  description: Inworld STT — speech-to-text transcription API with synchronous transcribe and a streaming
+    WebSocket endpoint. Multi-provider routing (currently Whisper variants via Groq) with 99+ language
+    support, word timestamps, voice profiling, prompt biasing for domain-specific vocabulary, and
+    configurable end-of-turn detection for low-latency conversational agents.
+- aid: inworld-ai:inworld-realtime-api
+  name: Inworld Realtime API
+  tags:
+  - AI
+  - Artificial Intelligence
+  - Realtime
+  - Voice
+  - WebSocket
+  - WebRTC
+  humanURL: https://docs.inworld.ai/realtime/overview
+  properties:
+  - url: https://docs.inworld.ai/realtime/overview
+    type: Documentation
+  - url: https://docs.inworld.ai/realtime/quickstart-websocket
+    type: GettingStarted
+  - url: https://docs.inworld.ai/realtime/quickstart-webrtc
+    type: GettingStarted
+  - url: https://docs.inworld.ai/api-reference/realtimeAPI/realtime/realtime-websocket
+    type: Documentation
+  - url: https://docs.inworld.ai/api-reference/realtimeAPI/realtime/realtime-webrtc
+    type: Documentation
+  - url: https://docs.inworld.ai/realtime/openai-migration
+    type: Documentation
+  - url: https://docs.inworld.ai/realtime/usage/twilio
+    type: Documentation
+  - url: openapi/inworld-realtime-api-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/realtime-sessions.yaml
+  description: Inworld Realtime — end-to-end speech-to-speech voice pipeline (STT + LLM + TTS) exposed
+    over WebSocket and WebRTC. OpenAI-Realtime-API-compatible event protocol (session.update,
+    input_audio_buffer.append, response.create, etc.) so existing OpenAI Realtime clients can swap
+    base URLs. Includes server-side and semantic VAD, function/tool calling, MCP server tunneling,
+    Twilio media-stream integration, and JWT-based session authentication.
+- aid: inworld-ai:inworld-router-api
+  name: Inworld LLM Router API
+  tags:
+  - AI
+  - Artificial Intelligence
+  - LLM
+  - Routing
+  - OpenAI Compatible
+  humanURL: https://docs.inworld.ai/router/introduction
+  properties:
+  - url: https://docs.inworld.ai/router/introduction
+    type: Documentation
+  - url: https://docs.inworld.ai/router/quickstart
+    type: GettingStarted
+  - url: https://docs.inworld.ai/router/openai-compatibility
+    type: Documentation
+  - url: https://docs.inworld.ai/router/anthropic-compatibility
+    type: Documentation
+  - url: https://docs.inworld.ai/api-reference/routerAPI/chat-completions
+    type: Documentation
+  - url: https://docs.inworld.ai/api-reference/routerAPI/routerservice/create-router
+    type: Documentation
+  - url: https://docs.inworld.ai/api-reference/routerAPI/routerservice/list-routers
+    type: Documentation
+  - url: https://docs.inworld.ai/router/capabilities/provider-routing
+    type: Documentation
+  - url: https://docs.inworld.ai/router/capabilities/conditional-routing
+    type: Documentation
+  - url: https://docs.inworld.ai/router/capabilities/traffic-splitting
+    type: Documentation
+  - url: https://docs.inworld.ai/router/capabilities/caching
+    type: Documentation
+  - url: https://docs.inworld.ai/router/capabilities/web-search
+    type: Documentation
+  - url: https://docs.inworld.ai/router/capabilities/prompt-compression
+    type: Documentation
+  - url: https://docs.inworld.ai/router/guides/claude-code
+    type: Documentation
+  - url: openapi/inworld-router-api-openapi.yml
+    type: OpenAPI
+  - url: json-schema/inworld-router-chat-completion-schema.json
+    type: JSONSchema
+  - type: NaftikoCapability
+    url: capabilities/router-chat-completions.yaml
+  - type: NaftikoCapability
+    url: capabilities/router-routers.yaml
+  description: Inworld LLM Router — OpenAI-and-Anthropic-compatible chat-completions endpoint that
+    routes prompts across hundreds of provider models (OpenAI, Anthropic, Google, Meta, Mistral,
+    DeepSeek, Groq, etc.). Reusable named routers, conditional routing, provider routing, A/B traffic
+    splitting, prompt compression, caching, web search, and a Claude-Code-compatible mode let teams
+    consolidate model spend behind one API.
+- aid: inworld-ai:inworld-models-api
+  name: Inworld Models API
+  tags:
+  - AI
+  - Artificial Intelligence
+  - Models
+  - Discovery
+  humanURL: https://docs.inworld.ai/api-reference/modelsAPI/modelservice/list-models
+  properties:
+  - url: https://docs.inworld.ai/api-reference/modelsAPI/modelservice/list-models
+    type: Documentation
+  - url: openapi/inworld-models-api-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/models-list.yaml
+  description: Inworld Models API — list every model available across the Router (third-party LLMs)
+    and Inworld first-party TTS, STT, and Realtime endpoints. Returns provider, model id, capabilities
+    (chat, vision, tool use, etc.), and pricing tier metadata for runtime discovery.
+name: Inworld AI
+tags:
+- AI
+- Artificial Intelligence
+- Voice
+- Text To Speech
+- Speech To Text
+- Realtime
+- LLM Routing
+- Voice Cloning
+- Conversational AI
+- Game AI
+kind: contract
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+access: 3rd-Party
+common:
+- url: https://inworld.ai
+  type: Portal
+- url: https://docs.inworld.ai
+  type: Documentation
+- url: https://docs.inworld.ai/introduction
+  name: Hello Inworld
+  type: GettingStarted
+- url: https://docs.inworld.ai/api-reference/introduction
+  name: API Reference
+  type: Documentation
+- url: https://docs.inworld.ai/llms.txt
+  name: LLM-Friendly Documentation Index
+  type: Documentation
+- url: https://docs.inworld.ai/llms-full.txt
+  name: Full Documentation Archive
+  type: Documentation
+- url: https://platform.inworld.ai
+  name: Inworld Portal
+  type: SignUp
+- url: https://platform.inworld.ai/api-keys
+  name: API Keys
+  type: Authentication
+- url: https://platform.inworld.ai/tts-playground
+  name: TTS Playground
+  type: Sandbox
+- url: https://status.inworld.ai
+  type: StatusPage
+- url: https://github.com/inworld-ai
+  type: GitHubOrganization
+- url: https://github.com/inworld-ai/tts
+  name: Inworld TTS Open Models
+  type: SourceCode
+- url: https://github.com/inworld-ai/inworld-api-examples
+  name: API Examples
+  type: CodeExamples
+- url: https://github.com/inworld-ai/inworld-nodejs-jwt-sample-app
+  name: Node.js JWT Sample App
+  type: CodeExamples
+- url: https://github.com/inworld-ai/inworld-runtime-templates-node
+  name: Inworld Runtime Templates (Node)
+  type: CodeExamples
+- url: https://github.com/inworld-ai/voice-agent-node
+  name: Voice Agent Template (Node)
+  type: CodeExamples
+- url: https://github.com/inworld-ai/voice-agent-avatar-node
+  name: Voice + Avatar Agent (Node + HeyGen)
+  type: CodeExamples
+- url: https://github.com/inworld-ai/livekit_agents
+  name: LiveKit Agents Integration (Python)
+  type: SDK
+- url: https://github.com/inworld-ai/livekit_agents_js
+  name: LiveKit Agents Integration (JS)
+  type: SDK
+- url: https://github.com/inworld-ai/pipecat
+  name: Pipecat Integration
+  type: SDK
+- url: https://github.com/inworld-ai/langchain-voice-agent-node
+  name: LangChain Voice Agent (Node)
+  type: CodeExamples
+- url: https://github.com/inworld-ai/voice-migration-tool
+  name: ElevenLabs Voice Migration Tool
+  type: Tool
+- url: https://github.com/inworld-ai/inworld-tts-onprem
+  name: TTS On-Premise
+  type: Tool
+- url: https://github.com/inworld-ai/multimodal-companion-node
+  name: Multimodal Companion Demo
+  type: CodeExamples
+- url: https://github.com/inworld-ai/runtime-multimodal-companion-unity
+  name: Multimodal Companion Unity Client
+  type: CodeExamples
+- url: https://github.com/inworld-ai/living-memories-node
+  name: Living Memories (Node)
+  type: CodeExamples
+- url: https://github.com/inworld-ai/living-memories-unity
+  name: Living Memories (Unity)
+  type: CodeExamples
+- url: https://github.com/inworld-ai/comic-generator-node
+  name: Comic Generator Demo
+  type: CodeExamples
+- url: https://github.com/inworld-ai/greeting-card-node
+  name: Greeting Card Generator Demo
+  type: CodeExamples
+- url: https://github.com/inworld-ai/zoom-demeanor-evaluator-node
+  name: Zoom Demeanor Evaluator
+  type: CodeExamples
+- url: https://github.com/inworld-ai/language-learning-node
+  name: Language Learning Demo
+  type: CodeExamples
+- url: https://github.com/inworld-ai/llm-to-tts-node
+  name: LLM-to-TTS Pipeline (CLI)
+  type: CodeExamples
+- url: https://github.com/inworld-ai/runtime-chat-with-docs
+  name: Chat With Docs Demo
+  type: CodeExamples
+- url: https://docs.inworld.ai/resources/rate-limits
+  type: RateLimits
+- url: https://docs.inworld.ai/tts/resources/billing
+  name: TTS Billing
+  type: Pricing
+- url: https://docs.inworld.ai/stt/resources/billing
+  name: STT Billing
+  type: Pricing
+- url: https://docs.inworld.ai/realtime/resources/billing
+  name: Realtime Billing
+  type: Pricing
+- url: https://docs.inworld.ai/router/resources/billing
+  name: Router Billing
+  type: Pricing
+- url: https://docs.inworld.ai/portal/billing
+  type: Pricing
+- url: https://docs.inworld.ai/portal/usage
+  type: Documentation
+- url: https://docs.inworld.ai/tts/resources/zero-data-retention
+  name: Zero Data Retention
+  type: Security
+- url: https://docs.inworld.ai/tts/on-premises
+  name: On-Premise Deployment
+  type: Deployment
+- url: https://docs.inworld.ai/release-notes/tts
+  name: TTS Release Notes
+  type: ChangeLog
+- url: https://docs.inworld.ai/tts/resources/elevenlabs-migration
+  name: ElevenLabs Migration
+  type: Migration
+- url: https://docs.inworld.ai/router/migration/openrouter-to-inworld
+  name: OpenRouter Migration
+  type: Migration
+- url: https://docs.inworld.ai/router/migration/anthropic-to-inworld
+  name: Anthropic Migration
+  type: Migration
+- url: https://docs.inworld.ai/tts/resources/support
+  type: Support
+- url: https://inworld.ai/pricing
+  type: Pricing
+  data:
+  - id: on-demand
+    name: On-Demand
+    entries:
+    - geo: US
+      unit: 1
+      label: Account
+      limit: 1
+      price: 0
+      metric: account
+      timeFrame: month
+      description: Free entry tier with up to 40 minutes of TTS included.
+    elements:
+    - name: Up to 40 min of TTS included
+    - name: 5 custom voices
+    - name: Realtime TTS-2 and 1.5 Max at $35 / 1M characters
+    - name: Realtime TTS 1.5 Mini at $25 / 1M characters
+    - name: STT at $0.35 per audio hour
+    - name: LLM Router billed at provider cost
+    description: Try Inworld at no commitment.
+  - id: creator
+    name: Creator
+    entries:
+    - geo: US
+      unit: 1
+      label: Account
+      limit: 1
+      price: 25
+      metric: account
+      timeFrame: month
+      description: Small projects tier with $25 in monthly credits.
+    elements:
+    - name: $25 credits/month
+    - name: 100 custom voices
+    - name: Audio downloads
+    description: Small projects.
+  - id: developer
+    name: Developer
+    entries:
+    - geo: US
+      unit: 1
+      label: Account
+      limit: 1
+      price: 300
+      metric: account
+      timeFrame: month
+      description: Production tier with $300 monthly credits and up to 20% off rates.
+    elements:
+    - name: $300 credits/month
+    - name: Up to 20% off rates
+    - name: 1,000 custom voices
+    description: Production applications.
+  - id: growth
+    name: Growth
+    entries:
+    - geo: US
+      unit: 1
+      label: Account
+      limit: 1
+      price: 1500
+      metric: account
+      timeFrame: month
+      description: High-volume tier with $1,500 monthly credits and up to 40% off rates.
+    elements:
+    - name: $1,500 credits/month
+    - name: Up to 40% off rates
+    - name: 3,000 custom voices
+    description: High-volume deployments.
+  - id: enterprise
+    name: Enterprise
+    entries:
+    - geo: US
+      unit: 1
+      label: Account
+      limit: 1
+      price: Call
+      metric: account
+      timeFrame: month
+      description: Custom contract with negotiated rates and on-prem options.
+    elements:
+    - name: Rates as low as $10 / 1M for Realtime TTS-2 & 1.5 Max
+    - name: $5 / 1M for Realtime TTS 1.5 Mini
+    - name: On-prem deployment
+    - name: Data residency
+    - name: Zero data retention
+    description: Enterprise commercial terms.
+- url: https://inworld.ai/pricing
+  type: Plans
+  name: Plans
+- url: https://plans/inworld-ai-plans-pricing.yml
+  type: Plans
+- url: https://rate-limits/inworld-ai-rate-limits.yml
+  type: RateLimits
+- url: https://finops/inworld-ai-finops.yml
+  type: FinOps
+- type: Features
+  data:
+  - Realtime TTS-2 voice model — 100+ languages, natural-language steering, sub-200ms first-token latency
+  - Realtime TTS 1.5 Max — #1 on the Artificial Analysis Speech Arena (ELO ~1,238, April 2026)
+  - Realtime TTS 1.5 Mini — cost-optimized voice with ~120ms first-token latency
+  - Instant voice cloning from short audio samples
+  - Professional voice cloning with audio processing controls
+  - Voice design from natural-language descriptions plus optional reference audio
+  - Word-, character-, and phoneme-level alignment (visemes) for lipsync and avatar rendering
+  - Custom pronunciation, pause controls, voice tags, and long-text streaming synthesis
+  - WebSocket TTS for bidirectional streaming synthesis
+  - Speech-to-Text via multi-provider routing (Whisper variants on Groq) with 99+ languages, prompt
+    biasing, word timestamps, and configurable end-of-turn detection
+  - Realtime API — speech-to-speech pipeline over WebSocket and WebRTC, OpenAI-Realtime compatible
+  - Twilio media-stream integration for inbound and outbound phone calls
+  - MCP server tunneling inside Realtime sessions
+  - JWT-based realtime authentication (separate Realtime-only API keys)
+  - LLM Router — OpenAI-and-Anthropic-compatible chat-completions over hundreds of provider models
+  - Named reusable routers with conditional routing, A/B traffic splitting, and provider routing
+  - Prompt caching, prompt compression, and integrated web search inside the Router
+  - Claude-Code-compatible mode for drop-in Claude Code substitution
+  - Zero Data Retention (ZDR) option for TTS and Realtime
+  - On-premise TTS deployment for regulated and air-gapped environments
+  - ElevenLabs voice-migration tool for batch-importing voice clones
+  - Open-source Python TTS model in the inworld-ai/tts repository
+  - Integrations with LiveKit Agents, Pipecat, LangChain, and HeyGen avatars
+  - Unity-side runtime templates for game and avatar use cases
+  sources:
+  - https://inworld.ai
+  - https://inworld.ai/pricing
+  - https://docs.inworld.ai/llms.txt
+  - https://docs.inworld.ai/api-reference/introduction
+  - https://github.com/inworld-ai
+  updated: '2026-05-25'
+created: '2026-05-25T00:00:00.000Z'
+modified: '2026-05-25'
+position: Consuming
+description: Inworld AI is a real-time voice AI infrastructure provider. The Inworld platform delivers
+  text-to-speech, speech-to-text, an end-to-end speech-to-speech Realtime API, and an OpenAI- and
+  Anthropic-compatible LLM Router behind one API surface and one billing relationship. Inworld's
+  voice models lead the Artificial Analysis Speech Arena and are used to power voice agents,
+  language-learning apps, AI companions, avatar experiences, game NPCs, and Twilio-backed phone
+  agents. The platform supports instant and professional voice cloning, voice design from natural
+  language, lipsync-grade phoneme alignment, on-premise TTS deployment, and zero-data-retention
+  configurations for regulated workloads.
+maintainers:
+- FN: Kin Lane
+  email: info@apievangelist.com
+  X: apievangelist
+  url: https://apievangelist.com
+specificationVersion: '0.16'

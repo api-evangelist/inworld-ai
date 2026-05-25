@@ -1,0 +1,52 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.inworld.ai/v1/chat/completions",
+    "headers": {
+      "Authorization": "Basic $INWORLD_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "auto",
+      "messages": [
+        { "role": "system", "content": "You are a concise customer support assistant." },
+        { "role": "user",   "content": "Can you summarize my order in one sentence?" }
+      ],
+      "stream": false,
+      "temperature": 0.3,
+      "max_completion_tokens": 256,
+      "web_search": false
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "id": "chatcmpl-x123",
+      "object": "chat.completion",
+      "created": 1748208000,
+      "model": "openai/gpt-4o-mini",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "Your order #4421 of one wireless headset shipped from Inworld AI on May 24 and is out for delivery today."
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 38,
+        "completion_tokens": 26,
+        "total_tokens": 64
+      },
+      "metadata": {
+        "attempts": [
+          { "provider": "openai", "model": "gpt-4o-mini", "status": "success", "latencyMs": 412 }
+        ],
+        "router": "auto",
+        "reasoning": "Selected openai/gpt-4o-mini based on cost and latency policy."
+      }
+    }
+  }
+}

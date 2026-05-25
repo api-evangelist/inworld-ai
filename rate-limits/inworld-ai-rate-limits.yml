@@ -1,0 +1,55 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Inworld AI
+providerId: inworld-ai
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: true
+tags:
+  - AI
+  - Rate Limiting
+  - Voice
+  - Realtime
+description: >
+  Rate-limit policies for the Inworld AI platform. The Realtime API caps concurrent
+  sessions per workspace and per-session packet rate. TTS, STT, and Router endpoints
+  share an HTTP request-per-minute (RPM) bucket with tier-based scaling. Synthesis
+  is additionally capped at 2,000 input characters per request and 16 MB of output
+  audio per response.
+sources:
+  - https://docs.inworld.ai/resources/rate-limits
+  - https://docs.inworld.ai/realtime/overview
+  - https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech
+  - https://inworld.ai/pricing
+responseCodes:
+  throttled: 429
+  quotaExceeded: 429
+algorithm: token-bucket
+limits:
+  - api: Realtime
+    scope: workspace
+    concurrentSessions: 20
+    packetsPerSecondPerSession: 1000
+  - api: TTS
+    scope: request
+    maxInputCharactersPerRequest: 2000
+    maxOutputAudioBytes: 16777216
+    notes: >
+      Per-request synthesis caps. Tier-based RPM applies across the workspace.
+  - api: STT
+    scope: request
+    notes: >
+      Configurable end-of-turn detection plus per-request inactivity timeout. Per-tier
+      RPM applies across the workspace.
+  - api: Router
+    scope: workspace
+    notes: >
+      Upstream model provider rate limits apply on top of the Inworld tier RPM bucket.
+      The Router returns the upstream 429 response when an upstream provider throttles.
+notes:
+  - Inworld provides two API-key types — a standard key (for TTS, STT, Router, Voice,
+    Models) and a Realtime-only key (used to mint short-lived JWTs for Realtime
+    WebSocket and WebRTC sessions).
+  - Spend limits are enforced via plan-level monthly credits; rollover up to 3 months
+    while a paid subscription remains active.

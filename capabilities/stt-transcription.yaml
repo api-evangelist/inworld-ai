@@ -1,0 +1,74 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Inworld STT API — Transcription
+  description: 'Inworld STT — transcribe audio to text. 1 sync operation plus a
+    streaming WebSocket endpoint. Multi-provider routing, word timestamps,
+    contextual prompts, voice profiling, and end-of-turn detection.'
+  tags:
+  - Inworld
+  - STT
+  - Transcription
+  - Voice
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    INWORLD_API_KEY: INWORLD_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: stt-transcription
+    baseUri: https://api.inworld.ai
+    description: Inworld STT — synchronous transcription.
+    resources:
+    - name: stt-transcribe
+      path: /stt/v1/transcribe
+      operations:
+      - name: transcribeaudio
+        method: POST
+        description: Transcribe Audio
+        outputRawFormat: json
+        outputParameters:
+        - name: transcription
+          type: object
+          value: $.transcription
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    authentication:
+      type: basic
+      value: '{{env.INWORLD_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: stt-transcription-rest
+    port: 8080
+    description: REST adapter for Inworld STT.
+    resources:
+    - path: /stt/v1/transcribe
+      name: stt-transcribe
+      operations:
+      - method: POST
+        name: transcribeaudio
+        description: Transcribe Audio
+        call: stt-transcription.transcribeaudio
+        with:
+          body: rest.body
+  - type: mcp
+    namespace: stt-transcription-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Inworld STT.
+    tools:
+    - name: inworld-transcribe-audio
+      description: Transcribe audio with Inworld STT.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: stt-transcription.transcribeaudio
+      with:
+        body: tools.body

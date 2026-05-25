@@ -1,0 +1,108 @@
+vocabulary: Inworld AI Vocabulary
+version: '0.1'
+provider: Inworld AI
+providerId: inworld-ai
+created: '2026-05-25'
+modified: '2026-05-25'
+description: >
+  Operational and capability vocabulary for the Inworld AI platform. Maps Inworld's
+  product surface to API Evangelist domain taxonomies (Voice, Realtime, LLM,
+  Multimodal) so search, scoring, and discovery agents can reason about it.
+domains:
+  - id: voice
+    name: Voice AI
+    description: Real-time TTS, STT, and speech-to-speech conversation.
+  - id: llm
+    name: LLM Routing
+    description: Provider-agnostic chat completions across hundreds of models.
+  - id: multimodal
+    name: Multimodal Companions
+    description: Voice + avatar + chat experiences.
+products:
+  - id: tts
+    name: Inworld TTS
+    domains: [voice]
+    models:
+      - inworld-tts-2
+      - inworld-tts-1.5-max
+      - inworld-tts-1.5-mini
+    capabilities:
+      - synthesize-speech
+      - stream-synthesize-speech
+      - websocket-synthesize-speech
+      - list-voices
+      - voice-tags
+      - custom-pronunciation
+      - pause-controls
+      - timestamps
+      - long-text-input
+      - on-prem-deployment
+      - zero-data-retention
+  - id: voice
+    name: Inworld Voice
+    domains: [voice]
+    capabilities:
+      - clone-voice
+      - design-voice
+      - publish-voice
+      - list-voices
+      - get-voice
+      - update-voice
+      - delete-voice
+  - id: stt
+    name: Inworld STT
+    domains: [voice]
+    capabilities:
+      - transcribe-audio
+      - streaming-transcribe
+      - voice-profiles
+      - word-timestamps
+      - end-of-turn-detection
+      - prompt-biasing
+  - id: realtime
+    name: Inworld Realtime
+    domains: [voice, multimodal]
+    capabilities:
+      - websocket-session
+      - webrtc-session
+      - server-vad
+      - semantic-vad
+      - tool-calling
+      - mcp-server-tunnel
+      - twilio-media-streams
+      - openai-realtime-compatibility
+  - id: router
+    name: Inworld LLM Router
+    domains: [llm]
+    capabilities:
+      - openai-compatible-chat-completions
+      - anthropic-compatible-chat-completions
+      - provider-routing
+      - conditional-routing
+      - traffic-splitting
+      - prompt-caching
+      - prompt-compression
+      - web-search
+      - claude-code-mode
+  - id: models
+    name: Inworld Models
+    domains: [voice, llm]
+    capabilities:
+      - list-models
+terms:
+  - term: Realtime TTS-2
+    definition: Inworld's flagship multilingual TTS model (100+ languages) with
+      natural-language steering, sub-200 ms latency.
+  - term: Instant Voice Cloning (IVC)
+    definition: Voice cloning from short audio samples returned synchronously.
+  - term: Voice Design
+    definition: Generation of a brand-new voice from a natural-language description.
+  - term: Realtime Session
+    definition: A bidirectional speech-to-speech connection over WebSocket or WebRTC,
+      backed by the STT-LLM-TTS pipeline.
+  - term: Named Router
+    definition: A reusable Inworld LLM Router configuration referenced as
+      `inworld/<router-name>` in the `model` field of chat completions.
+  - term: Zero Data Retention
+    definition: Optional configuration where no input or output is retained beyond
+      request servicing. Available for TTS and Realtime.

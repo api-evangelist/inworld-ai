@@ -1,0 +1,36 @@
+aid: inworld-ai
+name: Inworld AI
+reviewedBy: API Evangelist
+reviewedAt: '2026-05-25'
+position: Consuming
+tier: 1
+summary: >
+  Tier-1 provider. Inworld AI publishes a coherent, OpenAPI-shaped REST surface
+  (TTS, Voice, STT, Realtime, LLM Router, Models) plus an OpenAI-Realtime-API-
+  compatible WebSocket event protocol and an OpenAI-and-Anthropic-compatible chat
+  completions endpoint. The portal exposes API keys, billing, usage, and a TTS
+  playground; the docs publish an `llms.txt` index and a `llms-full.txt` archive.
+  Open-source assets include the Python TTS model (`inworld-ai/tts`), a Node.js JWT
+  sample, runtime templates, LiveKit and Pipecat forks, an ElevenLabs voice
+  migration tool, and Unity client repos. ZDR and on-prem TTS available.
+strengths:
+  - Multi-product platform unified behind one base URL and one billing surface.
+  - Drop-in compatibility with OpenAI Realtime, OpenAI Chat Completions, and
+    Anthropic Messages — cuts integration cost for teams switching providers.
+  - First-class voice cloning + design pipeline with phoneme/viseme alignment.
+  - Open-source TTS model published on GitHub; on-prem deployment supported.
+  - Public `llms.txt` and `llms-full.txt` indexes for LLM-friendly documentation.
+  - Five-tier commercial surface with credit rollover and explicit per-product rates.
+weaknesses:
+  - No public OpenAPI download — specs in this repo are reconstructed from the
+    documented JSON shapes.
+  - Realtime WebSocket event protocol is documented narratively rather than via a
+    machine-readable AsyncAPI spec.
+  - Status page exists (status.inworld.ai) but is not surfaced from the landing page.
+sources:
+  - https://inworld.ai
+  - https://inworld.ai/pricing
+  - https://docs.inworld.ai
+  - https://docs.inworld.ai/api-reference/introduction
+  - https://docs.inworld.ai/llms.txt
+  - https://github.com/inworld-ai
