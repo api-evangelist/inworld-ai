@@ -1,0 +1,1086 @@
+asyncapi: '2.6.0'
+id: 'urn:com:inworld:realtime:asyncapi'
+info:
+  title: Inworld AI Runtime WebSocket APIs
+  version: '1.0.0'
+  description: |
+    AsyncAPI description of Inworld AI's publicly documented runtime WebSocket
+    surface. Inworld exposes three independent WebSocket endpoints:
+
+      * **TTS streaming** — bidirectional text-to-speech synthesis with
+        per-context configuration, flush, and close semantics
+        (`/tts/v1/voice:streamBidirectional`).
+      * **STT streaming** — bidirectional speech-to-text transcription that
+        accepts a config message, base64-encoded audio chunks, and end-of-turn
+        signals (`/stt/v1/transcribe:streamBidirectional`).
+      * **Realtime API** — end-to-end speech-to-speech sessions using an
+        OpenAI-Realtime-API-compatible event protocol
+        (`/api/v1/realtime/session`).
+
+    All three endpoints authenticate with HTTP Basic using a Base64-encoded
+    Inworld API key (Authorization header), per the published documentation.
+
+    This document is a non-fabricated reconstruction of the message shapes
+    published at https://docs.inworld.ai (TTS WebSocket, STT WebSocket, and
+    Realtime WebSocket reference pages). Field sets reflect the documented
+    JSON payloads; many Realtime server-sent events are documented narratively
+    by Inworld and are modeled here as open objects.
+  termsOfService: https://inworld.ai/legal/terms-of-service
+  contact:
+    name: Inworld AI Support
+    url: https://docs.inworld.ai/tts/resources/support
+  license:
+    name: Inworld AI Terms of Service
+    url: https://inworld.ai/legal/terms-of-service
+  x-apis-json-aid: 'inworld-ai'
+  x-api-evangelist-source: https://docs.inworld.ai
+defaultContentType: application/json
+servers:
+  production:
+    url: api.inworld.ai
+    protocol: wss
+    description: Inworld production WebSocket host. Used for all three runtime
+      WebSocket endpoints (TTS, STT, Realtime).
+    security:
+      - apiKey: []
+channels:
+  /tts/v1/voice:streamBidirectional:
+    description: |
+      Bidirectional WebSocket endpoint for streaming text-to-speech synthesis.
+      A single connection may host up to five contexts; the account is limited
+      to 20 concurrent connections. The connection auto-closes after 10
+      minutes of inactivity across all contexts.
+    bindings:
+      ws:
+        method: GET
+        bindingVersion: '0.1.0'
+    publish:
+      operationId: ttsClientMessage
+      summary: Messages sent from client to Inworld TTS.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/TtsCreateContext'
+          - $ref: '#/components/messages/TtsSendText'
+          - $ref: '#/components/messages/TtsFlushContext'
+          - $ref: '#/components/messages/TtsCloseContext'
+    subscribe:
+      operationId: ttsServerMessage
+      summary: Messages streamed from Inworld TTS to the client.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/TtsContextCreated'
+          - $ref: '#/components/messages/TtsAudioChunk'
+          - $ref: '#/components/messages/TtsFlushCompleted'
+          - $ref: '#/components/messages/TtsContextClosed'
+  /stt/v1/transcribe:streamBidirectional:
+    description: |
+      Bidirectional WebSocket endpoint for streaming speech-to-text
+      transcription. The first client message must be a TranscribeConfig
+      followed by AudioChunk messages and (optionally) EndTurn / CloseStream
+      control messages.
+    bindings:
+      ws:
+        method: GET
+        bindingVersion: '0.1.0'
+    publish:
+      operationId: sttClientMessage
+      summary: Messages sent from client to Inworld STT.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/SttTranscribeConfig'
+          - $ref: '#/components/messages/SttAudioChunk'
+          - $ref: '#/components/messages/SttEndTurn'
+          - $ref: '#/components/messages/SttCloseStream'
+    subscribe:
+      operationId: sttServerMessage
+      summary: Messages streamed from Inworld STT to the client.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/SttTranscription'
+          - $ref: '#/components/messages/SttSpeechStarted'
+          - $ref: '#/components/messages/SttSpeechStopped'
+          - $ref: '#/components/messages/SttUsage'
+  /api/v1/realtime/session:
+    description: |
+      Bidirectional WebSocket endpoint for Inworld Realtime sessions. The
+      protocol is intentionally compatible with the OpenAI Realtime API event
+      protocol; existing OpenAI Realtime clients can connect by changing the
+      base URL and authentication header. Inworld extends the session object
+      with a `providerData` field for STT, TTS, memory, backchannel, and
+      responsiveness extensions (see https://docs.inworld.ai/realtime/provider-data).
+    parameters:
+      key:
+        description: Client-supplied session key (the JS quickstart uses
+          `voice-${Date.now()}`).
+        schema:
+          type: string
+      protocol:
+        description: Protocol identifier; documented value is `realtime`.
+        schema:
+          type: string
+          enum:
+            - realtime
+    bindings:
+      ws:
+        method: GET
+        query:
+          type: object
+          properties:
+            key:
+              type: string
+              description: Client-supplied session key.
+            protocol:
+              type: string
+              enum:
+                - realtime
+        bindingVersion: '0.1.0'
+    publish:
+      operationId: realtimeClientEvent
+      summary: Events sent from client to the Realtime session.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/RealtimeSessionUpdate'
+          - $ref: '#/components/messages/RealtimeConversationItemCreate'
+          - $ref: '#/components/messages/RealtimeConversationItemTruncate'
+          - $ref: '#/components/messages/RealtimeConversationItemDelete'
+          - $ref: '#/components/messages/RealtimeConversationItemRetrieve'
+          - $ref: '#/components/messages/RealtimeResponseCreate'
+          - $ref: '#/components/messages/RealtimeResponseCancel'
+          - $ref: '#/components/messages/RealtimeInputAudioBufferAppend'
+          - $ref: '#/components/messages/RealtimeInputAudioBufferCommit'
+          - $ref: '#/components/messages/RealtimeInputAudioBufferClear'
+          - $ref: '#/components/messages/RealtimeOutputAudioBufferClear'
+    subscribe:
+      operationId: realtimeServerEvent
+      summary: Events streamed from the Realtime session back to the client.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/RealtimeSessionCreated'
+          - $ref: '#/components/messages/RealtimeSessionUpdated'
+          - $ref: '#/components/messages/RealtimeGenericServerEvent'
+components:
+  securitySchemes:
+    apiKey:
+      type: httpApiKey
+      in: header
+      name: Authorization
+      description: |
+        HTTP Basic authentication using the Base64-encoded Inworld API key
+        copied from the Inworld Portal API Keys page. The header value is
+        `Basic ${INWORLD_API_KEY}`. The Realtime quickstart sends the header
+        on the upgrade request; the TTS and STT docs additionally allow
+        passing the same value via the `authorization` query parameter.
+  messages:
+    # --- TTS messages -------------------------------------------------------
+    TtsCreateContext:
+      name: tts.create
+      title: Create TTS context
+      summary: Establishes an independent synthesis stream within the
+        connection (max 5 per connection).
+      payload:
+        $ref: '#/components/schemas/TtsCreateContext'
+    TtsSendText:
+      name: tts.send_text
+      title: Send text for synthesis
+      summary: Sends up to 1000 characters of text to a context.
+      payload:
+        $ref: '#/components/schemas/TtsSendText'
+    TtsFlushContext:
+      name: tts.flush_context
+      title: Flush buffered text
+      summary: Manually triggers synthesis of buffered text.
+      payload:
+        $ref: '#/components/schemas/TtsFlushContext'
+    TtsCloseContext:
+      name: tts.close_context
+      title: Close TTS context
+      summary: Terminates a context and releases resources, flushing pending text.
+      payload:
+        $ref: '#/components/schemas/TtsCloseContext'
+    TtsContextCreated:
+      name: tts.contextCreated
+      title: Context created (server)
+      payload:
+        $ref: '#/components/schemas/TtsContextCreatedResult'
+    TtsAudioChunk:
+      name: tts.audioChunk
+      title: Audio chunk (server)
+      payload:
+        $ref: '#/components/schemas/TtsAudioChunkResult'
+    TtsFlushCompleted:
+      name: tts.flushCompleted
+      title: Flush completed (server)
+      payload:
+        $ref: '#/components/schemas/TtsFlushCompletedResult'
+    TtsContextClosed:
+      name: tts.contextClosed
+      title: Context closed (server)
+      payload:
+        $ref: '#/components/schemas/TtsContextClosedResult'
+    # --- STT messages -------------------------------------------------------
+    SttTranscribeConfig:
+      name: stt.transcribeConfig
+      title: Transcribe config (client, first message)
+      payload:
+        $ref: '#/components/schemas/SttTranscribeConfig'
+    SttAudioChunk:
+      name: stt.audioChunk
+      title: Audio chunk (client)
+      payload:
+        $ref: '#/components/schemas/SttAudioChunk'
+    SttEndTurn:
+      name: stt.endTurn
+      title: End turn (client)
+      payload:
+        type: object
+        additionalProperties: false
+        description: Empty payload signaling end of speaker turn (no-op for
+          providers without manual turn-taking).
+    SttCloseStream:
+      name: stt.closeStream
+      title: Close stream (client)
+      payload:
+        type: object
+        additionalProperties: false
+        description: Empty payload signaling no further audio will be sent.
+    SttTranscription:
+      name: stt.transcription
+      title: Transcription (server)
+      payload:
+        $ref: '#/components/schemas/SttTranscription'
+    SttSpeechStarted:
+      name: stt.speechStarted
+      title: Speech started (server)
+      payload:
+        $ref: '#/components/schemas/SttSpeechStarted'
+    SttSpeechStopped:
+      name: stt.speechStopped
+      title: Speech stopped (server)
+      payload:
+        $ref: '#/components/schemas/SttSpeechStopped'
+    SttUsage:
+      name: stt.usage
+      title: Usage (server, coming soon)
+      payload:
+        $ref: '#/components/schemas/SttUsage'
+    # --- Realtime client events --------------------------------------------
+    RealtimeSessionUpdate:
+      name: session.update
+      title: session.update (client)
+      payload:
+        $ref: '#/components/schemas/RealtimeSessionUpdate'
+    RealtimeConversationItemCreate:
+      name: conversation.item.create
+      title: conversation.item.create (client)
+      payload:
+        $ref: '#/components/schemas/RealtimeConversationItemCreate'
+    RealtimeConversationItemTruncate:
+      name: conversation.item.truncate
+      title: conversation.item.truncate (client)
+      payload:
+        $ref: '#/components/schemas/RealtimeConversationItemTruncate'
+    RealtimeConversationItemDelete:
+      name: conversation.item.delete
+      title: conversation.item.delete (client)
+      payload:
+        $ref: '#/components/schemas/RealtimeConversationItemDelete'
+    RealtimeConversationItemRetrieve:
+      name: conversation.item.retrieve
+      title: conversation.item.retrieve (client)
+      payload:
+        $ref: '#/components/schemas/RealtimeConversationItemRetrieve'
+    RealtimeResponseCreate:
+      name: response.create
+      title: response.create (client)
+      payload:
+        $ref: '#/components/schemas/RealtimeResponseCreate'
+    RealtimeResponseCancel:
+      name: response.cancel
+      title: response.cancel (client)
+      payload:
+        $ref: '#/components/schemas/RealtimeResponseCancel'
+    RealtimeInputAudioBufferAppend:
+      name: input_audio_buffer.append
+      title: input_audio_buffer.append (client)
+      payload:
+        $ref: '#/components/schemas/RealtimeInputAudioBufferAppend'
+    RealtimeInputAudioBufferCommit:
+      name: input_audio_buffer.commit
+      title: input_audio_buffer.commit (client)
+      payload:
+        $ref: '#/components/schemas/RealtimeTypedEvent'
+    RealtimeInputAudioBufferClear:
+      name: input_audio_buffer.clear
+      title: input_audio_buffer.clear (client)
+      payload:
+        $ref: '#/components/schemas/RealtimeTypedEvent'
+    RealtimeOutputAudioBufferClear:
+      name: output_audio_buffer.clear
+      title: output_audio_buffer.clear (client)
+      payload:
+        $ref: '#/components/schemas/RealtimeTypedEvent'
+    # --- Realtime server events --------------------------------------------
+    RealtimeSessionCreated:
+      name: session.created
+      title: session.created (server)
+      payload:
+        $ref: '#/components/schemas/RealtimeSessionCreated'
+    RealtimeSessionUpdated:
+      name: session.updated
+      title: session.updated (server)
+      payload:
+        $ref: '#/components/schemas/RealtimeSessionUpdated'
+    RealtimeGenericServerEvent:
+      name: realtime.server_event
+      title: Other Realtime server event
+      summary: |
+        Inworld documents additional server events that follow the OpenAI
+        Realtime API protocol — including (non-exhaustive) `response.start`,
+        `response.content_part.added`, `response.content_part.delta`,
+        `response.done`, `conversation.item.created`,
+        `input_audio_buffer.speech_started`, and
+        `input_audio_buffer.speech_stopped`. The exact field set for these
+        events is described narratively in the Inworld docs; they are
+        represented here as a generic typed event so consumers do not assume
+        unverified field shapes.
+      payload:
+        $ref: '#/components/schemas/RealtimeGenericServerEvent'
+  schemas:
+    # --- TTS schemas --------------------------------------------------------
+    TtsAudioConfig:
+      type: object
+      properties:
+        audioEncoding:
+          type: string
+          description: Audio encoding for synthesized output.
+          enum:
+            - LINEAR16
+            - MP3
+            - OGG_OPUS
+            - ALAW
+            - MULAW
+            - PCM
+            - WAV
+        sampleRateHertz:
+          type: integer
+          description: Output sample rate (8000–48000 Hz).
+          minimum: 8000
+          maximum: 48000
+        bitRate:
+          type: integer
+          description: Bit rate (encoding-dependent).
+        speakingRate:
+          type: number
+          description: Speaking rate multiplier (0.5–1.5).
+          minimum: 0.5
+          maximum: 1.5
+    TtsCreateContext:
+      type: object
+      required:
+        - create
+      properties:
+        contextId:
+          type: string
+          description: Client-supplied context identifier. Auto-generated if omitted.
+        create:
+          type: object
+          required:
+            - voiceId
+            - modelId
+          properties:
+            voiceId:
+              type: string
+            modelId:
+              type: string
+              description: e.g. `inworld-tts-2`, `inworld-tts-1-max`, `inworld-tts-1-mini`.
+            audioConfig:
+              $ref: '#/components/schemas/TtsAudioConfig'
+            temperature:
+              type: number
+            timestampType:
+              type: string
+              enum:
+                - WORD
+                - CHARACTER
+            maxBufferDelayMs:
+              type: integer
+              description: Maximum ms to buffer text before auto-flush.
+            bufferCharThreshold:
+              type: integer
+              description: Character threshold (default/max 1000) for auto-flush.
+            applyTextNormalization:
+              type: string
+              enum:
+                - ON
+                - OFF
+            autoMode:
+              type: boolean
+            timestampTransportStrategy:
+              type: string
+              enum:
+                - SYNC
+                - ASYNC
+            language:
+              type: string
+            deliveryMode:
+              type: string
+              enum:
+                - BALANCED
+                - FAST
+                - QUALITY
+    TtsSendText:
+      type: object
+      required:
+        - send_text
+      properties:
+        contextId:
+          type: string
+        send_text:
+          type: object
+          required:
+            - text
+          properties:
+            text:
+              type: string
+              maxLength: 1000
+              description: Up to 1000 characters of text to synthesize.
+            flush_context:
+              type: object
+              description: Empty object that triggers immediate synthesis.
+    TtsFlushContext:
+      type: object
+      required:
+        - flush_context
+      properties:
+        contextId:
+          type: string
+        flush_context:
+          type: object
+          additionalProperties: false
+    TtsCloseContext:
+      type: object
+      required:
+        - close_context
+      properties:
+        contextId:
+          type: string
+        close_context:
+          type: object
+          additionalProperties: false
+    GrpcStatus:
+      type: object
+      description: gRPC status object accompanying every TTS server result.
+      properties:
+        code:
+          type: integer
+          description: gRPC status code. 0 = OK; non-zero indicates failure.
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: object
+    TtsContextCreatedResult:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            contextId:
+              type: string
+            contextCreated:
+              type: object
+              properties:
+                voiceId: { type: string }
+                modelId: { type: string }
+                audioConfig:
+                  $ref: '#/components/schemas/TtsAudioConfig'
+                timestampType:
+                  type: string
+                autoMode:
+                  type: boolean
+                language:
+                  type: string
+                deliveryMode:
+                  type: string
+            status:
+              $ref: '#/components/schemas/GrpcStatus'
+    TtsAudioChunkResult:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            contextId:
+              type: string
+            audioChunk:
+              type: object
+              properties:
+                audioContent:
+                  type: string
+                  format: byte
+                  description: Base64-encoded audio bytes.
+                usage:
+                  type: object
+                  properties:
+                    processedCharactersCount:
+                      type: integer
+                    modelId:
+                      type: string
+                timestampInfo:
+                  type: object
+                  properties:
+                    wordAlignment:
+                      type: object
+                      properties:
+                        words:
+                          type: array
+                          items:
+                            type: string
+                        wordStartTimeSeconds:
+                          type: array
+                          items:
+                            type: number
+                        wordEndTimeSeconds:
+                          type: array
+                          items:
+                            type: number
+                    characterAlignment:
+                      type: object
+                      description: Present when timestampType=CHARACTER.
+                status:
+                  $ref: '#/components/schemas/GrpcStatus'
+    TtsFlushCompletedResult:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            contextId:
+              type: string
+            flushCompleted:
+              type: object
+              additionalProperties: false
+            status:
+              $ref: '#/components/schemas/GrpcStatus'
+    TtsContextClosedResult:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            contextId:
+              type: string
+            contextClosed:
+              type: object
+              additionalProperties: false
+            status:
+              $ref: '#/components/schemas/GrpcStatus'
+    # --- STT schemas --------------------------------------------------------
+    SttTranscribeConfig:
+      type: object
+      required:
+        - modelId
+        - audioEncoding
+      properties:
+        modelId:
+          type: string
+          enum:
+            - inworld/inworld-stt-1
+            - assemblyai/universal-streaming-multilingual
+            - assemblyai/universal-streaming-english
+            - assemblyai/u3-rt-pro
+            - assemblyai/whisper-rt
+            - soniox/stt-rt-v4
+        audioEncoding:
+          type: string
+          enum:
+            - AUTO_DETECT
+            - LINEAR16
+            - MP3
+            - OGG_OPUS
+            - FLAC
+        sampleRateHertz:
+          type: integer
+        language:
+          type: string
+        numberOfChannels:
+          type: integer
+        inactivityTimeoutSeconds:
+          type: integer
+        endOfTurnConfidenceThreshold:
+          type: number
+        prompts:
+          type: array
+          items:
+            type: string
+        includeWordTimestamps:
+          type: boolean
+        assemblyaiConfig:
+          type: object
+          properties:
+            vadThreshold:
+              type: number
+            minEndOfTurnSilenceWhenConfident:
+              type: integer
+            maxTurnSilence:
+              type: integer
+            prompt:
+              type: string
+        inworldSttV1Config:
+          type: object
+          properties:
+            vadThreshold:
+              type: number
+            minEndOfTurnSilenceWhenConfident:
+              type: integer
+        sonioxConfig:
+          type: object
+          properties:
+            languageHints:
+              type: array
+              items:
+                type: string
+            languageHintsStrict:
+              type: boolean
+            enableEndpointDetection:
+              type: boolean
+            maxEndpointDelayMs:
+              type: integer
+            context:
+              type: object
+              properties:
+                general:
+                  type: object
+                text:
+                  type: string
+                terms:
+                  type: array
+                  items:
+                    type: string
+        groqConfig:
+          type: object
+          properties:
+            temperature:
+              type: number
+        voiceProfileConfig:
+          type: object
+          properties:
+            enableVoiceProfile:
+              type: boolean
+            topN:
+              type: integer
+    SttAudioChunk:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          type: string
+          format: byte
+          description: Base64-encoded audio bytes matching the negotiated encoding.
+    SttTranscription:
+      type: object
+      properties:
+        transcript:
+          type: string
+        isFinal:
+          type: boolean
+        wordTimestamps:
+          type: array
+          items:
+            type: object
+            properties:
+              word:
+                type: string
+              confidence:
+                type: number
+                minimum: 0
+                maximum: 1
+              startTimeMs:
+                type: integer
+              endTimeMs:
+                type: integer
+    SttSpeechStarted:
+      type: object
+      properties:
+        startTimeMs:
+          type: integer
+        confidence:
+          type: number
+          minimum: 0
+          maximum: 1
+    SttSpeechStopped:
+      type: object
+      properties:
+        silenceDurationMs:
+          type: integer
+    SttUsage:
+      type: object
+      properties:
+        transcribedAudioMs:
+          type: integer
+        modelId:
+          type: string
+    # --- Realtime schemas ---------------------------------------------------
+    RealtimeTypedEvent:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          description: Event type identifier (e.g. `input_audio_buffer.commit`).
+        event_id:
+          type: string
+          description: Optional client-supplied event id; echoed by some events.
+    RealtimeAudioFormat:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - audio/pcm
+            - audio/pcmu
+            - audio/pcma
+            - audio/float32
+        rate:
+          type: integer
+    RealtimeSessionAudioInput:
+      type: object
+      properties:
+        format:
+          $ref: '#/components/schemas/RealtimeAudioFormat'
+        noise_reduction:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - near_field
+                - far_field
+        transcription:
+          type: object
+          properties:
+            model:
+              type: string
+            language:
+              type: string
+            prompt:
+              type: string
+        turn_detection:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - server_vad
+                - semantic_vad
+            threshold:
+              type: number
+            eagerness:
+              type: string
+            create_response:
+              type: boolean
+            interrupt_response:
+              type: boolean
+    RealtimeSessionAudioOutput:
+      type: object
+      properties:
+        format:
+          $ref: '#/components/schemas/RealtimeAudioFormat'
+        voice:
+          type: string
+        model:
+          type: string
+        speed:
+          type: number
+          minimum: 0.25
+          maximum: 1.5
+    RealtimeSession:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        expires_at:
+          type: integer
+        model:
+          type: string
+        instructions:
+          type: string
+        output_modalities:
+          type: array
+          items:
+            type: string
+            enum:
+              - text
+              - audio
+        temperature:
+          type: number
+        max_output_tokens:
+          oneOf:
+            - type: integer
+              minimum: 1
+              maximum: 4096
+            - type: string
+              enum:
+                - inf
+        audio:
+          type: object
+          properties:
+            input:
+              $ref: '#/components/schemas/RealtimeSessionAudioInput'
+            output:
+              $ref: '#/components/schemas/RealtimeSessionAudioOutput'
+        tools:
+          type: array
+          items:
+            type: object
+        tool_choice:
+          oneOf:
+            - type: string
+            - type: object
+        truncation:
+          oneOf:
+            - type: string
+            - type: object
+        providerData:
+          type: object
+          description: |
+            Inworld-specific extensions. Documented sub-objects include
+            transcription, segmentation, memory, backchannel, and
+            responsiveness. See https://docs.inworld.ai/realtime/provider-data.
+    RealtimeSessionUpdate:
+      allOf:
+        - $ref: '#/components/schemas/RealtimeTypedEvent'
+        - type: object
+          required:
+            - session
+          properties:
+            type:
+              type: string
+              enum:
+                - session.update
+            session:
+              $ref: '#/components/schemas/RealtimeSession'
+    RealtimeContentPart:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - input_text
+            - input_audio
+            - text
+            - audio
+        text:
+          type: string
+        audio:
+          type: string
+          format: byte
+          description: Base64-encoded audio.
+        transcript:
+          type: string
+    RealtimeConversationItem:
+      type: object
+      required:
+        - type
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          description: e.g. `message`, `function_call_result`.
+        role:
+          type: string
+          enum:
+            - system
+            - user
+            - assistant
+            - tool
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/RealtimeContentPart'
+    RealtimeConversationItemCreate:
+      allOf:
+        - $ref: '#/components/schemas/RealtimeTypedEvent'
+        - type: object
+          required:
+            - item
+          properties:
+            type:
+              type: string
+              enum:
+                - conversation.item.create
+            item:
+              $ref: '#/components/schemas/RealtimeConversationItem'
+    RealtimeConversationItemTruncate:
+      allOf:
+        - $ref: '#/components/schemas/RealtimeTypedEvent'
+        - type: object
+          required:
+            - item_id
+            - content_index
+            - audio_end_ms
+          properties:
+            type:
+              type: string
+              enum:
+                - conversation.item.truncate
+            item_id:
+              type: string
+            content_index:
+              type: integer
+            audio_end_ms:
+              type: integer
+    RealtimeConversationItemDelete:
+      allOf:
+        - $ref: '#/components/schemas/RealtimeTypedEvent'
+        - type: object
+          required:
+            - item_id
+          properties:
+            type:
+              type: string
+              enum:
+                - conversation.item.delete
+            item_id:
+              type: string
+    RealtimeConversationItemRetrieve:
+      allOf:
+        - $ref: '#/components/schemas/RealtimeTypedEvent'
+        - type: object
+          required:
+            - item_id
+          properties:
+            type:
+              type: string
+              enum:
+                - conversation.item.retrieve
+            item_id:
+              type: string
+    RealtimeResponseCreate:
+      allOf:
+        - $ref: '#/components/schemas/RealtimeTypedEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - response.create
+            response:
+              type: object
+              properties:
+                conversation:
+                  oneOf:
+                    - type: string
+                      enum:
+                        - auto
+                    - type: string
+                output_modalities:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                      - text
+                      - audio
+                instructions:
+                  type: string
+                voice:
+                  type: string
+                max_output_tokens:
+                  oneOf:
+                    - type: integer
+                    - type: string
+                      enum:
+                        - inf
+                tool_choice:
+                  oneOf:
+                    - type: string
+                    - type: object
+                tools:
+                  type: array
+                  items:
+                    type: object
+    RealtimeResponseCancel:
+      allOf:
+        - $ref: '#/components/schemas/RealtimeTypedEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - response.cancel
+            response_id:
+              type: string
+              description: Specific response to cancel; omit to cancel active response.
+    RealtimeInputAudioBufferAppend:
+      allOf:
+        - $ref: '#/components/schemas/RealtimeTypedEvent'
+        - type: object
+          required:
+            - audio
+          properties:
+            type:
+              type: string
+              enum:
+                - input_audio_buffer.append
+            audio:
+              type: string
+              format: byte
+              description: Base64-encoded audio chunk (100–200 ms recommended).
+    RealtimeSessionCreated:
+      allOf:
+        - $ref: '#/components/schemas/RealtimeTypedEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - session.created
+            session:
+              $ref: '#/components/schemas/RealtimeSession'
+    RealtimeSessionUpdated:
+      allOf:
+        - $ref: '#/components/schemas/RealtimeTypedEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - session.updated
+            session:
+              $ref: '#/components/schemas/RealtimeSession'
+    RealtimeGenericServerEvent:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          description: |
+            Server event type. Inworld follows the OpenAI Realtime protocol;
+            additional documented event types include (non-exhaustive)
+            `response.start`, `response.content_part.added`,
+            `response.content_part.delta`, `response.done`,
+            `conversation.item.created`,
+            `input_audio_buffer.speech_started`,
+            `input_audio_buffer.speech_stopped`.
+        event_id:
+          type: string
+      additionalProperties: true
+tags:
+  - name: tts
+    description: Text-to-speech streaming WebSocket.
+  - name: stt
+    description: Speech-to-text streaming WebSocket.
+  - name: realtime
+    description: Speech-to-speech Realtime session WebSocket (OpenAI-Realtime-compatible).
+externalDocs:
+  description: Inworld AI developer documentation
+  url: https://docs.inworld.ai

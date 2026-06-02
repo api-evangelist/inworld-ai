@@ -30,6 +30,8 @@ apis:
     type: Documentation
   - url: openapi/inworld-tts-api-openapi.yml
     type: OpenAPI
+  - url: asyncapi/inworld-ai-asyncapi.yml
+    type: AsyncAPI
   - url: json-schema/inworld-tts-synthesis-schema.json
     type: JSONSchema
   - url: json-ld/inworld-ai-context.jsonld
@@ -95,6 +97,8 @@ apis:
     type: Documentation
   - url: openapi/inworld-stt-api-openapi.yml
     type: OpenAPI
+  - url: asyncapi/inworld-ai-asyncapi.yml
+    type: AsyncAPI
   - type: NaftikoCapability
     url: capabilities/stt-transcription.yaml
   description: Inworld STT — speech-to-text transcription API with synchronous transcribe and a streaming
@@ -128,6 +132,8 @@ apis:
     type: Documentation
   - url: openapi/inworld-realtime-api-openapi.yml
     type: OpenAPI
+  - url: asyncapi/inworld-ai-asyncapi.yml
+    type: AsyncAPI
   - type: NaftikoCapability
     url: capabilities/realtime-sessions.yaml
   description: Inworld Realtime — end-to-end speech-to-speech voice pipeline (STT + LLM + TTS) exposed
