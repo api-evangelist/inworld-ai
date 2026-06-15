@@ -1,0 +1,273 @@
+{
+  "item": [
+    {
+      "id": "87fdf55b-e8cf-4caf-8c4b-3428c396bab5",
+      "name": "Speech To Text",
+      "description": {
+        "content": "Transcribe audio to text.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "eed87535-d297-429b-bfdf-c6664e6af70f",
+          "name": "Transcribe Audio",
+          "request": {
+            "name": "Transcribe Audio",
+            "description": {
+              "content": "Transcribe a base64-encoded audio payload to text. Optionally returns word timestamps and routes through the requested provider/model id.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stt",
+                "v1",
+                "transcribe"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transcribeConfig\": {\n    \"modelId\": \"<string>\",\n    \"audioEncoding\": \"<string>\",\n    \"language\": \"<string>\",\n    \"sampleRateHertz\": 16000,\n    \"numberOfChannels\": 1,\n    \"inactivityTimeoutSeconds\": \"<integer>\",\n    \"endOfTurnConfidenceThreshold\": 0.5,\n    \"prompts\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"includeWordTimestamps\": \"<boolean>\",\n    \"voiceProfileConfig\": {\n      \"enabled\": \"<boolean>\",\n      \"profileId\": \"<string>\"\n    }\n  },\n  \"audioData\": {\n    \"content\": \"<byte>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ca6a68d3-ee0a-466b-9473-82e751d2359a",
+              "name": "Transcription returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stt",
+                    "v1",
+                    "transcribe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transcribeConfig\": {\n    \"modelId\": \"groq/whisper-large-v3\",\n    \"audioEncoding\": \"LINEAR16\",\n    \"language\": \"en-US\",\n    \"sampleRateHertz\": 16000,\n    \"numberOfChannels\": 1\n  },\n  \"audioData\": {\n    \"content\": \"<base64-encoded-audio>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transcription\": {\n    \"transcript\": \"string\",\n    \"isFinal\": true,\n    \"wordTimestamps\": [\n      {\n        \"word\": \"string\",\n        \"startTimeSeconds\": 840.4516973204346,\n        \"endTimeSeconds\": 4088.0371649684475,\n        \"confidence\": 6734.213160411396\n      },\n      {\n        \"word\": \"string\",\n        \"startTimeSeconds\": 8036.68552891069,\n        \"endTimeSeconds\": 1692.9166347083947,\n        \"confidence\": 8845.873929078856\n      }\n    ]\n  },\n  \"usage\": {\n    \"transcribedAudioMs\": 3373,\n    \"modelId\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4653aaa-04a8-4112-94db-ab8cb3f55f4b",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stt",
+                    "v1",
+                    "transcribe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transcribeConfig\": {\n    \"modelId\": \"groq/whisper-large-v3\",\n    \"audioEncoding\": \"LINEAR16\",\n    \"language\": \"en-US\",\n    \"sampleRateHertz\": 16000,\n    \"numberOfChannels\": 1\n  },\n  \"audioData\": {\n    \"content\": \"<base64-encoded-audio>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5993,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4f2576fa-3608-400c-99b6-89b4948277e9",
+          "name": "Streaming Transcribe (WebSocket)",
+          "request": {
+            "name": "Streaming Transcribe (WebSocket)",
+            "description": {
+              "content": "Upgrade to a WebSocket. Send PCM/Opus audio chunks and receive interim and final transcripts with word timestamps. Auth via `Authorization: Basic` on the upgrade.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stt",
+                "v1",
+                "transcribe:stream"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8938d28a-672d-44de-8313-2f650beb5f30",
+              "name": "Switching protocols to WebSocket.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stt",
+                    "v1",
+                    "transcribe:stream"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Switching Protocols",
+              "code": 101,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.inworld.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c94bf849-64c1-4304-b034-c29c94855152",
+    "name": "Inworld STT API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Inworld Speech-to-Text. Synchronous transcription and a streaming WebSocket endpoint. Multi-provider routing (provider/model id, e.g. `groq/whisper-large-v3`), 99+ languages, word timestamps, contextual prompts, end-of-turn detection, and voice-profile-aware transcription for conversational agents.\n\n\nContact Support:\n Name: Inworld Support",
+      "type": "text/plain"
+    }
+  }
+}

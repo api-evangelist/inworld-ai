@@ -1,0 +1,151 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Inworld Voice API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Voices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Voices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.inworld.ai/voices/v1/voices",
+            "params": [
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List all voices in the caller's workspace."
+        },
+        {
+          "info": {
+            "name": "Clone Voice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.inworld.ai/voices/v1/voices:clone",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Instant voice cloning. Submit one or more short audio samples (WAV or MP3, base64-encoded) and receive a new custom voice that can be used immediately in TTS and Realtime calls.\n"
+        },
+        {
+          "info": {
+            "name": "Design Voice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.inworld.ai/voices/v1/voices:design",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate a brand-new voice from a natural-language description plus optional reference audio. Returns a candidate voice that can be previewed and then published.\n"
+        },
+        {
+          "info": {
+            "name": "Publish Voice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.inworld.ai/voices/v1/voices:publish",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Publish a designed or cloned voice so it is available for use in TTS and Realtime."
+        },
+        {
+          "info": {
+            "name": "Get Voice",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.inworld.ai/voices/v1/voices/:voiceId",
+            "params": [
+              {
+                "name": "voiceId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Voice"
+        },
+        {
+          "info": {
+            "name": "Update Voice",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.inworld.ai/voices/v1/voices/:voiceId",
+            "params": [
+              {
+                "name": "voiceId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Voice"
+        },
+        {
+          "info": {
+            "name": "Delete Voice",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.inworld.ai/voices/v1/voices/:voiceId",
+            "params": [
+              {
+                "name": "voiceId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Voice"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

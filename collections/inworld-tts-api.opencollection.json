@@ -1,0 +1,85 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Inworld TTS API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Text To Speech",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Synthesize Speech",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.inworld.ai/tts/v1/voice",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Synthesize a single audio response from text. Returns base64-encoded audio plus optional word/character/phoneme alignment metadata. Maximum 2,000 input characters per request and 16 MB output audio.\n"
+        },
+        {
+          "info": {
+            "name": "Stream Synthesize Speech",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.inworld.ai/tts/v1/voice:stream",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Stream synthesis. The response is a chunked sequence of JSON envelopes, each containing a base64 audio fragment. Use for low-latency playback of long-form text.\n"
+        },
+        {
+          "info": {
+            "name": "WebSocket Synthesize Speech",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.inworld.ai/tts/v1/voice:websocket"
+          },
+          "docs": "Upgrade to a WebSocket connection for bidirectional streaming synthesis. Clients send `SynthesizeRequest` frames and receive chunked audio frames with timestamp metadata. Auth via `Authorization: Basic` header on the upgrade request.\n"
+        },
+        {
+          "info": {
+            "name": "List TTS Voices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.inworld.ai/tts/v1/voices",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Optional filter expression (e.g. by tag, language, gender)."
+              }
+            ]
+          },
+          "docs": "List voices available for synthesis. Includes Inworld-shipped voices and any custom-cloned or designed voices in the caller's workspace.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

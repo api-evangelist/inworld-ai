@@ -36,15 +36,13 @@ apis:
     type: JSONSchema
   - url: json-ld/inworld-ai-context.jsonld
     type: JSONLD
-  - type: NaftikoCapability
-    url: capabilities/tts-synthesis.yaml
-  description: Inworld TTS — real-time text-to-speech API with the #1-ranked voice models on the Artificial
-    Analysis Speech Arena. Supports the Realtime TTS-2 model (100+ languages, natural-language steering),
-    Realtime TTS 1.5 Max (15 languages), and Realtime TTS 1.5 Mini (cost-optimized, sub-120 ms first-token).
-    Provides synchronous synthesis, server-streamed synthesis, and a streaming WebSocket interface with
-    instant + professional voice cloning, voice design from text prompts, custom pronunciation, pause
-    controls, word/character/phoneme alignment for lipsync, and zero-data-retention plus on-premise
-    deployment options.
+  description: >-
+    Inworld TTS — real-time text-to-speech API with the #1-ranked voice models on the Artificial Analysis
+    Speech Arena. Supports the Realtime TTS-2 model (100+ languages, natural-language steering), Realtime TTS
+    1.5 Max (15 languages), and Realtime TTS 1.5 Mini (cost-optimized, sub-120 ms first-token). Provides
+    synchronous synthesis, server-streamed synthesis, and a streaming WebSocket interface with instant +
+    professional voice cloning, voice design from text prompts, custom pronunciation, pause controls,
+    word/character/phoneme alignment for lipsync, and zero-data-retention plus on-premise deployment options.
 - aid: inworld-ai:inworld-voice-api
   name: Inworld Voice API
   tags:
@@ -69,12 +67,11 @@ apis:
     type: Documentation
   - url: openapi/inworld-voice-api-openapi.yml
     type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/voice-voices.yaml
-  description: Inworld Voice API — manage custom voices used by the TTS and Realtime APIs. Clone voices
-    from short audio samples (instant voice cloning) or design voices from natural-language descriptions
-    plus optional reference audio. Lists, gets, updates, and deletes voices, and exposes a publish
-    endpoint for sharing voices across a workspace.
+  description: >-
+    Inworld Voice API — manage custom voices used by the TTS and Realtime APIs. Clone voices from short audio
+    samples (instant voice cloning) or design voices from natural-language descriptions plus optional
+    reference audio. Lists, gets, updates, and deletes voices, and exposes a publish endpoint for sharing
+    voices across a workspace.
 - aid: inworld-ai:inworld-stt-api
   name: Inworld STT API
   tags:
@@ -99,12 +96,11 @@ apis:
     type: OpenAPI
   - url: asyncapi/inworld-ai-asyncapi.yml
     type: AsyncAPI
-  - type: NaftikoCapability
-    url: capabilities/stt-transcription.yaml
-  description: Inworld STT — speech-to-text transcription API with synchronous transcribe and a streaming
-    WebSocket endpoint. Multi-provider routing (currently Whisper variants via Groq) with 99+ language
-    support, word timestamps, voice profiling, prompt biasing for domain-specific vocabulary, and
-    configurable end-of-turn detection for low-latency conversational agents.
+  description: >-
+    Inworld STT — speech-to-text transcription API with synchronous transcribe and a streaming WebSocket
+    endpoint. Multi-provider routing (currently Whisper variants via Groq) with 99+ language support, word
+    timestamps, voice profiling, prompt biasing for domain-specific vocabulary, and configurable end-of-turn
+    detection for low-latency conversational agents.
 - aid: inworld-ai:inworld-realtime-api
   name: Inworld Realtime API
   tags:
@@ -134,13 +130,12 @@ apis:
     type: OpenAPI
   - url: asyncapi/inworld-ai-asyncapi.yml
     type: AsyncAPI
-  - type: NaftikoCapability
-    url: capabilities/realtime-sessions.yaml
-  description: Inworld Realtime — end-to-end speech-to-speech voice pipeline (STT + LLM + TTS) exposed
-    over WebSocket and WebRTC. OpenAI-Realtime-API-compatible event protocol (session.update,
-    input_audio_buffer.append, response.create, etc.) so existing OpenAI Realtime clients can swap
-    base URLs. Includes server-side and semantic VAD, function/tool calling, MCP server tunneling,
-    Twilio media-stream integration, and JWT-based session authentication.
+  description: >-
+    Inworld Realtime — end-to-end speech-to-speech voice pipeline (STT + LLM + TTS) exposed over WebSocket
+    and WebRTC. OpenAI-Realtime-API-compatible event protocol (session.update, input_audio_buffer.append,
+    response.create, etc.) so existing OpenAI Realtime clients can swap base URLs. Includes server-side and
+    semantic VAD, function/tool calling, MCP server tunneling, Twilio media-stream integration, and JWT-based
+    session authentication.
 - aid: inworld-ai:inworld-router-api
   name: Inworld LLM Router API
   tags:
@@ -183,15 +178,11 @@ apis:
     type: OpenAPI
   - url: json-schema/inworld-router-chat-completion-schema.json
     type: JSONSchema
-  - type: NaftikoCapability
-    url: capabilities/router-chat-completions.yaml
-  - type: NaftikoCapability
-    url: capabilities/router-routers.yaml
-  description: Inworld LLM Router — OpenAI-and-Anthropic-compatible chat-completions endpoint that
-    routes prompts across hundreds of provider models (OpenAI, Anthropic, Google, Meta, Mistral,
-    DeepSeek, Groq, etc.). Reusable named routers, conditional routing, provider routing, A/B traffic
-    splitting, prompt compression, caching, web search, and a Claude-Code-compatible mode let teams
-    consolidate model spend behind one API.
+  description: >-
+    Inworld LLM Router — OpenAI-and-Anthropic-compatible chat-completions endpoint that routes prompts across
+    hundreds of provider models (OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, Groq, etc.). Reusable
+    named routers, conditional routing, provider routing, A/B traffic splitting, prompt compression, caching,
+    web search, and a Claude-Code-compatible mode let teams consolidate model spend behind one API.
 - aid: inworld-ai:inworld-models-api
   name: Inworld Models API
   tags:
@@ -205,12 +196,10 @@ apis:
     type: Documentation
   - url: openapi/inworld-models-api-openapi.yml
     type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/models-list.yaml
-  description: Inworld Models API — list every model available across the Router (third-party LLMs)
-    and Inworld first-party TTS, STT, and Realtime endpoints. Returns provider, model id, capabilities
-    (chat, vision, tool use, etc.), and pricing tier metadata for runtime discovery.
-name: Inworld AI
+  description: >-
+    Inworld Models API — list every model available across the Router (third-party LLMs) and Inworld
+    first-party TTS, STT, and Realtime endpoints. Returns provider, model id, capabilities (chat, vision,
+    tool use, etc.), and pricing tier metadata for runtime discovery.
 tags:
 - AI
 - Artificial Intelligence
@@ -493,14 +482,14 @@ common:
 created: '2026-05-25T00:00:00.000Z'
 modified: '2026-05-25'
 position: Consuming
-description: Inworld AI is a real-time voice AI infrastructure provider. The Inworld platform delivers
-  text-to-speech, speech-to-text, an end-to-end speech-to-speech Realtime API, and an OpenAI- and
-  Anthropic-compatible LLM Router behind one API surface and one billing relationship. Inworld's
-  voice models lead the Artificial Analysis Speech Arena and are used to power voice agents,
-  language-learning apps, AI companions, avatar experiences, game NPCs, and Twilio-backed phone
-  agents. The platform supports instant and professional voice cloning, voice design from natural
-  language, lipsync-grade phoneme alignment, on-premise TTS deployment, and zero-data-retention
-  configurations for regulated workloads.
+description: >-
+  Inworld AI is a real-time voice AI infrastructure provider. The Inworld platform delivers text-to-speech,
+  speech-to-text, an end-to-end speech-to-speech Realtime API, and an OpenAI- and Anthropic-compatible LLM
+  Router behind one API surface and one billing relationship. Inworld's voice models lead the Artificial
+  Analysis Speech Arena and are used to power voice agents, language-learning apps, AI companions, avatar
+  experiences, game NPCs, and Twilio-backed phone agents. The platform supports instant and professional
+  voice cloning, voice design from natural language, lipsync-grade phoneme alignment, on-premise TTS
+  deployment, and zero-data-retention configurations for regulated workloads.
 maintainers:
 - FN: Kin Lane
   email: info@apievangelist.com

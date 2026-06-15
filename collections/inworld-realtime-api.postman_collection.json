@@ -1,0 +1,271 @@
+{
+  "item": [
+    {
+      "id": "0596f8f8-372f-4b29-8700-ed20cf88173e",
+      "name": "Realtime",
+      "description": {
+        "content": "Realtime speech-to-speech sessions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5945baa5-20e7-4e26-9a6d-f19876237284",
+          "name": "Realtime WebSocket Session",
+          "request": {
+            "name": "Realtime WebSocket Session",
+            "description": {
+              "content": "Upgrade to a Realtime WebSocket session. The connection accepts a JSON event protocol compatible with the OpenAI Realtime API (`session.update`, `input_audio_buffer.append`, `input_audio_buffer.commit`, `response.create`, `conversation.item.create`, `response.cancel`, etc.). Authenticate with a short-lived JWT in the `Authorization: Bearer <jwt>` header, minted with a Realtime-only API key.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "realtime",
+                "session"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4048924e-4c84-43fc-822c-ae3e5b490bfd",
+              "name": "Switching protocols to WebSocket.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "realtime",
+                    "session"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Switching Protocols",
+              "code": 101,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "273af917-3e25-4f52-8b38-85539b0f2c2d",
+          "name": "Realtime WebRTC Offer Exchange",
+          "request": {
+            "name": "Realtime WebRTC Offer Exchange",
+            "description": {
+              "content": "Exchange a WebRTC SDP offer for an answer to open a realtime audio session. The server provisions an audio track wired to the same STT-LLM-TTS pipeline used by the WebSocket endpoint.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "realtime",
+                "webrtc"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sdp\": \"<string>\",\n  \"sessionConfig\": {\n    \"model\": \"<string>\",\n    \"instructions\": \"<string>\",\n    \"temperature\": \"<number>\",\n    \"maxTokens\": \"<integer>\",\n    \"voice\": \"<string>\",\n    \"inputAudioFormat\": \"<string>\",\n    \"outputAudioFormat\": \"<string>\",\n    \"turnDetection\": {\n      \"type\": \"<string>\",\n      \"threshold\": \"<number>\",\n      \"silenceDurationMs\": \"<integer>\"\n    },\n    \"tools\": [\n      \"<object>\",\n      \"<object>\"\n    ],\n    \"toolChoice\": \"<string>\",\n    \"mcpServers\": [\n      {\n        \"url\": \"<string>\",\n        \"transport\": \"<string>\"\n      },\n      {\n        \"url\": \"<string>\",\n        \"transport\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e9983aef-e478-430c-9195-5f5bcbd08b00",
+              "name": "WebRTC answer returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "realtime",
+                    "webrtc"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sdp\": \"<string>\",\n  \"sessionConfig\": {\n    \"model\": \"string\",\n    \"instructions\": \"string\",\n    \"temperature\": 5899.06290739518,\n    \"maxTokens\": 5781,\n    \"voice\": \"string\",\n    \"inputAudioFormat\": \"pcma\",\n    \"outputAudioFormat\": \"pcm16\",\n    \"turnDetection\": {\n      \"type\": \"semantic_vad\",\n      \"threshold\": 8450.45988091635,\n      \"silenceDurationMs\": 21\n    },\n    \"toolChoice\": \"string\",\n    \"mcpServers\": [\n      {\n        \"url\": \"string\",\n        \"transport\": \"string\"\n      },\n      {\n        \"url\": \"string\",\n        \"transport\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"sdp\": \"string\",\n  \"sessionId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88a6cca2-1d97-45b8-81c5-d5b89415a81a",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "realtime",
+                    "webrtc"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sdp\": \"<string>\",\n  \"sessionConfig\": {\n    \"model\": \"string\",\n    \"instructions\": \"string\",\n    \"temperature\": 5899.06290739518,\n    \"maxTokens\": 5781,\n    \"voice\": \"string\",\n    \"inputAudioFormat\": \"pcma\",\n    \"outputAudioFormat\": \"pcm16\",\n    \"turnDetection\": {\n      \"type\": \"semantic_vad\",\n      \"threshold\": 8450.45988091635,\n      \"silenceDurationMs\": 21\n    },\n    \"toolChoice\": \"string\",\n    \"mcpServers\": [\n      {\n        \"url\": \"string\",\n        \"transport\": \"string\"\n      },\n      {\n        \"url\": \"string\",\n        \"transport\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1320,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.inworld.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f7be7e20-8c72-43d5-bb2f-52e665d10e5f",
+    "name": "Inworld Realtime API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "End-to-end speech-to-speech voice pipeline (STT + LLM + TTS). Connect over WebSocket or WebRTC. Event protocol is OpenAI-Realtime-API-compatible, so existing OpenAI Realtime clients can swap the base URL. Includes server-side and semantic VAD, function/tool calling, MCP server tunneling, Twilio media streams, and JWT-based session authentication.\n\n\nContact Support:\n Name: Inworld Support",
+      "type": "text/plain"
+    }
+  }
+}
