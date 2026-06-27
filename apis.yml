@@ -233,7 +233,7 @@ common:
   type: Documentation
 - url: https://platform.inworld.ai
   name: Inworld Portal
-  type: SignUp
+  type: Signup
 - url: https://platform.inworld.ai/api-keys
   name: API Keys
   type: Authentication
@@ -264,22 +264,22 @@ common:
   type: CodeExamples
 - url: https://github.com/inworld-ai/livekit_agents
   name: LiveKit Agents Integration (Python)
-  type: SDK
+  type: SDKs
 - url: https://github.com/inworld-ai/livekit_agents_js
   name: LiveKit Agents Integration (JS)
-  type: SDK
+  type: SDKs
 - url: https://github.com/inworld-ai/pipecat
   name: Pipecat Integration
-  type: SDK
+  type: SDKs
 - url: https://github.com/inworld-ai/langchain-voice-agent-node
   name: LangChain Voice Agent (Node)
   type: CodeExamples
 - url: https://github.com/inworld-ai/voice-migration-tool
   name: ElevenLabs Voice Migration Tool
-  type: Tool
+  type: Tools
 - url: https://github.com/inworld-ai/inworld-tts-onprem
   name: TTS On-Premise
-  type: Tool
+  type: Tools
 - url: https://github.com/inworld-ai/multimodal-companion-node
   name: Multimodal Companion Demo
   type: CodeExamples
