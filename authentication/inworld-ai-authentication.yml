@@ -1,0 +1,22 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/inworld-models-api-openapi.yml, openapi/inworld-realtime-api-openapi.yml, openapi/inworld-stt-api-openapi.yml,
+  openapi/inworld-tts-api-openapi.yml, openapi/inworld-voice-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: BasicAuth
+  type: http
+  scheme: basic
+  sources:
+  - openapi/inworld-models-api-openapi.yml
+  - openapi/inworld-stt-api-openapi.yml
+  - openapi/inworld-tts-api-openapi.yml
+  - openapi/inworld-voice-api-openapi.yml
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  sources:
+  - openapi/inworld-realtime-api-openapi.yml

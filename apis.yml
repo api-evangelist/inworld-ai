@@ -215,6 +215,12 @@ kind: contract
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 common:
+- type: TrustCenter
+  url: security/inworld-ai-trust-center.yml
+- type: DomainSecurity
+  url: security/inworld-ai-domain-security.yml
+- type: Authentication
+  url: authentication/inworld-ai-authentication.yml
 - url: https://inworld.ai
   type: Portal
 - url: https://docs.inworld.ai

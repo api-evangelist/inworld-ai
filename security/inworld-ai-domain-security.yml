@@ -1,0 +1,27 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: inworld.ai
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 15 17:52:28 2026 GMT
+  hsts: false
+- host: docs.inworld.ai
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 25 05:53:44 2026 GMT
+  hsts: true
+  hsts_max_age: 63072000
+- host: api.inworld.ai
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 24 18:31:09 2026 GMT
+  hsts: false
+domains:
+- domain: inworld.ai
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject

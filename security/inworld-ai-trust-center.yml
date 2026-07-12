@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: searched
+probe: true
+source: https://inworld.ai/security
+url: https://inworld.ai/security
+certifications:
+- SOC 2
+- HIPAA
+- GDPR
+evidence:
+- source: https://inworld.ai/security
+  keywords:
+  - soc 2
+  - hipaa
+  - trust center
+  - compliance certification
+  - gdpr
