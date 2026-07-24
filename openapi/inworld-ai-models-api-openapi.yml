@@ -1,11 +1,9 @@
 openapi: 3.1.0
 info:
   title: Inworld Models API
-  description: >
-    List every model available behind the Inworld platform — first-party TTS, STT,
-    and Realtime models plus all third-party LLMs reachable through the LLM Router.
-    Returns provider, model id, capabilities (chat, vision, tool use, speech,
-    streaming), and pricing tier metadata for runtime discovery.
+  description: 'List every model available behind the Inworld platform — first-party TTS, STT, and Realtime models plus all third-party LLMs reachable through the LLM Router. Returns provider, model id, capabilities (chat, vision, tool use, speech, streaming), and pricing tier metadata for runtime discovery.
+
+    '
   version: v1
   contact:
     name: Inworld Support
@@ -14,20 +12,21 @@ info:
     name: Inworld Terms of Service
     url: https://inworld.ai/legal/terms-of-service
 servers:
-  - url: https://api.inworld.ai
-    description: Inworld Production API
+- url: https://api.inworld.ai
+  description: Inworld Production API
 security:
-  - BasicAuth: []
+- BasicAuth: []
 tags:
-  - name: Models
-    description: Discover available models.
+- name: Models
+  description: Discover available models.
 paths:
   /v1/models:
     get:
       summary: List Models
       description: List models exposed by Inworld and the Router.
       operationId: listModels
-      tags: [Models]
+      tags:
+      - Models
       responses:
         '200':
           description: Models returned.
@@ -35,13 +34,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListModelsResponse'
-        '4XX':
+        4XX:
           $ref: '#/components/responses/ErrorResponse'
 components:
-  securitySchemes:
-    BasicAuth:
-      type: http
-      scheme: basic
   schemas:
     ListModelsResponse:
       type: object
@@ -57,7 +52,8 @@ components:
           type: string
         object:
           type: string
-          enum: [model]
+          enum:
+          - model
         provider:
           type: string
         family:
@@ -66,7 +62,16 @@ components:
           type: array
           items:
             type: string
-            enum: [chat, vision, audio, tts, stt, realtime, tool-use, streaming, embedding]
+            enum:
+            - chat
+            - vision
+            - audio
+            - tts
+            - stt
+            - realtime
+            - tool-use
+            - streaming
+            - embedding
         contextWindow:
           type: integer
         maxOutputTokens:
@@ -95,3 +100,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic

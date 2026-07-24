@@ -1,11 +1,9 @@
 openapi: 3.1.0
 info:
-  title: Inworld Voice API
-  description: >
-    Manage custom voices used by the Inworld TTS and Realtime APIs. Clone voices
-    from short audio samples (instant voice cloning), design voices from text
-    descriptions, publish voices for workspace-wide use, and list / get / update /
-    delete voices in your workspace.
+  title: Inworld Models Voices API
+  description: 'List every model available behind the Inworld platform — first-party TTS, STT, and Realtime models plus all third-party LLMs reachable through the LLM Router. Returns provider, model id, capabilities (chat, vision, tool use, speech, streaming), and pricing tier metadata for runtime discovery.
+
+    '
   version: v1
   contact:
     name: Inworld Support
@@ -14,31 +12,32 @@ info:
     name: Inworld Terms of Service
     url: https://inworld.ai/legal/terms-of-service
 servers:
-  - url: https://api.inworld.ai
-    description: Inworld Production API
+- url: https://api.inworld.ai
+  description: Inworld Production API
 security:
-  - BasicAuth: []
+- BasicAuth: []
 tags:
-  - name: Voices
-    description: Voice cloning, design, and lifecycle.
+- name: Voices
+  description: Voice cloning, design, and lifecycle.
 paths:
   /voices/v1/voices:
     get:
       summary: List Voices
       description: List all voices in the caller's workspace.
       operationId: listVoices
-      tags: [Voices]
+      tags:
+      - Voices
       parameters:
-        - name: pageSize
-          in: query
-          required: false
-          schema:
-            type: integer
-        - name: pageToken
-          in: query
-          required: false
-          schema:
-            type: string
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: pageToken
+        in: query
+        required: false
+        schema:
+          type: string
       responses:
         '200':
           description: Voices returned.
@@ -46,17 +45,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListVoicesResponse'
-        '4XX':
+        4XX:
           $ref: '#/components/responses/ErrorResponse'
   /voices/v1/voices:clone:
     post:
       summary: Clone Voice
-      description: >
-        Instant voice cloning. Submit one or more short audio samples (WAV or MP3,
-        base64-encoded) and receive a new custom voice that can be used immediately
-        in TTS and Realtime calls.
+      description: 'Instant voice cloning. Submit one or more short audio samples (WAV or MP3, base64-encoded) and receive a new custom voice that can be used immediately in TTS and Realtime calls.
+
+        '
       operationId: cloneVoice
-      tags: [Voices]
+      tags:
+      - Voices
       requestBody:
         required: true
         content:
@@ -70,17 +69,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CloneVoiceResponse'
-        '4XX':
+        4XX:
           $ref: '#/components/responses/ErrorResponse'
   /voices/v1/voices:design:
     post:
       summary: Design Voice
-      description: >
-        Generate a brand-new voice from a natural-language description plus optional
-        reference audio. Returns a candidate voice that can be previewed and then
-        published.
+      description: 'Generate a brand-new voice from a natural-language description plus optional reference audio. Returns a candidate voice that can be previewed and then published.
+
+        '
       operationId: designVoice
-      tags: [Voices]
+      tags:
+      - Voices
       requestBody:
         required: true
         content:
@@ -94,21 +93,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Voice'
-        '4XX':
+        4XX:
           $ref: '#/components/responses/ErrorResponse'
   /voices/v1/voices:publish:
     post:
       summary: Publish Voice
       description: Publish a designed or cloned voice so it is available for use in TTS and Realtime.
       operationId: publishVoice
-      tags: [Voices]
+      tags:
+      - Voices
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
-              required: [voiceId]
+              required:
+              - voiceId
               properties:
                 voiceId:
                   type: string
@@ -119,19 +120,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Voice'
-        '4XX':
+        4XX:
           $ref: '#/components/responses/ErrorResponse'
   /voices/v1/voices/{voiceId}:
     parameters:
-      - name: voiceId
-        in: path
-        required: true
-        schema:
-          type: string
+    - name: voiceId
+      in: path
+      required: true
+      schema:
+        type: string
     get:
       summary: Get Voice
       operationId: getVoice
-      tags: [Voices]
+      tags:
+      - Voices
       responses:
         '200':
           description: Voice returned.
@@ -139,12 +141,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Voice'
-        '4XX':
+        4XX:
           $ref: '#/components/responses/ErrorResponse'
     patch:
       summary: Update Voice
       operationId: updateVoice
-      tags: [Voices]
+      tags:
+      - Voices
       requestBody:
         required: true
         content:
@@ -158,32 +161,55 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Voice'
-        '4XX':
+        4XX:
           $ref: '#/components/responses/ErrorResponse'
     delete:
       summary: Delete Voice
       operationId: deleteVoice
-      tags: [Voices]
+      tags:
+      - Voices
       responses:
         '204':
           description: Voice deleted.
-        '4XX':
+        4XX:
           $ref: '#/components/responses/ErrorResponse'
 components:
-  securitySchemes:
-    BasicAuth:
-      type: http
-      scheme: basic
+  responses:
+    ErrorResponse:
+      description: Error response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     CloneVoiceRequest:
       type: object
-      required: [displayName, langCode, voiceSamples]
+      required:
+      - displayName
+      - langCode
+      - voiceSamples
       properties:
         displayName:
           type: string
         langCode:
           type: string
-          enum: [EN_US, ZH_CN, KO_KR, JA_JP, RU_RU, AUTO, IT_IT, ES_ES, PT_BR, DE_DE, FR_FR, AR_SA, PL_PL, NL_NL, HI_IN, HE_IL]
+          enum:
+          - EN_US
+          - ZH_CN
+          - KO_KR
+          - JA_JP
+          - RU_RU
+          - AUTO
+          - IT_IT
+          - ES_ES
+          - PT_BR
+          - DE_DE
+          - FR_FR
+          - AR_SA
+          - PL_PL
+          - NL_NL
+          - HI_IN
+          - HE_IL
         description:
           type: string
         tags:
@@ -194,7 +220,8 @@ components:
           type: array
           items:
             type: object
-            required: [audioData]
+            required:
+            - audioData
             properties:
               audioData:
                 type: string
@@ -207,6 +234,17 @@ components:
           properties:
             removeBackgroundNoise:
               type: boolean
+    UpdateVoiceRequest:
+      type: object
+      properties:
+        displayName:
+          type: string
+        description:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
     CloneVoiceResponse:
       type: object
       properties:
@@ -221,9 +259,19 @@ components:
                 type: boolean
               reason:
                 type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
     DesignVoiceRequest:
       type: object
-      required: [displayName, prompt, langCode]
+      required:
+      - displayName
+      - prompt
+      - langCode
       properties:
         displayName:
           type: string
@@ -236,17 +284,6 @@ components:
           type: string
           format: byte
           description: Optional base64 reference audio.
-    UpdateVoiceRequest:
-      type: object
-      properties:
-        displayName:
-          type: string
-        description:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
     ListVoicesResponse:
       type: object
       properties:
@@ -273,20 +310,13 @@ components:
             type: string
         source:
           type: string
-          enum: [INWORLD, IVC, DESIGN]
+          enum:
+          - INWORLD
+          - IVC
+          - DESIGN
         published:
           type: boolean
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-  responses:
-    ErrorResponse:
-      description: Error response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic

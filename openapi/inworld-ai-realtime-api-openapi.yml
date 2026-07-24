@@ -1,0 +1,153 @@
+openapi: 3.1.0
+info:
+  title: Inworld Models Realtime API
+  description: 'List every model available behind the Inworld platform — first-party TTS, STT, and Realtime models plus all third-party LLMs reachable through the LLM Router. Returns provider, model id, capabilities (chat, vision, tool use, speech, streaming), and pricing tier metadata for runtime discovery.
+
+    '
+  version: v1
+  contact:
+    name: Inworld Support
+    url: https://docs.inworld.ai/tts/resources/support
+  license:
+    name: Inworld Terms of Service
+    url: https://inworld.ai/legal/terms-of-service
+servers:
+- url: https://api.inworld.ai
+  description: Inworld Production API
+security:
+- BasicAuth: []
+tags:
+- name: Realtime
+  description: Realtime speech-to-speech sessions.
+paths:
+  /api/v1/realtime/session:
+    get:
+      summary: Realtime WebSocket Session
+      description: 'Upgrade to a Realtime WebSocket session. The connection accepts a JSON event protocol compatible with the OpenAI Realtime API (`session.update`, `input_audio_buffer.append`, `input_audio_buffer.commit`, `response.create`, `conversation.item.create`, `response.cancel`, etc.). Authenticate with a short-lived JWT in the `Authorization: Bearer <jwt>` header, minted with a Realtime-only API key.
+
+        '
+      operationId: realtimeWebsocket
+      tags:
+      - Realtime
+      responses:
+        '101':
+          description: Switching protocols to WebSocket.
+  /v1/realtime/webrtc:
+    post:
+      summary: Realtime WebRTC Offer Exchange
+      description: 'Exchange a WebRTC SDP offer for an answer to open a realtime audio session. The server provisions an audio track wired to the same STT-LLM-TTS pipeline used by the WebSocket endpoint.
+
+        '
+      operationId: realtimeWebrtc
+      tags:
+      - Realtime
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebRtcOffer'
+      responses:
+        '200':
+          description: WebRTC answer returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebRtcAnswer'
+        4XX:
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  responses:
+    ErrorResponse:
+      description: Error response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    WebRtcAnswer:
+      type: object
+      properties:
+        sdp:
+          type: string
+        sessionId:
+          type: string
+    SessionConfig:
+      type: object
+      properties:
+        model:
+          type: string
+          description: Realtime model id.
+        instructions:
+          type: string
+          description: System prompt for the agent.
+        temperature:
+          type: number
+        maxTokens:
+          type: integer
+        voice:
+          type: string
+          description: Voice id used by the TTS leg.
+        inputAudioFormat:
+          type: string
+          enum:
+          - pcm16
+          - pcmu
+          - pcma
+        outputAudioFormat:
+          type: string
+          enum:
+          - pcm16
+          - pcmu
+          - pcma
+        turnDetection:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - server_vad
+              - semantic_vad
+              - none
+            threshold:
+              type: number
+            silenceDurationMs:
+              type: integer
+        tools:
+          type: array
+          items:
+            type: object
+        toolChoice:
+          oneOf:
+          - type: string
+          - type: object
+        mcpServers:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+              transport:
+                type: string
+    WebRtcOffer:
+      type: object
+      required:
+      - sdp
+      properties:
+        sdp:
+          type: string
+          description: SDP offer string.
+        sessionConfig:
+          $ref: '#/components/schemas/SessionConfig'
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
