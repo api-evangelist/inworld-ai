@@ -2,140 +2,6 @@ aid: inworld-ai
 url: https://raw.githubusercontent.com/api-evangelist/inworld-ai/refs/heads/main/apis.yml
 name: Inworld AI
 apis:
-- aid: inworld-ai:inworld-tts-api
-  name: Inworld TTS API
-  tags:
-  - AI
-  - Artificial Intelligence
-  - Text To Speech
-  - Voice
-  - Audio
-  humanURL: https://docs.inworld.ai/tts/tts
-  properties:
-  - url: https://docs.inworld.ai/tts/tts
-    type: Documentation
-  - url: https://docs.inworld.ai/quickstart-tts
-    type: GettingStarted
-  - url: https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech
-    type: Documentation
-  - url: https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech-stream
-    type: Documentation
-  - url: https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech-websocket
-    type: Documentation
-  - url: https://docs.inworld.ai/tts/voice-cloning
-    type: Documentation
-  - url: https://docs.inworld.ai/tts/voice-design
-    type: Documentation
-  - url: https://docs.inworld.ai/tts/on-premises
-    type: Documentation
-  - url: openapi/inworld-tts-api-openapi.yml
-    type: OpenAPI
-  - url: asyncapi/inworld-ai-asyncapi.yml
-    type: AsyncAPI
-  - url: json-schema/inworld-tts-synthesis-schema.json
-    type: JSONSchema
-  - url: json-ld/inworld-ai-context.jsonld
-    type: JSONLD
-  description: >-
-    Inworld TTS — real-time text-to-speech API with the #1-ranked voice models on the Artificial Analysis
-    Speech Arena. Supports the Realtime TTS-2 model (100+ languages, natural-language steering), Realtime TTS
-    1.5 Max (15 languages), and Realtime TTS 1.5 Mini (cost-optimized, sub-120 ms first-token). Provides
-    synchronous synthesis, server-streamed synthesis, and a streaming WebSocket interface with instant +
-    professional voice cloning, voice design from text prompts, custom pronunciation, pause controls,
-    word/character/phoneme alignment for lipsync, and zero-data-retention plus on-premise deployment options.
-- aid: inworld-ai:inworld-voice-api
-  name: Inworld Voice API
-  tags:
-  - AI
-  - Artificial Intelligence
-  - Voice
-  - Voice Cloning
-  - Voice Design
-  humanURL: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/list-voices
-  properties:
-  - url: https://docs.inworld.ai/tts/voice-cloning
-    type: Documentation
-  - url: https://docs.inworld.ai/tts/voice-design
-    type: Documentation
-  - url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/clone-voice
-    type: Documentation
-  - url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/design-voice
-    type: Documentation
-  - url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/publish-voice
-    type: Documentation
-  - url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/list-voices
-    type: Documentation
-  - url: openapi/inworld-voice-api-openapi.yml
-    type: OpenAPI
-  description: >-
-    Inworld Voice API — manage custom voices used by the TTS and Realtime APIs. Clone voices from short audio
-    samples (instant voice cloning) or design voices from natural-language descriptions plus optional
-    reference audio. Lists, gets, updates, and deletes voices, and exposes a publish endpoint for sharing
-    voices across a workspace.
-- aid: inworld-ai:inworld-stt-api
-  name: Inworld STT API
-  tags:
-  - AI
-  - Artificial Intelligence
-  - Speech To Text
-  - Transcription
-  - Voice
-  humanURL: https://docs.inworld.ai/stt/overview
-  properties:
-  - url: https://docs.inworld.ai/stt/overview
-    type: Documentation
-  - url: https://docs.inworld.ai/stt/quickstart
-    type: GettingStarted
-  - url: https://docs.inworld.ai/api-reference/sttAPI/speechtotext/transcribe
-    type: Documentation
-  - url: https://docs.inworld.ai/api-reference/sttAPI/speechtotext/transcribe-stream-websocket
-    type: Documentation
-  - url: https://docs.inworld.ai/stt/voice-profiles
-    type: Documentation
-  - url: openapi/inworld-stt-api-openapi.yml
-    type: OpenAPI
-  - url: asyncapi/inworld-ai-asyncapi.yml
-    type: AsyncAPI
-  description: >-
-    Inworld STT — speech-to-text transcription API with synchronous transcribe and a streaming WebSocket
-    endpoint. Multi-provider routing (currently Whisper variants via Groq) with 99+ language support, word
-    timestamps, voice profiling, prompt biasing for domain-specific vocabulary, and configurable end-of-turn
-    detection for low-latency conversational agents.
-- aid: inworld-ai:inworld-realtime-api
-  name: Inworld Realtime API
-  tags:
-  - AI
-  - Artificial Intelligence
-  - Realtime
-  - Voice
-  - WebSocket
-  - WebRTC
-  humanURL: https://docs.inworld.ai/realtime/overview
-  properties:
-  - url: https://docs.inworld.ai/realtime/overview
-    type: Documentation
-  - url: https://docs.inworld.ai/realtime/quickstart-websocket
-    type: GettingStarted
-  - url: https://docs.inworld.ai/realtime/quickstart-webrtc
-    type: GettingStarted
-  - url: https://docs.inworld.ai/api-reference/realtimeAPI/realtime/realtime-websocket
-    type: Documentation
-  - url: https://docs.inworld.ai/api-reference/realtimeAPI/realtime/realtime-webrtc
-    type: Documentation
-  - url: https://docs.inworld.ai/realtime/openai-migration
-    type: Documentation
-  - url: https://docs.inworld.ai/realtime/usage/twilio
-    type: Documentation
-  - url: openapi/inworld-realtime-api-openapi.yml
-    type: OpenAPI
-  - url: asyncapi/inworld-ai-asyncapi.yml
-    type: AsyncAPI
-  description: >-
-    Inworld Realtime — end-to-end speech-to-speech voice pipeline (STT + LLM + TTS) exposed over WebSocket
-    and WebRTC. OpenAI-Realtime-API-compatible event protocol (session.update, input_audio_buffer.append,
-    response.create, etc.) so existing OpenAI Realtime clients can swap base URLs. Includes server-side and
-    semantic VAD, function/tool calling, MCP server tunneling, Twilio media-stream integration, and JWT-based
-    session authentication.
 - aid: inworld-ai:inworld-router-api
   name: Inworld LLM Router API
   tags:
@@ -179,27 +45,336 @@ apis:
   - url: json-schema/inworld-router-chat-completion-schema.json
     type: JSONSchema
   description: >-
-    Inworld LLM Router — OpenAI-and-Anthropic-compatible chat-completions endpoint that routes prompts across
-    hundreds of provider models (OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, Groq, etc.). Reusable
-    named routers, conditional routing, provider routing, A/B traffic splitting, prompt compression, caching,
-    web search, and a Claude-Code-compatible mode let teams consolidate model spend behind one API.
-- aid: inworld-ai:inworld-models-api
-  name: Inworld Models API
+    Inworld LLM Router — OpenAI-and-Anthropic-compatible chat-completions endpoint that routes prompts
+    across hundreds of provider models (OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, Groq, etc.).
+    Reusable named routers, conditional routing, provider routing, A/B traffic splitting, prompt compression,
+    caching, web search, and a Claude-Code-compatible mode let teams consolidate model spend behind one
+    API.
+- aid: inworld-ai:inworld-ai-models-api
+  name: Inworld AI Models API
+  description: Discover available models.
+  humanURL: https://docs.inworld.ai/tts/tts
   tags:
-  - AI
-  - Artificial Intelligence
   - Models
-  - Discovery
-  humanURL: https://docs.inworld.ai/api-reference/modelsAPI/modelservice/list-models
   properties:
-  - url: https://docs.inworld.ai/api-reference/modelsAPI/modelservice/list-models
-    type: Documentation
-  - url: openapi/inworld-models-api-openapi.yml
-    type: OpenAPI
-  description: >-
-    Inworld Models API — list every model available across the Router (third-party LLMs) and Inworld
-    first-party TTS, STT, and Realtime endpoints. Returns provider, model id, capabilities (chat, vision,
-    tool use, etc.), and pricing tier metadata for runtime discovery.
+  - type: OpenAPI
+    url: openapi/inworld-ai-models-api-openapi.yml
+  - type: Documentation
+    url: https://docs.inworld.ai/tts/tts
+  - type: GettingStarted
+    url: https://docs.inworld.ai/quickstart-tts
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech-stream
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech-websocket
+  - type: Documentation
+    url: https://docs.inworld.ai/tts/voice-cloning
+  - type: Documentation
+    url: https://docs.inworld.ai/tts/voice-design
+  - type: Documentation
+    url: https://docs.inworld.ai/tts/on-premises
+  - type: AsyncAPI
+    url: asyncapi/inworld-ai-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/inworld-tts-synthesis-schema.json
+  - type: JSONLD
+    url: json-ld/inworld-ai-context.jsonld
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/clone-voice
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/design-voice
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/publish-voice
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/list-voices
+  - type: Documentation
+    url: https://docs.inworld.ai/stt/overview
+  - type: GettingStarted
+    url: https://docs.inworld.ai/stt/quickstart
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/sttAPI/speechtotext/transcribe
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/sttAPI/speechtotext/transcribe-stream-websocket
+  - type: Documentation
+    url: https://docs.inworld.ai/stt/voice-profiles
+  - type: Documentation
+    url: https://docs.inworld.ai/realtime/overview
+  - type: GettingStarted
+    url: https://docs.inworld.ai/realtime/quickstart-websocket
+  - type: GettingStarted
+    url: https://docs.inworld.ai/realtime/quickstart-webrtc
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/realtimeAPI/realtime/realtime-websocket
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/realtimeAPI/realtime/realtime-webrtc
+  - type: Documentation
+    url: https://docs.inworld.ai/realtime/openai-migration
+  - type: Documentation
+    url: https://docs.inworld.ai/realtime/usage/twilio
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/modelsAPI/modelservice/list-models
+- aid: inworld-ai:inworld-ai-realtime-api
+  name: Inworld AI Realtime API
+  description: Realtime speech-to-speech sessions.
+  humanURL: https://docs.inworld.ai/tts/tts
+  tags:
+  - Realtime
+  properties:
+  - type: OpenAPI
+    url: openapi/inworld-ai-realtime-api-openapi.yml
+  - type: Documentation
+    url: https://docs.inworld.ai/tts/tts
+  - type: GettingStarted
+    url: https://docs.inworld.ai/quickstart-tts
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech-stream
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech-websocket
+  - type: Documentation
+    url: https://docs.inworld.ai/tts/voice-cloning
+  - type: Documentation
+    url: https://docs.inworld.ai/tts/voice-design
+  - type: Documentation
+    url: https://docs.inworld.ai/tts/on-premises
+  - type: AsyncAPI
+    url: asyncapi/inworld-ai-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/inworld-tts-synthesis-schema.json
+  - type: JSONLD
+    url: json-ld/inworld-ai-context.jsonld
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/clone-voice
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/design-voice
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/publish-voice
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/list-voices
+  - type: Documentation
+    url: https://docs.inworld.ai/stt/overview
+  - type: GettingStarted
+    url: https://docs.inworld.ai/stt/quickstart
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/sttAPI/speechtotext/transcribe
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/sttAPI/speechtotext/transcribe-stream-websocket
+  - type: Documentation
+    url: https://docs.inworld.ai/stt/voice-profiles
+  - type: Documentation
+    url: https://docs.inworld.ai/realtime/overview
+  - type: GettingStarted
+    url: https://docs.inworld.ai/realtime/quickstart-websocket
+  - type: GettingStarted
+    url: https://docs.inworld.ai/realtime/quickstart-webrtc
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/realtimeAPI/realtime/realtime-websocket
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/realtimeAPI/realtime/realtime-webrtc
+  - type: Documentation
+    url: https://docs.inworld.ai/realtime/openai-migration
+  - type: Documentation
+    url: https://docs.inworld.ai/realtime/usage/twilio
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/modelsAPI/modelservice/list-models
+- aid: inworld-ai:inworld-ai-speech-to-text-api
+  name: Inworld AI Speech To Text API
+  description: Transcribe audio to text.
+  humanURL: https://docs.inworld.ai/tts/tts
+  tags:
+  - Speech To Text
+  properties:
+  - type: OpenAPI
+    url: openapi/inworld-ai-speech-to-text-api-openapi.yml
+  - type: Documentation
+    url: https://docs.inworld.ai/tts/tts
+  - type: GettingStarted
+    url: https://docs.inworld.ai/quickstart-tts
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech-stream
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech-websocket
+  - type: Documentation
+    url: https://docs.inworld.ai/tts/voice-cloning
+  - type: Documentation
+    url: https://docs.inworld.ai/tts/voice-design
+  - type: Documentation
+    url: https://docs.inworld.ai/tts/on-premises
+  - type: AsyncAPI
+    url: asyncapi/inworld-ai-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/inworld-tts-synthesis-schema.json
+  - type: JSONLD
+    url: json-ld/inworld-ai-context.jsonld
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/clone-voice
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/design-voice
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/publish-voice
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/list-voices
+  - type: Documentation
+    url: https://docs.inworld.ai/stt/overview
+  - type: GettingStarted
+    url: https://docs.inworld.ai/stt/quickstart
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/sttAPI/speechtotext/transcribe
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/sttAPI/speechtotext/transcribe-stream-websocket
+  - type: Documentation
+    url: https://docs.inworld.ai/stt/voice-profiles
+  - type: Documentation
+    url: https://docs.inworld.ai/realtime/overview
+  - type: GettingStarted
+    url: https://docs.inworld.ai/realtime/quickstart-websocket
+  - type: GettingStarted
+    url: https://docs.inworld.ai/realtime/quickstart-webrtc
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/realtimeAPI/realtime/realtime-websocket
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/realtimeAPI/realtime/realtime-webrtc
+  - type: Documentation
+    url: https://docs.inworld.ai/realtime/openai-migration
+  - type: Documentation
+    url: https://docs.inworld.ai/realtime/usage/twilio
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/modelsAPI/modelservice/list-models
+- aid: inworld-ai:inworld-ai-text-to-speech-api
+  name: Inworld AI Text To Speech API
+  description: Synthesize speech from text using Inworld voice models.
+  humanURL: https://docs.inworld.ai/tts/tts
+  tags:
+  - Text To Speech
+  properties:
+  - type: OpenAPI
+    url: openapi/inworld-ai-text-to-speech-api-openapi.yml
+  - type: Documentation
+    url: https://docs.inworld.ai/tts/tts
+  - type: GettingStarted
+    url: https://docs.inworld.ai/quickstart-tts
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech-stream
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech-websocket
+  - type: Documentation
+    url: https://docs.inworld.ai/tts/voice-cloning
+  - type: Documentation
+    url: https://docs.inworld.ai/tts/voice-design
+  - type: Documentation
+    url: https://docs.inworld.ai/tts/on-premises
+  - type: AsyncAPI
+    url: asyncapi/inworld-ai-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/inworld-tts-synthesis-schema.json
+  - type: JSONLD
+    url: json-ld/inworld-ai-context.jsonld
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/clone-voice
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/design-voice
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/publish-voice
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/list-voices
+  - type: Documentation
+    url: https://docs.inworld.ai/stt/overview
+  - type: GettingStarted
+    url: https://docs.inworld.ai/stt/quickstart
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/sttAPI/speechtotext/transcribe
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/sttAPI/speechtotext/transcribe-stream-websocket
+  - type: Documentation
+    url: https://docs.inworld.ai/stt/voice-profiles
+  - type: Documentation
+    url: https://docs.inworld.ai/realtime/overview
+  - type: GettingStarted
+    url: https://docs.inworld.ai/realtime/quickstart-websocket
+  - type: GettingStarted
+    url: https://docs.inworld.ai/realtime/quickstart-webrtc
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/realtimeAPI/realtime/realtime-websocket
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/realtimeAPI/realtime/realtime-webrtc
+  - type: Documentation
+    url: https://docs.inworld.ai/realtime/openai-migration
+  - type: Documentation
+    url: https://docs.inworld.ai/realtime/usage/twilio
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/modelsAPI/modelservice/list-models
+- aid: inworld-ai:inworld-ai-voices-api
+  name: Inworld AI Voices API
+  description: Voice cloning, design, and lifecycle.
+  humanURL: https://docs.inworld.ai/tts/tts
+  tags:
+  - Voices
+  properties:
+  - type: OpenAPI
+    url: openapi/inworld-ai-voices-api-openapi.yml
+  - type: Documentation
+    url: https://docs.inworld.ai/tts/tts
+  - type: GettingStarted
+    url: https://docs.inworld.ai/quickstart-tts
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech-stream
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech-websocket
+  - type: Documentation
+    url: https://docs.inworld.ai/tts/voice-cloning
+  - type: Documentation
+    url: https://docs.inworld.ai/tts/voice-design
+  - type: Documentation
+    url: https://docs.inworld.ai/tts/on-premises
+  - type: AsyncAPI
+    url: asyncapi/inworld-ai-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/inworld-tts-synthesis-schema.json
+  - type: JSONLD
+    url: json-ld/inworld-ai-context.jsonld
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/clone-voice
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/design-voice
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/publish-voice
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/voiceAPI/voiceservice/list-voices
+  - type: Documentation
+    url: https://docs.inworld.ai/stt/overview
+  - type: GettingStarted
+    url: https://docs.inworld.ai/stt/quickstart
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/sttAPI/speechtotext/transcribe
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/sttAPI/speechtotext/transcribe-stream-websocket
+  - type: Documentation
+    url: https://docs.inworld.ai/stt/voice-profiles
+  - type: Documentation
+    url: https://docs.inworld.ai/realtime/overview
+  - type: GettingStarted
+    url: https://docs.inworld.ai/realtime/quickstart-websocket
+  - type: GettingStarted
+    url: https://docs.inworld.ai/realtime/quickstart-webrtc
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/realtimeAPI/realtime/realtime-websocket
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/realtimeAPI/realtime/realtime-webrtc
+  - type: Documentation
+    url: https://docs.inworld.ai/realtime/openai-migration
+  - type: Documentation
+    url: https://docs.inworld.ai/realtime/usage/twilio
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/modelsAPI/modelservice/list-models
 tags:
 - AI
 - Artificial Intelligence
@@ -212,9 +387,24 @@ tags:
 - Conversational AI
 - Game AI
 kind: contract
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/inworld-ai.png
 access: 3rd-Party
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/inworld-ai/overview
 - type: AgenticAccess
   url: agentic-access/inworld-ai-agentic-access.yml
 - type: TrustCenter
