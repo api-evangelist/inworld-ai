@@ -1,0 +1,24 @@
+{
+  "provider": "inworld-ai",
+  "sources": [
+    "inworld-ai-models-api-openapi.yml",
+    "inworld-ai-realtime-api-openapi.yml",
+    "inworld-ai-speech-to-text-api-openapi.yml",
+    "inworld-ai-text-to-speech-api-openapi.yml",
+    "inworld-ai-voices-api-openapi.yml"
+  ],
+  "outputs": [
+    "inworld-ai-models-api-openapi.yml",
+    "inworld-ai-realtime-api-openapi.yml",
+    "inworld-ai-speech-to-text-api-openapi.yml",
+    "inworld-ai-text-to-speech-api-openapi.yml",
+    "inworld-ai-voices-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": [
+    "inworld-router-api-openapi.yml: parse error ScannerError: mapping values are not allowed here"
+  ]
+}

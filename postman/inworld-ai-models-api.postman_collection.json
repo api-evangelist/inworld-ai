@@ -1,0 +1,171 @@
+{
+  "info": {
+    "_postman_id": "c89c14b1-830a-460c-859f-7cb3e9a6cedc",
+    "name": "Inworld Models API",
+    "description": "List every model available behind the Inworld platform \u2014 first-party TTS, STT, and Realtime models plus all third-party LLMs reachable through the LLM Router. Returns provider, model id, capabilities (chat, vision, tool use, speech, streaming), and pricing tier metadata for runtime discovery.\n\n\nContact Support:\n Name: Inworld Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T10:56:14.000Z",
+    "updatedAt": "2026-07-28T10:56:14.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c89c14b1-830a-460c-859f-7cb3e9a6cedc"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "models",
+          "item": [
+            {
+              "name": "List Models",
+              "id": "bfcdcec7-03e2-4b32-8453-3ac62c356b6c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/models",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "models"
+                  ]
+                },
+                "description": "List models exposed by Inworld and the Router."
+              },
+              "response": [
+                {
+                  "id": "546b0da0-f80e-4dcc-b2d7-898979b751f2",
+                  "name": "Models returned.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/models",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "models"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"object\": \"model\",\n      \"provider\": \"<string>\",\n      \"family\": \"<string>\",\n      \"capabilities\": [\n        \"vision\",\n        \"chat\"\n      ],\n      \"contextWindow\": \"<integer>\",\n      \"maxOutputTokens\": \"<integer>\",\n      \"pricing\": {\n        \"inputPricePer1M\": \"<number>\",\n        \"outputPricePer1M\": \"<number>\",\n        \"currency\": \"USD\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"object\": \"model\",\n      \"provider\": \"<string>\",\n      \"family\": \"<string>\",\n      \"capabilities\": [\n        \"realtime\",\n        \"streaming\"\n      ],\n      \"contextWindow\": \"<integer>\",\n      \"maxOutputTokens\": \"<integer>\",\n      \"pricing\": {\n        \"inputPricePer1M\": \"<number>\",\n        \"outputPricePer1M\": \"<number>\",\n        \"currency\": \"USD\"\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T10:56:15.000Z",
+                  "updatedAt": "2026-07-28T10:56:15.000Z",
+                  "uid": "35240-546b0da0-f80e-4dcc-b2d7-898979b751f2"
+                },
+                {
+                  "id": "837d59ed-afee-4e77-ab95-28b5c1adf8f5",
+                  "name": "Error response.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/models",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "models"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T10:56:15.000Z",
+                  "updatedAt": "2026-07-28T10:56:15.000Z",
+                  "uid": "35240-837d59ed-afee-4e77-ab95-28b5c1adf8f5"
+                }
+              ],
+              "createdAt": "2026-07-28T10:56:15.000Z",
+              "updatedAt": "2026-07-28T10:56:15.000Z",
+              "uid": "35240-bfcdcec7-03e2-4b32-8453-3ac62c356b6c"
+            }
+          ],
+          "id": "87d27db5-f263-4a2c-b128-ab7a02f7b1e0",
+          "createdAt": "2026-07-28T10:56:15.000Z",
+          "updatedAt": "2026-07-28T10:56:15.000Z",
+          "uid": "35240-87d27db5-f263-4a2c-b128-ab7a02f7b1e0"
+        }
+      ],
+      "id": "6f6b43b5-eebe-4ba9-8b55-8c38365746e2",
+      "createdAt": "2026-07-28T10:56:15.000Z",
+      "updatedAt": "2026-07-28T10:56:15.000Z",
+      "uid": "35240-6f6b43b5-eebe-4ba9-8b55-8c38365746e2"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.inworld.ai"
+    }
+  ]
+}

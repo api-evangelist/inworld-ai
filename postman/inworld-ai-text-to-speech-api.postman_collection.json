@@ -1,0 +1,620 @@
+{
+  "info": {
+    "_postman_id": "28128331-6b56-433b-8d79-2d295c5eb19f",
+    "name": "Inworld Models Text To Speech API",
+    "description": "List every model available behind the Inworld platform \u2014 first-party TTS, STT, and Realtime models plus all third-party LLMs reachable through the LLM Router. Returns provider, model id, capabilities (chat, vision, tool use, speech, streaming), and pricing tier metadata for runtime discovery.\n\n\nContact Support:\n Name: Inworld Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T10:56:32.000Z",
+    "updatedAt": "2026-07-28T10:56:32.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-28128331-6b56-433b-8d79-2d295c5eb19f"
+  },
+  "item": [
+    {
+      "name": "tts",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "voice",
+              "item": [
+                {
+                  "name": "Synthesize Speech",
+                  "id": "7503df09-de1b-4ba5-b345-b02dd577362e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"text\": \"<string>\",\n  \"voiceId\": \"<string>\",\n  \"modelId\": \"inworld-tts-2\",\n  \"audioConfig\": {\n    \"audioEncoding\": \"ALAW\",\n    \"sampleRateHertz\": 48000,\n    \"bitRate\": 128000,\n    \"speakingRate\": 1\n  },\n  \"language\": \"<string>\",\n  \"deliveryMode\": \"BALANCED\",\n  \"temperature\": 1,\n  \"timestampType\": \"WORD\",\n  \"applyTextNormalization\": \"true\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/tts/v1/voice",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tts",
+                        "v1",
+                        "voice"
+                      ]
+                    },
+                    "description": "Synthesize a single audio response from text. Returns base64-encoded audio plus optional word/character/phoneme alignment metadata. Maximum 2,000 input characters per request and 16 MB output audio.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "c5bd2a0c-39f1-472e-9097-36b2682267e1",
+                      "name": "Synthesized audio returned successfully.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"text\": \"<string>\",\n  \"voiceId\": \"<string>\",\n  \"modelId\": \"inworld-tts-2\",\n  \"audioConfig\": {\n    \"audioEncoding\": \"ALAW\",\n    \"sampleRateHertz\": 48000,\n    \"bitRate\": 128000,\n    \"speakingRate\": 1\n  },\n  \"language\": \"<string>\",\n  \"deliveryMode\": \"BALANCED\",\n  \"temperature\": 1,\n  \"timestampType\": \"WORD\",\n  \"applyTextNormalization\": \"true\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/tts/v1/voice",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tts",
+                            "v1",
+                            "voice"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"audioContent\": \"<string>\",\n  \"usage\": {\n    \"processedCharactersCount\": \"<integer>\",\n    \"modelId\": \"<string>\"\n  },\n  \"timestampInfo\": {\n    \"wordAlignment\": {\n      \"words\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"wordStartTimeSeconds\": [\n        \"<number>\",\n        \"<number>\"\n      ],\n      \"wordEndTimeSeconds\": [\n        \"<number>\",\n        \"<number>\"\n      ],\n      \"phoneticDetails\": [\n        {\n          \"wordIndex\": \"<integer>\",\n          \"phones\": [\n            {\n              \"phoneSymbol\": \"<string>\",\n              \"startTimeSeconds\": \"<number>\",\n              \"durationSeconds\": \"<number>\",\n              \"visemeSymbol\": \"<string>\"\n            },\n            {\n              \"phoneSymbol\": \"<string>\",\n              \"startTimeSeconds\": \"<number>\",\n              \"durationSeconds\": \"<number>\",\n              \"visemeSymbol\": \"<string>\"\n            }\n          ],\n          \"isPartial\": \"<boolean>\"\n        },\n        {\n          \"wordIndex\": \"<integer>\",\n          \"phones\": [\n            {\n              \"phoneSymbol\": \"<string>\",\n              \"startTimeSeconds\": \"<number>\",\n              \"durationSeconds\": \"<number>\",\n              \"visemeSymbol\": \"<string>\"\n            },\n            {\n              \"phoneSymbol\": \"<string>\",\n              \"startTimeSeconds\": \"<number>\",\n              \"durationSeconds\": \"<number>\",\n              \"visemeSymbol\": \"<string>\"\n            }\n          ],\n          \"isPartial\": \"<boolean>\"\n        }\n      ]\n    },\n    \"characterAlignment\": {\n      \"characters\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"characterStartTimeSeconds\": [\n        \"<number>\",\n        \"<number>\"\n      ],\n      \"characterEndTimeSeconds\": [\n        \"<number>\",\n        \"<number>\"\n      ]\n    }\n  }\n}",
+                      "createdAt": "2026-07-28T10:56:33.000Z",
+                      "updatedAt": "2026-07-28T10:56:33.000Z",
+                      "uid": "35240-c5bd2a0c-39f1-472e-9097-36b2682267e1"
+                    },
+                    {
+                      "id": "154fb21a-35f8-44bb-ba5f-ff749ecc6a3b",
+                      "name": "Error response.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"text\": \"<string>\",\n  \"voiceId\": \"<string>\",\n  \"modelId\": \"inworld-tts-2\",\n  \"audioConfig\": {\n    \"audioEncoding\": \"ALAW\",\n    \"sampleRateHertz\": 48000,\n    \"bitRate\": 128000,\n    \"speakingRate\": 1\n  },\n  \"language\": \"<string>\",\n  \"deliveryMode\": \"BALANCED\",\n  \"temperature\": 1,\n  \"timestampType\": \"WORD\",\n  \"applyTextNormalization\": \"true\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/tts/v1/voice",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tts",
+                            "v1",
+                            "voice"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T10:56:33.000Z",
+                      "updatedAt": "2026-07-28T10:56:33.000Z",
+                      "uid": "35240-154fb21a-35f8-44bb-ba5f-ff749ecc6a3b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T10:56:33.000Z",
+                  "updatedAt": "2026-07-28T10:56:33.000Z",
+                  "uid": "35240-7503df09-de1b-4ba5-b345-b02dd577362e"
+                }
+              ],
+              "id": "92d8efe7-b99d-4715-9743-33164e99770c",
+              "createdAt": "2026-07-28T10:56:33.000Z",
+              "updatedAt": "2026-07-28T10:56:33.000Z",
+              "uid": "35240-92d8efe7-b99d-4715-9743-33164e99770c"
+            },
+            {
+              "name": "voice:stream",
+              "item": [
+                {
+                  "name": "Stream Synthesize Speech",
+                  "id": "8d9997eb-e2ca-4c1f-ba67-ed7cf112a43d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"text\": \"<string>\",\n  \"voiceId\": \"<string>\",\n  \"modelId\": \"inworld-tts-2\",\n  \"audioConfig\": {\n    \"audioEncoding\": \"ALAW\",\n    \"sampleRateHertz\": 48000,\n    \"bitRate\": 128000,\n    \"speakingRate\": 1\n  },\n  \"language\": \"<string>\",\n  \"deliveryMode\": \"BALANCED\",\n  \"temperature\": 1,\n  \"timestampType\": \"WORD\",\n  \"applyTextNormalization\": \"true\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/tts/v1/voice:stream",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tts",
+                        "v1",
+                        "voice:stream"
+                      ]
+                    },
+                    "description": "Stream synthesis. The response is a chunked sequence of JSON envelopes, each containing a base64 audio fragment. Use for low-latency playback of long-form text.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "c02083e2-dc72-43ff-8d3c-8802368edeb9",
+                      "name": "Streamed audio chunks.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"text\": \"<string>\",\n  \"voiceId\": \"<string>\",\n  \"modelId\": \"inworld-tts-2\",\n  \"audioConfig\": {\n    \"audioEncoding\": \"ALAW\",\n    \"sampleRateHertz\": 48000,\n    \"bitRate\": 128000,\n    \"speakingRate\": 1\n  },\n  \"language\": \"<string>\",\n  \"deliveryMode\": \"BALANCED\",\n  \"temperature\": 1,\n  \"timestampType\": \"WORD\",\n  \"applyTextNormalization\": \"true\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/tts/v1/voice:stream",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tts",
+                            "v1",
+                            "voice:stream"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"audioContent\": \"<string>\",\n  \"timestampInfo\": {\n    \"wordAlignment\": {\n      \"words\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"wordStartTimeSeconds\": [\n        \"<number>\",\n        \"<number>\"\n      ],\n      \"wordEndTimeSeconds\": [\n        \"<number>\",\n        \"<number>\"\n      ],\n      \"phoneticDetails\": [\n        {\n          \"wordIndex\": \"<integer>\",\n          \"phones\": [\n            {\n              \"phoneSymbol\": \"<string>\",\n              \"startTimeSeconds\": \"<number>\",\n              \"durationSeconds\": \"<number>\",\n              \"visemeSymbol\": \"<string>\"\n            },\n            {\n              \"phoneSymbol\": \"<string>\",\n              \"startTimeSeconds\": \"<number>\",\n              \"durationSeconds\": \"<number>\",\n              \"visemeSymbol\": \"<string>\"\n            }\n          ],\n          \"isPartial\": \"<boolean>\"\n        },\n        {\n          \"wordIndex\": \"<integer>\",\n          \"phones\": [\n            {\n              \"phoneSymbol\": \"<string>\",\n              \"startTimeSeconds\": \"<number>\",\n              \"durationSeconds\": \"<number>\",\n              \"visemeSymbol\": \"<string>\"\n            },\n            {\n              \"phoneSymbol\": \"<string>\",\n              \"startTimeSeconds\": \"<number>\",\n              \"durationSeconds\": \"<number>\",\n              \"visemeSymbol\": \"<string>\"\n            }\n          ],\n          \"isPartial\": \"<boolean>\"\n        }\n      ]\n    },\n    \"characterAlignment\": {\n      \"characters\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"characterStartTimeSeconds\": [\n        \"<number>\",\n        \"<number>\"\n      ],\n      \"characterEndTimeSeconds\": [\n        \"<number>\",\n        \"<number>\"\n      ]\n    }\n  },\n  \"usage\": {\n    \"processedCharactersCount\": \"<integer>\",\n    \"modelId\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T10:56:33.000Z",
+                      "updatedAt": "2026-07-28T10:56:33.000Z",
+                      "uid": "35240-c02083e2-dc72-43ff-8d3c-8802368edeb9"
+                    },
+                    {
+                      "id": "7eb74635-4c4f-4595-a633-8f6555c4e9be",
+                      "name": "Error response.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"text\": \"<string>\",\n  \"voiceId\": \"<string>\",\n  \"modelId\": \"inworld-tts-2\",\n  \"audioConfig\": {\n    \"audioEncoding\": \"ALAW\",\n    \"sampleRateHertz\": 48000,\n    \"bitRate\": 128000,\n    \"speakingRate\": 1\n  },\n  \"language\": \"<string>\",\n  \"deliveryMode\": \"BALANCED\",\n  \"temperature\": 1,\n  \"timestampType\": \"WORD\",\n  \"applyTextNormalization\": \"true\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/tts/v1/voice:stream",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tts",
+                            "v1",
+                            "voice:stream"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T10:56:33.000Z",
+                      "updatedAt": "2026-07-28T10:56:33.000Z",
+                      "uid": "35240-7eb74635-4c4f-4595-a633-8f6555c4e9be"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T10:56:33.000Z",
+                  "updatedAt": "2026-07-28T10:56:33.000Z",
+                  "uid": "35240-8d9997eb-e2ca-4c1f-ba67-ed7cf112a43d"
+                }
+              ],
+              "id": "ea856763-2d15-43fc-a5af-7632a89276d1",
+              "createdAt": "2026-07-28T10:56:33.000Z",
+              "updatedAt": "2026-07-28T10:56:33.000Z",
+              "uid": "35240-ea856763-2d15-43fc-a5af-7632a89276d1"
+            },
+            {
+              "name": "voice:websocket",
+              "item": [
+                {
+                  "name": "WebSocket Synthesize Speech",
+                  "id": "a25de0ad-6d92-4822-9579-0250a9eac435",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/tts/v1/voice:websocket",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tts",
+                        "v1",
+                        "voice:websocket"
+                      ]
+                    },
+                    "description": "Upgrade to a WebSocket connection for bidirectional streaming synthesis. Clients send `SynthesizeRequest` frames and receive chunked audio frames with timestamp metadata. Auth via `Authorization: Basic` header on the upgrade request.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "a971c750-decd-4219-aa3a-0b41337ab48e",
+                      "name": "Switching protocols to WebSocket.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tts/v1/voice:websocket",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tts",
+                            "v1",
+                            "voice:websocket"
+                          ]
+                        }
+                      },
+                      "status": "Switching Protocols",
+                      "code": 101,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T10:56:33.000Z",
+                      "updatedAt": "2026-07-28T10:56:33.000Z",
+                      "uid": "35240-a971c750-decd-4219-aa3a-0b41337ab48e"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T10:56:33.000Z",
+                  "updatedAt": "2026-07-28T10:56:33.000Z",
+                  "uid": "35240-a25de0ad-6d92-4822-9579-0250a9eac435"
+                }
+              ],
+              "id": "17e6764b-1784-49db-af43-afbfa165ebe5",
+              "createdAt": "2026-07-28T10:56:33.000Z",
+              "updatedAt": "2026-07-28T10:56:33.000Z",
+              "uid": "35240-17e6764b-1784-49db-af43-afbfa165ebe5"
+            },
+            {
+              "name": "voices",
+              "item": [
+                {
+                  "name": "List TTS Voices",
+                  "id": "856b8bec-e5b7-472c-9422-d9eb8d992f45",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tts/v1/voices?filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tts",
+                        "v1",
+                        "voices"
+                      ],
+                      "query": [
+                        {
+                          "description": "Optional filter expression (e.g. by tag, language, gender).",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "List voices available for synthesis. Includes Inworld-shipped voices and any custom-cloned or designed voices in the caller's workspace.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "0f9d5fe2-0792-4a92-ad68-ab502c5a560d",
+                      "name": "Voices returned successfully.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tts/v1/voices?filter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tts",
+                            "v1",
+                            "voices"
+                          ],
+                          "query": [
+                            {
+                              "description": "Optional filter expression (e.g. by tag, language, gender).",
+                              "key": "filter",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"voices\": [\n    {\n      \"voiceId\": \"<string>\",\n      \"displayName\": \"<string>\",\n      \"languages\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"gender\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"source\": \"DESIGN\"\n    },\n    {\n      \"voiceId\": \"<string>\",\n      \"displayName\": \"<string>\",\n      \"languages\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"gender\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"source\": \"DESIGN\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T10:56:33.000Z",
+                      "updatedAt": "2026-07-28T10:56:33.000Z",
+                      "uid": "35240-0f9d5fe2-0792-4a92-ad68-ab502c5a560d"
+                    },
+                    {
+                      "id": "21874df6-daf4-43ee-8236-c6663f3d8e56",
+                      "name": "Error response.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tts/v1/voices?filter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tts",
+                            "v1",
+                            "voices"
+                          ],
+                          "query": [
+                            {
+                              "description": "Optional filter expression (e.g. by tag, language, gender).",
+                              "key": "filter",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T10:56:33.000Z",
+                      "updatedAt": "2026-07-28T10:56:33.000Z",
+                      "uid": "35240-21874df6-daf4-43ee-8236-c6663f3d8e56"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T10:56:33.000Z",
+                  "updatedAt": "2026-07-28T10:56:33.000Z",
+                  "uid": "35240-856b8bec-e5b7-472c-9422-d9eb8d992f45"
+                }
+              ],
+              "id": "512a8aa7-b37d-4167-859a-b00fc11fc3f5",
+              "createdAt": "2026-07-28T10:56:33.000Z",
+              "updatedAt": "2026-07-28T10:56:33.000Z",
+              "uid": "35240-512a8aa7-b37d-4167-859a-b00fc11fc3f5"
+            }
+          ],
+          "id": "257afbc9-eede-4ebe-b9a4-15c013d37204",
+          "createdAt": "2026-07-28T10:56:33.000Z",
+          "updatedAt": "2026-07-28T10:56:33.000Z",
+          "uid": "35240-257afbc9-eede-4ebe-b9a4-15c013d37204"
+        }
+      ],
+      "id": "d2e5bd93-afd6-4212-8dd4-4c2bd2bc08e2",
+      "createdAt": "2026-07-28T10:56:33.000Z",
+      "updatedAt": "2026-07-28T10:56:33.000Z",
+      "uid": "35240-d2e5bd93-afd6-4212-8dd4-4c2bd2bc08e2"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.inworld.ai"
+    }
+  ]
+}

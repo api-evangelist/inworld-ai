@@ -1,0 +1,343 @@
+openapi: 3.1.0
+info:
+  title: Inworld TTS API
+  description: >
+    Inworld Text-to-Speech API. Synchronous synthesis (returns base64 audio in one
+    response), server-streamed synthesis (chunked audio for low-latency playback),
+    and WebSocket-based bidirectional streaming synthesis. Backed by the Realtime
+    TTS-2, Realtime TTS 1.5 Max, and Realtime TTS 1.5 Mini models with word- and
+    character-level alignment, phoneme/viseme metadata for lipsync, custom
+    pronunciation, pause controls, voice tags, and long-text input.
+  version: v1
+  contact:
+    name: Inworld Support
+    url: https://docs.inworld.ai/tts/resources/support
+  license:
+    name: Inworld Terms of Service
+    url: https://inworld.ai/legal/terms-of-service
+servers:
+  - url: https://api.inworld.ai
+    description: Inworld Production API
+security:
+  - BasicAuth: []
+tags:
+  - name: Text To Speech
+    description: Synthesize speech from text using Inworld voice models.
+paths:
+  /tts/v1/voice:
+    post:
+      summary: Synthesize Speech
+      description: >
+        Synthesize a single audio response from text. Returns base64-encoded audio
+        plus optional word/character/phoneme alignment metadata. Maximum 2,000 input
+        characters per request and 16 MB output audio.
+      operationId: synthesizeSpeech
+      tags:
+        - Text To Speech
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SynthesizeRequest'
+            examples:
+              Default:
+                $ref: '#/components/examples/SynthesizeExample'
+      responses:
+        '200':
+          description: Synthesized audio returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SynthesizeResponse'
+        '4XX':
+          $ref: '#/components/responses/ErrorResponse'
+  /tts/v1/voice:stream:
+    post:
+      summary: Stream Synthesize Speech
+      description: >
+        Stream synthesis. The response is a chunked sequence of JSON envelopes,
+        each containing a base64 audio fragment. Use for low-latency playback of
+        long-form text.
+      operationId: streamSynthesizeSpeech
+      tags:
+        - Text To Speech
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SynthesizeRequest'
+      responses:
+        '200':
+          description: Streamed audio chunks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SynthesizeStreamChunk'
+        '4XX':
+          $ref: '#/components/responses/ErrorResponse'
+  /tts/v1/voice:websocket:
+    get:
+      summary: WebSocket Synthesize Speech
+      description: >
+        Upgrade to a WebSocket connection for bidirectional streaming synthesis.
+        Clients send `SynthesizeRequest` frames and receive chunked audio frames
+        with timestamp metadata. Auth via `Authorization: Basic` header on the
+        upgrade request.
+      operationId: websocketSynthesizeSpeech
+      tags:
+        - Text To Speech
+      responses:
+        '101':
+          description: Switching protocols to WebSocket.
+  /tts/v1/voices:
+    get:
+      summary: List TTS Voices
+      description: >
+        List voices available for synthesis. Includes Inworld-shipped voices and
+        any custom-cloned or designed voices in the caller's workspace.
+      operationId: listTtsVoices
+      tags:
+        - Text To Speech
+      parameters:
+        - name: filter
+          in: query
+          required: false
+          description: Optional filter expression (e.g. by tag, language, gender).
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Voices returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListVoicesResponse'
+        '4XX':
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: >
+        Inworld API key. The Inworld portal issues a value already pre-encoded as
+        `base64(apiKey:)` — send it as `Authorization: Basic <api-key>`.
+  schemas:
+    SynthesizeRequest:
+      type: object
+      required:
+        - text
+        - voiceId
+        - modelId
+        - audioConfig
+      properties:
+        text:
+          type: string
+          maxLength: 2000
+          description: Text to synthesize. Maximum 2,000 characters per request.
+        voiceId:
+          type: string
+          description: Voice identifier (shipped voice name or custom voice id).
+        modelId:
+          type: string
+          description: Inworld TTS model id.
+          enum:
+            - inworld-tts-2
+            - inworld-tts-1.5-max
+            - inworld-tts-1.5-mini
+        audioConfig:
+          $ref: '#/components/schemas/AudioConfig'
+        language:
+          type: string
+          description: BCP-47 language tag (e.g. `en-US`).
+        deliveryMode:
+          type: string
+          description: TTS-2 only. Controls stability vs. expressiveness.
+          enum: [STABLE, BALANCED, CREATIVE]
+          default: BALANCED
+        temperature:
+          type: number
+          minimum: 0
+          maximum: 2
+          default: 1.0
+          description: Randomness. Ignored on TTS-2.
+        timestampType:
+          type: string
+          enum: [WORD, CHARACTER]
+          description: If set, return alignment metadata of the requested granularity.
+        applyTextNormalization:
+          type: string
+          enum: [ON, OFF]
+          description: Normalize numbers, dates, abbreviations, etc. before synthesis.
+    AudioConfig:
+      type: object
+      required:
+        - audioEncoding
+      properties:
+        audioEncoding:
+          type: string
+          enum: [LINEAR16, MP3, OGG_OPUS, ALAW, MULAW, FLAC, PCM, WAV]
+        sampleRateHertz:
+          type: integer
+          minimum: 8000
+          maximum: 48000
+          default: 48000
+        bitRate:
+          type: integer
+          default: 128000
+          description: Bits per second. Compressed formats only.
+        speakingRate:
+          type: number
+          minimum: 0.5
+          maximum: 1.5
+          default: 1.0
+    SynthesizeResponse:
+      type: object
+      properties:
+        audioContent:
+          type: string
+          format: byte
+          description: Base64-encoded audio bytes.
+        usage:
+          $ref: '#/components/schemas/SynthesisUsage'
+        timestampInfo:
+          $ref: '#/components/schemas/TimestampInfo'
+    SynthesizeStreamChunk:
+      type: object
+      properties:
+        audioContent:
+          type: string
+          format: byte
+        timestampInfo:
+          $ref: '#/components/schemas/TimestampInfo'
+        usage:
+          $ref: '#/components/schemas/SynthesisUsage'
+    SynthesisUsage:
+      type: object
+      properties:
+        processedCharactersCount:
+          type: integer
+        modelId:
+          type: string
+    TimestampInfo:
+      type: object
+      properties:
+        wordAlignment:
+          $ref: '#/components/schemas/WordAlignment'
+        characterAlignment:
+          $ref: '#/components/schemas/CharacterAlignment'
+    WordAlignment:
+      type: object
+      properties:
+        words:
+          type: array
+          items:
+            type: string
+        wordStartTimeSeconds:
+          type: array
+          items:
+            type: number
+        wordEndTimeSeconds:
+          type: array
+          items:
+            type: number
+        phoneticDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneticDetail'
+    PhoneticDetail:
+      type: object
+      properties:
+        wordIndex:
+          type: integer
+        phones:
+          type: array
+          items:
+            type: object
+            properties:
+              phoneSymbol:
+                type: string
+                description: IPA phone symbol.
+              startTimeSeconds:
+                type: number
+              durationSeconds:
+                type: number
+              visemeSymbol:
+                type: string
+                description: Viseme label for lipsync.
+        isPartial:
+          type: boolean
+    CharacterAlignment:
+      type: object
+      properties:
+        characters:
+          type: array
+          items:
+            type: string
+        characterStartTimeSeconds:
+          type: array
+          items:
+            type: number
+        characterEndTimeSeconds:
+          type: array
+          items:
+            type: number
+    ListVoicesResponse:
+      type: object
+      properties:
+        voices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Voice'
+    Voice:
+      type: object
+      properties:
+        voiceId:
+          type: string
+        displayName:
+          type: string
+        languages:
+          type: array
+          items:
+            type: string
+        gender:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        source:
+          type: string
+          enum: [INWORLD, IVC, DESIGN]
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: object
+  responses:
+    ErrorResponse:
+      description: Error response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  examples:
+    SynthesizeExample:
+      summary: Basic synthesis with LINEAR16
+      value:
+        text: "Hello, world! What a wonderful day to be a text-to-speech model."
+        voiceId: Dennis
+        modelId: inworld-tts-2
+        audioConfig:
+          audioEncoding: LINEAR16
+          sampleRateHertz: 22050
+        deliveryMode: BALANCED
+        applyTextNormalization: ON

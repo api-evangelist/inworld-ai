@@ -1,0 +1,178 @@
+openapi: 3.1.0
+info:
+  title: Inworld STT API
+  description: >
+    Inworld Speech-to-Text. Synchronous transcription and a streaming WebSocket
+    endpoint. Multi-provider routing (provider/model id, e.g. `groq/whisper-large-v3`),
+    99+ languages, word timestamps, contextual prompts, end-of-turn detection, and
+    voice-profile-aware transcription for conversational agents.
+  version: v1
+  contact:
+    name: Inworld Support
+    url: https://docs.inworld.ai/tts/resources/support
+  license:
+    name: Inworld Terms of Service
+    url: https://inworld.ai/legal/terms-of-service
+servers:
+  - url: https://api.inworld.ai
+    description: Inworld Production API
+security:
+  - BasicAuth: []
+tags:
+  - name: Speech To Text
+    description: Transcribe audio to text.
+paths:
+  /stt/v1/transcribe:
+    post:
+      summary: Transcribe Audio
+      description: >
+        Transcribe a base64-encoded audio payload to text. Optionally returns word
+        timestamps and routes through the requested provider/model id.
+      operationId: transcribeAudio
+      tags: [Speech To Text]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranscribeRequest'
+            examples:
+              Default:
+                $ref: '#/components/examples/TranscribeExample'
+      responses:
+        '200':
+          description: Transcription returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranscribeResponse'
+        '4XX':
+          $ref: '#/components/responses/ErrorResponse'
+  /stt/v1/transcribe:stream:
+    get:
+      summary: Streaming Transcribe (WebSocket)
+      description: >
+        Upgrade to a WebSocket. Send PCM/Opus audio chunks and receive interim and
+        final transcripts with word timestamps. Auth via `Authorization: Basic` on
+        the upgrade.
+      operationId: streamTranscribe
+      tags: [Speech To Text]
+      responses:
+        '101':
+          description: Switching protocols to WebSocket.
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+  schemas:
+    TranscribeRequest:
+      type: object
+      required: [transcribeConfig, audioData]
+      properties:
+        transcribeConfig:
+          $ref: '#/components/schemas/TranscribeConfig'
+        audioData:
+          type: object
+          required: [content]
+          properties:
+            content:
+              type: string
+              format: byte
+              description: Base64-encoded audio in the configured encoding.
+    TranscribeConfig:
+      type: object
+      required: [modelId, audioEncoding]
+      properties:
+        modelId:
+          type: string
+          description: provider/model identifier, e.g. `groq/whisper-large-v3`.
+        audioEncoding:
+          type: string
+          enum: [LINEAR16, MP3, OGG_OPUS, FLAC, AUTO_DETECT]
+        language:
+          type: string
+          description: BCP-47 language tag.
+        sampleRateHertz:
+          type: integer
+          default: 16000
+        numberOfChannels:
+          type: integer
+          default: 1
+        inactivityTimeoutSeconds:
+          type: integer
+        endOfTurnConfidenceThreshold:
+          type: number
+          minimum: 0
+          maximum: 1
+          default: 0.5
+        prompts:
+          type: array
+          items:
+            type: string
+          description: Contextual hint strings to bias recognition.
+        includeWordTimestamps:
+          type: boolean
+        voiceProfileConfig:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+            profileId:
+              type: string
+    TranscribeResponse:
+      type: object
+      properties:
+        transcription:
+          type: object
+          properties:
+            transcript:
+              type: string
+            isFinal:
+              type: boolean
+            wordTimestamps:
+              type: array
+              items:
+                type: object
+                properties:
+                  word:
+                    type: string
+                  startTimeSeconds:
+                    type: number
+                  endTimeSeconds:
+                    type: number
+                  confidence:
+                    type: number
+        usage:
+          type: object
+          properties:
+            transcribedAudioMs:
+              type: integer
+            modelId:
+              type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+  responses:
+    ErrorResponse:
+      description: Error response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  examples:
+    TranscribeExample:
+      summary: Transcribe English audio via Whisper Large v3 on Groq.
+      value:
+        transcribeConfig:
+          modelId: groq/whisper-large-v3
+          audioEncoding: LINEAR16
+          language: en-US
+          sampleRateHertz: 16000
+          numberOfChannels: 1
+        audioData:
+          content: "<base64-encoded-audio>"

@@ -1,0 +1,297 @@
+{
+  "info": {
+    "_postman_id": "ab810c04-a01a-4a23-8b0e-ca9a641af41b",
+    "name": "Inworld Models Speech To Text API",
+    "description": "List every model available behind the Inworld platform \u2014 first-party TTS, STT, and Realtime models plus all third-party LLMs reachable through the LLM Router. Returns provider, model id, capabilities (chat, vision, tool use, speech, streaming), and pricing tier metadata for runtime discovery.\n\n\nContact Support:\n Name: Inworld Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T10:56:31.000Z",
+    "updatedAt": "2026-07-28T10:56:31.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ab810c04-a01a-4a23-8b0e-ca9a641af41b"
+  },
+  "item": [
+    {
+      "name": "stt",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "transcribe",
+              "item": [
+                {
+                  "name": "Transcribe Audio",
+                  "id": "4665c4d8-5da2-4d27-8325-2142a3f74495",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"transcribeConfig\": {\n    \"modelId\": \"<string>\",\n    \"audioEncoding\": \"FLAC\",\n    \"language\": \"<string>\",\n    \"sampleRateHertz\": 16000,\n    \"numberOfChannels\": 1,\n    \"inactivityTimeoutSeconds\": \"<integer>\",\n    \"endOfTurnConfidenceThreshold\": 0.5,\n    \"prompts\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"includeWordTimestamps\": \"<boolean>\",\n    \"voiceProfileConfig\": {\n      \"enabled\": \"<boolean>\",\n      \"profileId\": \"<string>\"\n    }\n  },\n  \"audioData\": {\n    \"content\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/stt/v1/transcribe",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "stt",
+                        "v1",
+                        "transcribe"
+                      ]
+                    },
+                    "description": "Transcribe a base64-encoded audio payload to text. Optionally returns word timestamps and routes through the requested provider/model id.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "127cc8c4-ae10-42e9-83db-501e770058a7",
+                      "name": "Transcription returned.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"transcribeConfig\": {\n    \"modelId\": \"<string>\",\n    \"audioEncoding\": \"FLAC\",\n    \"language\": \"<string>\",\n    \"sampleRateHertz\": 16000,\n    \"numberOfChannels\": 1,\n    \"inactivityTimeoutSeconds\": \"<integer>\",\n    \"endOfTurnConfidenceThreshold\": 0.5,\n    \"prompts\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"includeWordTimestamps\": \"<boolean>\",\n    \"voiceProfileConfig\": {\n      \"enabled\": \"<boolean>\",\n      \"profileId\": \"<string>\"\n    }\n  },\n  \"audioData\": {\n    \"content\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/stt/v1/transcribe",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "stt",
+                            "v1",
+                            "transcribe"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"transcription\": {\n    \"transcript\": \"<string>\",\n    \"isFinal\": \"<boolean>\",\n    \"wordTimestamps\": [\n      {\n        \"word\": \"<string>\",\n        \"startTimeSeconds\": \"<number>\",\n        \"endTimeSeconds\": \"<number>\",\n        \"confidence\": \"<number>\"\n      },\n      {\n        \"word\": \"<string>\",\n        \"startTimeSeconds\": \"<number>\",\n        \"endTimeSeconds\": \"<number>\",\n        \"confidence\": \"<number>\"\n      }\n    ]\n  },\n  \"usage\": {\n    \"transcribedAudioMs\": \"<integer>\",\n    \"modelId\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T10:56:31.000Z",
+                      "updatedAt": "2026-07-28T10:56:31.000Z",
+                      "uid": "35240-127cc8c4-ae10-42e9-83db-501e770058a7"
+                    },
+                    {
+                      "id": "f52615a9-5ac3-43ed-bc1d-295f451033c8",
+                      "name": "Error response.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"transcribeConfig\": {\n    \"modelId\": \"<string>\",\n    \"audioEncoding\": \"FLAC\",\n    \"language\": \"<string>\",\n    \"sampleRateHertz\": 16000,\n    \"numberOfChannels\": 1,\n    \"inactivityTimeoutSeconds\": \"<integer>\",\n    \"endOfTurnConfidenceThreshold\": 0.5,\n    \"prompts\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"includeWordTimestamps\": \"<boolean>\",\n    \"voiceProfileConfig\": {\n      \"enabled\": \"<boolean>\",\n      \"profileId\": \"<string>\"\n    }\n  },\n  \"audioData\": {\n    \"content\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/stt/v1/transcribe",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "stt",
+                            "v1",
+                            "transcribe"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T10:56:31.000Z",
+                      "updatedAt": "2026-07-28T10:56:31.000Z",
+                      "uid": "35240-f52615a9-5ac3-43ed-bc1d-295f451033c8"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T10:56:31.000Z",
+                  "updatedAt": "2026-07-28T10:56:31.000Z",
+                  "uid": "35240-4665c4d8-5da2-4d27-8325-2142a3f74495"
+                }
+              ],
+              "id": "002cf739-04cf-4c4c-9bed-d89606b98967",
+              "createdAt": "2026-07-28T10:56:31.000Z",
+              "updatedAt": "2026-07-28T10:56:31.000Z",
+              "uid": "35240-002cf739-04cf-4c4c-9bed-d89606b98967"
+            },
+            {
+              "name": "transcribe:stream",
+              "item": [
+                {
+                  "name": "Streaming Transcribe (WebSocket)",
+                  "id": "bea8612b-07fe-46d8-9ca7-1ca71ca61d07",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/stt/v1/transcribe:stream",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "stt",
+                        "v1",
+                        "transcribe:stream"
+                      ]
+                    },
+                    "description": "Upgrade to a WebSocket. Send PCM/Opus audio chunks and receive interim and final transcripts with word timestamps. Auth via `Authorization: Basic` on the upgrade.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "795bad2f-489b-4ef8-aa29-cbe00d6c7824",
+                      "name": "Switching protocols to WebSocket.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/stt/v1/transcribe:stream",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "stt",
+                            "v1",
+                            "transcribe:stream"
+                          ]
+                        }
+                      },
+                      "status": "Switching Protocols",
+                      "code": 101,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T10:56:31.000Z",
+                      "updatedAt": "2026-07-28T10:56:31.000Z",
+                      "uid": "35240-795bad2f-489b-4ef8-aa29-cbe00d6c7824"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T10:56:31.000Z",
+                  "updatedAt": "2026-07-28T10:56:31.000Z",
+                  "uid": "35240-bea8612b-07fe-46d8-9ca7-1ca71ca61d07"
+                }
+              ],
+              "id": "36973069-3739-43cd-88a6-2a91cd6da1ce",
+              "createdAt": "2026-07-28T10:56:31.000Z",
+              "updatedAt": "2026-07-28T10:56:31.000Z",
+              "uid": "35240-36973069-3739-43cd-88a6-2a91cd6da1ce"
+            }
+          ],
+          "id": "8b8da751-0215-4840-9767-7ab30b286e26",
+          "createdAt": "2026-07-28T10:56:31.000Z",
+          "updatedAt": "2026-07-28T10:56:31.000Z",
+          "uid": "35240-8b8da751-0215-4840-9767-7ab30b286e26"
+        }
+      ],
+      "id": "08cb76d7-2a53-4d7a-83b4-8ca4d46a9172",
+      "createdAt": "2026-07-28T10:56:31.000Z",
+      "updatedAt": "2026-07-28T10:56:31.000Z",
+      "uid": "35240-08cb76d7-2a53-4d7a-83b4-8ca4d46a9172"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.inworld.ai"
+    }
+  ]
+}

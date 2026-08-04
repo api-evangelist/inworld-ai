@@ -1,0 +1,1194 @@
+{
+  "info": {
+    "_postman_id": "1e0b6e1c-e1ae-4879-8fe5-0f4d321bf70f",
+    "name": "Inworld Models Voices API",
+    "description": "List every model available behind the Inworld platform \u2014 first-party TTS, STT, and Realtime models plus all third-party LLMs reachable through the LLM Router. Returns provider, model id, capabilities (chat, vision, tool use, speech, streaming), and pricing tier metadata for runtime discovery.\n\n\nContact Support:\n Name: Inworld Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T10:56:34.000Z",
+    "updatedAt": "2026-07-28T10:56:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1e0b6e1c-e1ae-4879-8fe5-0f4d321bf70f"
+  },
+  "item": [
+    {
+      "name": "voices",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "voices",
+              "item": [
+                {
+                  "name": "{voiceId}",
+                  "item": [
+                    {
+                      "name": "Get Voice",
+                      "id": "cd6d9d7b-6806-4d7e-bc1b-1296a53e715d",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/voices/v1/voices/:voiceId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "voices",
+                            "v1",
+                            "voices",
+                            ":voiceId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "73283e87-c14d-4a86-9eb8-393d89f1c65a",
+                              "key": "voiceId",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "0586f189-63a8-437b-ae3d-f664b1e1f360",
+                          "name": "Voice returned.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/voices/v1/voices/:voiceId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "voices",
+                                "v1",
+                                "voices",
+                                ":voiceId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "voiceId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"voiceId\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"description\": \"<string>\",\n  \"langCode\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source\": \"DESIGN\",\n  \"published\": \"<boolean>\"\n}",
+                          "createdAt": "2026-07-28T10:56:34.000Z",
+                          "updatedAt": "2026-07-28T10:56:34.000Z",
+                          "uid": "35240-0586f189-63a8-437b-ae3d-f664b1e1f360"
+                        },
+                        {
+                          "id": "022432bb-fe14-457f-8229-f00d17e61f67",
+                          "name": "Error response.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/voices/v1/voices/:voiceId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "voices",
+                                "v1",
+                                "voices",
+                                ":voiceId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "voiceId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T10:56:34.000Z",
+                          "updatedAt": "2026-07-28T10:56:34.000Z",
+                          "uid": "35240-022432bb-fe14-457f-8229-f00d17e61f67"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T10:56:34.000Z",
+                      "updatedAt": "2026-07-28T10:56:34.000Z",
+                      "uid": "35240-cd6d9d7b-6806-4d7e-bc1b-1296a53e715d"
+                    },
+                    {
+                      "name": "Update Voice",
+                      "id": "63de94dc-13ed-4d8b-8e0b-3bf144b25939",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"displayName\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/voices/v1/voices/:voiceId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "voices",
+                            "v1",
+                            "voices",
+                            ":voiceId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "519b5259-b1eb-46f9-8cf1-d8b335fbf15d",
+                              "key": "voiceId",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "84cfa01b-8093-411b-a5ae-b93b202c9774",
+                          "name": "Updated voice returned.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"displayName\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/voices/v1/voices/:voiceId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "voices",
+                                "v1",
+                                "voices",
+                                ":voiceId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "voiceId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"voiceId\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"description\": \"<string>\",\n  \"langCode\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source\": \"DESIGN\",\n  \"published\": \"<boolean>\"\n}",
+                          "createdAt": "2026-07-28T10:56:34.000Z",
+                          "updatedAt": "2026-07-28T10:56:34.000Z",
+                          "uid": "35240-84cfa01b-8093-411b-a5ae-b93b202c9774"
+                        },
+                        {
+                          "id": "575d0e71-ba0e-4f8a-93d3-a285a1c8c04f",
+                          "name": "Error response.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"displayName\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/voices/v1/voices/:voiceId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "voices",
+                                "v1",
+                                "voices",
+                                ":voiceId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "voiceId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T10:56:34.000Z",
+                          "updatedAt": "2026-07-28T10:56:34.000Z",
+                          "uid": "35240-575d0e71-ba0e-4f8a-93d3-a285a1c8c04f"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T10:56:34.000Z",
+                      "updatedAt": "2026-07-28T10:56:34.000Z",
+                      "uid": "35240-63de94dc-13ed-4d8b-8e0b-3bf144b25939"
+                    },
+                    {
+                      "name": "Delete Voice",
+                      "id": "3d033089-146a-40cb-adcb-784ebf8c631b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/voices/v1/voices/:voiceId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "voices",
+                            "v1",
+                            "voices",
+                            ":voiceId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "5c0d1f71-91af-4b45-a42a-825c75005811",
+                              "key": "voiceId",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "bd2d4cec-50f5-450c-b22a-052a9fd91ab2",
+                          "name": "Voice deleted.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/voices/v1/voices/:voiceId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "voices",
+                                "v1",
+                                "voices",
+                                ":voiceId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "voiceId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T10:56:34.000Z",
+                          "updatedAt": "2026-07-28T10:56:34.000Z",
+                          "uid": "35240-bd2d4cec-50f5-450c-b22a-052a9fd91ab2"
+                        },
+                        {
+                          "id": "27eb46a0-690c-473b-833a-b33fe7027102",
+                          "name": "Error response.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/voices/v1/voices/:voiceId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "voices",
+                                "v1",
+                                "voices",
+                                ":voiceId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "voiceId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T10:56:34.000Z",
+                          "updatedAt": "2026-07-28T10:56:34.000Z",
+                          "uid": "35240-27eb46a0-690c-473b-833a-b33fe7027102"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T10:56:34.000Z",
+                      "updatedAt": "2026-07-28T10:56:34.000Z",
+                      "uid": "35240-3d033089-146a-40cb-adcb-784ebf8c631b"
+                    }
+                  ],
+                  "id": "5f28825c-65d4-4c14-89b4-997b6ddf6440",
+                  "createdAt": "2026-07-28T10:56:34.000Z",
+                  "updatedAt": "2026-07-28T10:56:34.000Z",
+                  "uid": "35240-5f28825c-65d4-4c14-89b4-997b6ddf6440"
+                },
+                {
+                  "name": "List Voices",
+                  "id": "8a406ca4-c2ba-45b9-bd86-b6672b61ad59",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/voices/v1/voices?pageSize=<integer>&pageToken=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "voices",
+                        "v1",
+                        "voices"
+                      ],
+                      "query": [
+                        {
+                          "key": "pageSize",
+                          "value": "<integer>"
+                        },
+                        {
+                          "key": "pageToken",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "List all voices in the caller's workspace."
+                  },
+                  "response": [
+                    {
+                      "id": "4792f1c3-a4f6-4211-9b7b-53d7c68dd21d",
+                      "name": "Voices returned.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/voices/v1/voices?pageSize=<integer>&pageToken=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "voices",
+                            "v1",
+                            "voices"
+                          ],
+                          "query": [
+                            {
+                              "key": "pageSize",
+                              "value": "<integer>"
+                            },
+                            {
+                              "key": "pageToken",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"voices\": [\n    {\n      \"voiceId\": \"<string>\",\n      \"displayName\": \"<string>\",\n      \"description\": \"<string>\",\n      \"langCode\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"source\": \"DESIGN\",\n      \"published\": \"<boolean>\"\n    },\n    {\n      \"voiceId\": \"<string>\",\n      \"displayName\": \"<string>\",\n      \"description\": \"<string>\",\n      \"langCode\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"source\": \"IVC\",\n      \"published\": \"<boolean>\"\n    }\n  ],\n  \"nextPageToken\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T10:56:34.000Z",
+                      "updatedAt": "2026-07-28T10:56:34.000Z",
+                      "uid": "35240-4792f1c3-a4f6-4211-9b7b-53d7c68dd21d"
+                    },
+                    {
+                      "id": "89e1999e-9112-46f8-b6c5-74511363c32b",
+                      "name": "Error response.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/voices/v1/voices?pageSize=<integer>&pageToken=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "voices",
+                            "v1",
+                            "voices"
+                          ],
+                          "query": [
+                            {
+                              "key": "pageSize",
+                              "value": "<integer>"
+                            },
+                            {
+                              "key": "pageToken",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T10:56:34.000Z",
+                      "updatedAt": "2026-07-28T10:56:34.000Z",
+                      "uid": "35240-89e1999e-9112-46f8-b6c5-74511363c32b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T10:56:34.000Z",
+                  "updatedAt": "2026-07-28T10:56:34.000Z",
+                  "uid": "35240-8a406ca4-c2ba-45b9-bd86-b6672b61ad59"
+                }
+              ],
+              "id": "47f7bd31-9063-4511-9f33-6d0716b805a5",
+              "createdAt": "2026-07-28T10:56:34.000Z",
+              "updatedAt": "2026-07-28T10:56:34.000Z",
+              "uid": "35240-47f7bd31-9063-4511-9f33-6d0716b805a5"
+            },
+            {
+              "name": "voices:clone",
+              "item": [
+                {
+                  "name": "Clone Voice",
+                  "id": "a6f5f0da-949e-4ff5-b823-631c8c032e19",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"displayName\": \"<string>\",\n  \"langCode\": \"AR_SA\",\n  \"voiceSamples\": [\n    {\n      \"audioData\": \"<string>\",\n      \"transcription\": \"<string>\"\n    },\n    {\n      \"audioData\": \"<string>\",\n      \"transcription\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"audioProcessingConfig\": {\n    \"removeBackgroundNoise\": \"<boolean>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/voices/v1/voices:clone",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "voices",
+                        "v1",
+                        "voices:clone"
+                      ]
+                    },
+                    "description": "Instant voice cloning. Submit one or more short audio samples (WAV or MP3, base64-encoded) and receive a new custom voice that can be used immediately in TTS and Realtime calls.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "96f08bce-2ccb-4c10-aace-f4a12ccfcac4",
+                      "name": "Cloned voice returned.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"displayName\": \"<string>\",\n  \"langCode\": \"AR_SA\",\n  \"voiceSamples\": [\n    {\n      \"audioData\": \"<string>\",\n      \"transcription\": \"<string>\"\n    },\n    {\n      \"audioData\": \"<string>\",\n      \"transcription\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"audioProcessingConfig\": {\n    \"removeBackgroundNoise\": \"<boolean>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/voices/v1/voices:clone",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "voices",
+                            "v1",
+                            "voices:clone"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"voice\": {\n    \"voiceId\": \"<string>\",\n    \"displayName\": \"<string>\",\n    \"description\": \"<string>\",\n    \"langCode\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"source\": \"INWORLD\",\n    \"published\": \"<boolean>\"\n  },\n  \"audioSamplesValidated\": [\n    {\n      \"valid\": \"<boolean>\",\n      \"reason\": \"<string>\"\n    },\n    {\n      \"valid\": \"<boolean>\",\n      \"reason\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T10:56:34.000Z",
+                      "updatedAt": "2026-07-28T10:56:34.000Z",
+                      "uid": "35240-96f08bce-2ccb-4c10-aace-f4a12ccfcac4"
+                    },
+                    {
+                      "id": "729ef287-b4b2-461f-935b-9c849e5815c5",
+                      "name": "Error response.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"displayName\": \"<string>\",\n  \"langCode\": \"AR_SA\",\n  \"voiceSamples\": [\n    {\n      \"audioData\": \"<string>\",\n      \"transcription\": \"<string>\"\n    },\n    {\n      \"audioData\": \"<string>\",\n      \"transcription\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"audioProcessingConfig\": {\n    \"removeBackgroundNoise\": \"<boolean>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/voices/v1/voices:clone",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "voices",
+                            "v1",
+                            "voices:clone"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T10:56:34.000Z",
+                      "updatedAt": "2026-07-28T10:56:34.000Z",
+                      "uid": "35240-729ef287-b4b2-461f-935b-9c849e5815c5"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T10:56:34.000Z",
+                  "updatedAt": "2026-07-28T10:56:34.000Z",
+                  "uid": "35240-a6f5f0da-949e-4ff5-b823-631c8c032e19"
+                }
+              ],
+              "id": "8e2e0df8-8fa8-409e-90b3-0060d752e41b",
+              "createdAt": "2026-07-28T10:56:34.000Z",
+              "updatedAt": "2026-07-28T10:56:34.000Z",
+              "uid": "35240-8e2e0df8-8fa8-409e-90b3-0060d752e41b"
+            },
+            {
+              "name": "voices:design",
+              "item": [
+                {
+                  "name": "Design Voice",
+                  "id": "108236d3-9677-4666-bda6-b18e23d8bd13",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"displayName\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"langCode\": \"<string>\",\n  \"referenceAudio\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/voices/v1/voices:design",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "voices",
+                        "v1",
+                        "voices:design"
+                      ]
+                    },
+                    "description": "Generate a brand-new voice from a natural-language description plus optional reference audio. Returns a candidate voice that can be previewed and then published.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "2be62e74-1e72-4444-add3-03f3dd18c124",
+                      "name": "Designed voice returned.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"displayName\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"langCode\": \"<string>\",\n  \"referenceAudio\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/voices/v1/voices:design",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "voices",
+                            "v1",
+                            "voices:design"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"voiceId\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"description\": \"<string>\",\n  \"langCode\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source\": \"DESIGN\",\n  \"published\": \"<boolean>\"\n}",
+                      "createdAt": "2026-07-28T10:56:34.000Z",
+                      "updatedAt": "2026-07-28T10:56:34.000Z",
+                      "uid": "35240-2be62e74-1e72-4444-add3-03f3dd18c124"
+                    },
+                    {
+                      "id": "89ae5f8a-7e9a-45c7-8beb-de1ee358b2c6",
+                      "name": "Error response.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"displayName\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"langCode\": \"<string>\",\n  \"referenceAudio\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/voices/v1/voices:design",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "voices",
+                            "v1",
+                            "voices:design"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T10:56:34.000Z",
+                      "updatedAt": "2026-07-28T10:56:34.000Z",
+                      "uid": "35240-89ae5f8a-7e9a-45c7-8beb-de1ee358b2c6"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T10:56:34.000Z",
+                  "updatedAt": "2026-07-28T10:56:34.000Z",
+                  "uid": "35240-108236d3-9677-4666-bda6-b18e23d8bd13"
+                }
+              ],
+              "id": "23735ef7-6071-4746-98c5-2ace78973d5e",
+              "createdAt": "2026-07-28T10:56:34.000Z",
+              "updatedAt": "2026-07-28T10:56:34.000Z",
+              "uid": "35240-23735ef7-6071-4746-98c5-2ace78973d5e"
+            },
+            {
+              "name": "voices:publish",
+              "item": [
+                {
+                  "name": "Publish Voice",
+                  "id": "da402372-d31d-43a1-9835-25ad32a06a6f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"voiceId\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/voices/v1/voices:publish",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "voices",
+                        "v1",
+                        "voices:publish"
+                      ]
+                    },
+                    "description": "Publish a designed or cloned voice so it is available for use in TTS and Realtime."
+                  },
+                  "response": [
+                    {
+                      "id": "5c1905d2-906c-40f5-a0ae-003077b62114",
+                      "name": "Voice published.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"voiceId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/voices/v1/voices:publish",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "voices",
+                            "v1",
+                            "voices:publish"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"voiceId\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"description\": \"<string>\",\n  \"langCode\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source\": \"DESIGN\",\n  \"published\": \"<boolean>\"\n}",
+                      "createdAt": "2026-07-28T10:56:34.000Z",
+                      "updatedAt": "2026-07-28T10:56:34.000Z",
+                      "uid": "35240-5c1905d2-906c-40f5-a0ae-003077b62114"
+                    },
+                    {
+                      "id": "ef061cc6-8af6-414c-9490-866992c90db0",
+                      "name": "Error response.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"voiceId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/voices/v1/voices:publish",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "voices",
+                            "v1",
+                            "voices:publish"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T10:56:34.000Z",
+                      "updatedAt": "2026-07-28T10:56:34.000Z",
+                      "uid": "35240-ef061cc6-8af6-414c-9490-866992c90db0"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T10:56:34.000Z",
+                  "updatedAt": "2026-07-28T10:56:34.000Z",
+                  "uid": "35240-da402372-d31d-43a1-9835-25ad32a06a6f"
+                }
+              ],
+              "id": "6cf98665-c90f-4a94-8ae6-68222e3766a9",
+              "createdAt": "2026-07-28T10:56:34.000Z",
+              "updatedAt": "2026-07-28T10:56:34.000Z",
+              "uid": "35240-6cf98665-c90f-4a94-8ae6-68222e3766a9"
+            }
+          ],
+          "id": "223b3ea7-3740-4b16-9555-3fbcac053057",
+          "createdAt": "2026-07-28T10:56:34.000Z",
+          "updatedAt": "2026-07-28T10:56:34.000Z",
+          "uid": "35240-223b3ea7-3740-4b16-9555-3fbcac053057"
+        }
+      ],
+      "id": "a4f390bb-9576-405c-baf3-b04d4ceff288",
+      "createdAt": "2026-07-28T10:56:34.000Z",
+      "updatedAt": "2026-07-28T10:56:34.000Z",
+      "uid": "35240-a4f390bb-9576-405c-baf3-b04d4ceff288"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.inworld.ai"
+    }
+  ]
+}

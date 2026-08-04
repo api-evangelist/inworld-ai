@@ -268,7 +268,7 @@ components:
           description: Router metadata — attempts, providers tried, reasoning.
     ChatCompletionStreamEvent:
       type: object
-      description: Server-sent event stream — `data: <json>` chunks; final `data: [DONE]`.
+      description: "Server-sent event stream — `data: <json>` chunks; final `data: [DONE]`."
     Router:
       type: object
       required: [name]
