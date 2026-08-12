@@ -2,54 +2,6 @@ aid: inworld-ai
 url: https://raw.githubusercontent.com/api-evangelist/inworld-ai/refs/heads/main/apis.yml
 name: Inworld AI
 apis:
-- aid: inworld-ai:inworld-router-api
-  name: Inworld LLM Router API
-  tags:
-  - AI
-  - Artificial Intelligence
-  - LLM
-  - Routing
-  - OpenAI Compatible
-  humanURL: https://docs.inworld.ai/router/introduction
-  properties:
-  - url: https://docs.inworld.ai/router/introduction
-    type: Documentation
-  - url: https://docs.inworld.ai/router/quickstart
-    type: GettingStarted
-  - url: https://docs.inworld.ai/router/openai-compatibility
-    type: Documentation
-  - url: https://docs.inworld.ai/router/anthropic-compatibility
-    type: Documentation
-  - url: https://docs.inworld.ai/api-reference/routerAPI/chat-completions
-    type: Documentation
-  - url: https://docs.inworld.ai/api-reference/routerAPI/routerservice/create-router
-    type: Documentation
-  - url: https://docs.inworld.ai/api-reference/routerAPI/routerservice/list-routers
-    type: Documentation
-  - url: https://docs.inworld.ai/router/capabilities/provider-routing
-    type: Documentation
-  - url: https://docs.inworld.ai/router/capabilities/conditional-routing
-    type: Documentation
-  - url: https://docs.inworld.ai/router/capabilities/traffic-splitting
-    type: Documentation
-  - url: https://docs.inworld.ai/router/capabilities/caching
-    type: Documentation
-  - url: https://docs.inworld.ai/router/capabilities/web-search
-    type: Documentation
-  - url: https://docs.inworld.ai/router/capabilities/prompt-compression
-    type: Documentation
-  - url: https://docs.inworld.ai/router/guides/claude-code
-    type: Documentation
-  - url: openapi/inworld-router-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/inworld-router-chat-completion-schema.json
-    type: JSONSchema
-  description: >-
-    Inworld LLM Router — OpenAI-and-Anthropic-compatible chat-completions endpoint that routes prompts
-    across hundreds of provider models (OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, Groq, etc.).
-    Reusable named routers, conditional routing, provider routing, A/B traffic splitting, prompt compression,
-    caching, web search, and a Claude-Code-compatible mode let teams consolidate model spend behind one
-    API.
 - aid: inworld-ai:inworld-ai-models-api
   name: Inworld AI Models API
   description: Discover available models.
@@ -375,6 +327,84 @@ apis:
     url: https://docs.inworld.ai/realtime/usage/twilio
   - type: Documentation
     url: https://docs.inworld.ai/api-reference/modelsAPI/modelservice/list-models
+- aid: inworld-ai:inworld-ai-chat-completions-api
+  name: Inworld AI Chat Completions API
+  description: OpenAI-compatible chat completions through the LLM Router.
+  humanURL: https://docs.inworld.ai/router/introduction
+  tags:
+  - Chat Completions
+  properties:
+  - type: OpenAPI
+    url: openapi/inworld-ai-chat-completions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.inworld.ai/router/introduction
+  - type: GettingStarted
+    url: https://docs.inworld.ai/router/quickstart
+  - type: Documentation
+    url: https://docs.inworld.ai/router/openai-compatibility
+  - type: Documentation
+    url: https://docs.inworld.ai/router/anthropic-compatibility
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/routerAPI/chat-completions
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/routerAPI/routerservice/create-router
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/routerAPI/routerservice/list-routers
+  - type: Documentation
+    url: https://docs.inworld.ai/router/capabilities/provider-routing
+  - type: Documentation
+    url: https://docs.inworld.ai/router/capabilities/conditional-routing
+  - type: Documentation
+    url: https://docs.inworld.ai/router/capabilities/traffic-splitting
+  - type: Documentation
+    url: https://docs.inworld.ai/router/capabilities/caching
+  - type: Documentation
+    url: https://docs.inworld.ai/router/capabilities/web-search
+  - type: Documentation
+    url: https://docs.inworld.ai/router/capabilities/prompt-compression
+  - type: Documentation
+    url: https://docs.inworld.ai/router/guides/claude-code
+  - type: JSONSchema
+    url: json-schema/inworld-router-chat-completion-schema.json
+- aid: inworld-ai:inworld-ai-routers-api
+  name: Inworld AI Routers API
+  description: Named reusable routers with provider, conditional, and split rules.
+  humanURL: https://docs.inworld.ai/router/introduction
+  tags:
+  - Routers
+  properties:
+  - type: OpenAPI
+    url: openapi/inworld-ai-routers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.inworld.ai/router/introduction
+  - type: GettingStarted
+    url: https://docs.inworld.ai/router/quickstart
+  - type: Documentation
+    url: https://docs.inworld.ai/router/openai-compatibility
+  - type: Documentation
+    url: https://docs.inworld.ai/router/anthropic-compatibility
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/routerAPI/chat-completions
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/routerAPI/routerservice/create-router
+  - type: Documentation
+    url: https://docs.inworld.ai/api-reference/routerAPI/routerservice/list-routers
+  - type: Documentation
+    url: https://docs.inworld.ai/router/capabilities/provider-routing
+  - type: Documentation
+    url: https://docs.inworld.ai/router/capabilities/conditional-routing
+  - type: Documentation
+    url: https://docs.inworld.ai/router/capabilities/traffic-splitting
+  - type: Documentation
+    url: https://docs.inworld.ai/router/capabilities/caching
+  - type: Documentation
+    url: https://docs.inworld.ai/router/capabilities/web-search
+  - type: Documentation
+    url: https://docs.inworld.ai/router/capabilities/prompt-compression
+  - type: Documentation
+    url: https://docs.inworld.ai/router/guides/claude-code
+  - type: JSONSchema
+    url: json-schema/inworld-router-chat-completion-schema.json
 tags:
 - AI
 - Artificial Intelligence
