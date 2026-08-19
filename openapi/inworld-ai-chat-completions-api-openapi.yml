@@ -1,0 +1,229 @@
+openapi: 3.2.0
+info:
+  title: Inworld LLM Router Chat Completions API
+  description: 'OpenAI- and Anthropic-compatible chat completions plus named-router lifecycle management. Routes prompts across hundreds of third-party LLMs (OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, Groq, etc.) behind one API and one billing relationship. Includes conditional routing, A/B traffic splitting, provider routing, prompt caching, prompt compression, integrated web search, and a Claude-Code-compatible mode.
+
+    '
+  version: v1
+  contact:
+    name: Inworld Support
+    url: https://docs.inworld.ai/tts/resources/support
+  license:
+    name: Inworld Terms of Service
+    url: https://inworld.ai/legal/terms-of-service
+servers:
+- url: https://api.inworld.ai
+  description: Inworld Production API
+security:
+- BasicAuth: []
+tags:
+- name: Chat Completions
+  description: OpenAI-compatible chat completions through the LLM Router.
+paths:
+  /v1/chat/completions:
+    post:
+      summary: Create Chat Completion
+      description: 'OpenAI-compatible chat completions. The `model` field accepts a specific model id, a `provider/model` id (e.g. `openai/gpt-4o`), `auto` for the router''s default selection, or `inworld/<router-name>` to invoke a named router. Anthropic-compatible request shapes are supported via the Anthropic-compat header set documented at `/router/anthropic-compatibility`.
+
+        '
+      operationId: createChatCompletion
+      tags:
+      - Chat Completions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatCompletionRequest'
+      responses:
+        '200':
+          description: Chat completion returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatCompletionResponse'
+            text/event-stream:
+              schema:
+                $ref: '#/components/schemas/ChatCompletionStreamEvent'
+        4XX:
+          $ref: '#/components/responses/ErrorResponse'
+  /v1/models:
+    get:
+      summary: List Models
+      description: List models available via the Router and first-party Inworld services.
+      operationId: listRouterModels
+      tags:
+      - Chat Completions
+      responses:
+        '200':
+          description: Models returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListModelsResponse'
+        4XX:
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  responses:
+    ErrorResponse:
+      description: Error response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ChatCompletionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          enum:
+          - chat.completion
+        created:
+          type: integer
+        model:
+          type: string
+        choices:
+          type: array
+          items:
+            type: object
+            properties:
+              index:
+                type: integer
+              message:
+                $ref: '#/components/schemas/ChatMessage'
+              finish_reason:
+                type: string
+        usage:
+          type: object
+          properties:
+            prompt_tokens:
+              type: integer
+            completion_tokens:
+              type: integer
+            total_tokens:
+              type: integer
+        metadata:
+          type: object
+          description: Router metadata — attempts, providers tried, reasoning.
+    ChatCompletionStreamEvent:
+      type: object
+      description: 'Server-sent event stream — `data: <json>` chunks; final `data: [DONE]`.'
+    ChatMessage:
+      type: object
+      required:
+      - role
+      - content
+      properties:
+        role:
+          type: string
+          enum:
+          - system
+          - user
+          - assistant
+          - tool
+          - developer
+        content:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: object
+        name:
+          type: string
+        tool_calls:
+          type: array
+          items:
+            type: object
+        tool_call_id:
+          type: string
+    ListModelsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              object:
+                type: string
+                enum:
+                - model
+              provider:
+                type: string
+              capabilities:
+                type: array
+                items:
+                  type: string
+              pricing:
+                type: object
+    ChatCompletionRequest:
+      type: object
+      required:
+      - model
+      - messages
+      properties:
+        model:
+          type: string
+          description: Model id, provider/model, `auto`, or `inworld/<router-name>`.
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatMessage'
+        stream:
+          type: boolean
+        temperature:
+          type: number
+        top_p:
+          type: number
+        max_tokens:
+          type: integer
+        max_completion_tokens:
+          type: integer
+        presence_penalty:
+          type: number
+        frequency_penalty:
+          type: number
+        seed:
+          type: integer
+        stop:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        logit_bias:
+          type: object
+          additionalProperties:
+            type: number
+        reasoning_effort:
+          type: string
+        user:
+          type: string
+        web_search:
+          type: boolean
+        web_search_options:
+          type: object
+        modalities:
+          type: array
+          items:
+            type: string
+        image_config:
+          type: object
+        extra_body:
+          type: object
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic

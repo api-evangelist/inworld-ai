@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Inworld Models Realtime API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Realtime",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Realtime WebSocket Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.inworld.ai/api/v1/realtime/session"
+          },
+          "docs": "Upgrade to a Realtime WebSocket session. The connection accepts a JSON event protocol compatible with the OpenAI Realtime API (`session.update`, `input_audio_buffer.append`, `input_audio_buffer.commit`, `response.create`, `conversation.item.create`, `response.cancel`, etc.). Authenticate with a short-lived JWT in the `Authorization: Bearer <jwt>` header, minted with a Realtime-only API key.\n"
+        },
+        {
+          "info": {
+            "name": "Realtime WebRTC Offer Exchange",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.inworld.ai/v1/realtime/webrtc",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Exchange a WebRTC SDP offer for an answer to open a realtime audio session. The server provisions an audio track wired to the same STT-LLM-TTS pipeline used by the WebSocket endpoint.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

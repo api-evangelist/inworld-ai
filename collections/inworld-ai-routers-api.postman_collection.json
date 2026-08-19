@@ -1,0 +1,785 @@
+{
+  "item": [
+    {
+      "id": "fc30f289-315a-4a6d-944b-eace30b09e5f",
+      "name": "Routers",
+      "description": {
+        "content": "Named reusable routers with provider, conditional, and split rules.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b9e3e7c9-04c5-4903-8e43-6b36c402b3ef",
+          "name": "List Routers",
+          "request": {
+            "name": "List Routers",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "routers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "02b3d058-1266-4da1-ba60-b9b6eb513221",
+              "name": "Routers returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "routers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"routers\": [\n    {\n      \"name\": \"string\",\n      \"id\": \"string\",\n      \"description\": \"string\",\n      \"defaultModel\": \"string\",\n      \"cache\": {\n        \"enabled\": false,\n        \"ttlSeconds\": 265\n      },\n      \"promptCompression\": {\n        \"enabled\": false\n      },\n      \"webSearch\": {\n        \"enabled\": false\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"id\": \"string\",\n      \"description\": \"string\",\n      \"defaultModel\": \"string\",\n      \"cache\": {\n        \"enabled\": true,\n        \"ttlSeconds\": 2248\n      },\n      \"promptCompression\": {\n        \"enabled\": true\n      },\n      \"webSearch\": {\n        \"enabled\": true\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "87b9fdc6-75a9-4f87-9605-393c32f103e8",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "routers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7970,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "96232850-da52-4815-9d41-c6c76272c9b8",
+          "name": "Create Router",
+          "request": {
+            "name": "Create Router",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "routers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"rules\": [\n    \"<object>\",\n    \"<object>\"\n  ],\n  \"defaultModel\": \"<string>\",\n  \"cache\": {\n    \"enabled\": \"<boolean>\",\n    \"ttlSeconds\": \"<integer>\"\n  },\n  \"promptCompression\": {\n    \"enabled\": \"<boolean>\"\n  },\n  \"webSearch\": {\n    \"enabled\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0429078c-ec84-421b-801f-a93a38dd1592",
+              "name": "Created router.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "routers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"rules\": [\n    \"<object>\",\n    \"<object>\"\n  ],\n  \"defaultModel\": \"<string>\",\n  \"cache\": {\n    \"enabled\": \"<boolean>\",\n    \"ttlSeconds\": \"<integer>\"\n  },\n  \"promptCompression\": {\n    \"enabled\": \"<boolean>\"\n  },\n  \"webSearch\": {\n    \"enabled\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"rules\": [\n    \"<object>\",\n    \"<object>\"\n  ],\n  \"defaultModel\": \"<string>\",\n  \"cache\": {\n    \"enabled\": \"<boolean>\",\n    \"ttlSeconds\": \"<integer>\"\n  },\n  \"promptCompression\": {\n    \"enabled\": \"<boolean>\"\n  },\n  \"webSearch\": {\n    \"enabled\": \"<boolean>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c13b4047-115c-4ca4-984e-208d26608ca0",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "routers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"rules\": [\n    \"<object>\",\n    \"<object>\"\n  ],\n  \"defaultModel\": \"<string>\",\n  \"cache\": {\n    \"enabled\": \"<boolean>\",\n    \"ttlSeconds\": \"<integer>\"\n  },\n  \"promptCompression\": {\n    \"enabled\": \"<boolean>\"\n  },\n  \"webSearch\": {\n    \"enabled\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7970,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d186d7d-46f2-4fc2-bff3-5d8293567f0b",
+          "name": "Get Router",
+          "request": {
+            "name": "Get Router",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "routers",
+                ":routerId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "routerId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c278736d-1cad-4f5b-8655-6dde131ab80b",
+              "name": "Router returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "routers",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"rules\": [\n    \"<object>\",\n    \"<object>\"\n  ],\n  \"defaultModel\": \"<string>\",\n  \"cache\": {\n    \"enabled\": \"<boolean>\",\n    \"ttlSeconds\": \"<integer>\"\n  },\n  \"promptCompression\": {\n    \"enabled\": \"<boolean>\"\n  },\n  \"webSearch\": {\n    \"enabled\": \"<boolean>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21b7a405-586a-45a5-ad83-4fcf29eff087",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "routers",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7970,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "71b98e08-b50e-469b-a653-fff63ab7edf0",
+          "name": "Update Router",
+          "request": {
+            "name": "Update Router",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "routers",
+                ":routerId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "routerId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"rules\": [\n    \"<object>\",\n    \"<object>\"\n  ],\n  \"defaultModel\": \"<string>\",\n  \"cache\": {\n    \"enabled\": \"<boolean>\",\n    \"ttlSeconds\": \"<integer>\"\n  },\n  \"promptCompression\": {\n    \"enabled\": \"<boolean>\"\n  },\n  \"webSearch\": {\n    \"enabled\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aab41881-478d-4b4c-9c5d-d0f2762d4d4c",
+              "name": "Updated router returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "routers",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"rules\": [\n    \"<object>\",\n    \"<object>\"\n  ],\n  \"defaultModel\": \"<string>\",\n  \"cache\": {\n    \"enabled\": \"<boolean>\",\n    \"ttlSeconds\": \"<integer>\"\n  },\n  \"promptCompression\": {\n    \"enabled\": \"<boolean>\"\n  },\n  \"webSearch\": {\n    \"enabled\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"rules\": [\n    \"<object>\",\n    \"<object>\"\n  ],\n  \"defaultModel\": \"<string>\",\n  \"cache\": {\n    \"enabled\": \"<boolean>\",\n    \"ttlSeconds\": \"<integer>\"\n  },\n  \"promptCompression\": {\n    \"enabled\": \"<boolean>\"\n  },\n  \"webSearch\": {\n    \"enabled\": \"<boolean>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "33dfaaa5-ffea-4b3c-8d50-3fa38cd9edec",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "routers",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"rules\": [\n    \"<object>\",\n    \"<object>\"\n  ],\n  \"defaultModel\": \"<string>\",\n  \"cache\": {\n    \"enabled\": \"<boolean>\",\n    \"ttlSeconds\": \"<integer>\"\n  },\n  \"promptCompression\": {\n    \"enabled\": \"<boolean>\"\n  },\n  \"webSearch\": {\n    \"enabled\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7970,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e6394b45-3b43-49f7-8557-86e0a70413ee",
+          "name": "Delete Router",
+          "request": {
+            "name": "Delete Router",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "routers",
+                ":routerId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "routerId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6e2ccaae-fb2e-4c15-8564-ca31681e0dc1",
+              "name": "Router deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "routers",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f6e73108-0ea5-4262-b17b-df56d56d9a52",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "routers",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7970,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.inworld.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "22528198-6b03-4f53-ad30-9b9a771be934",
+    "name": "Inworld LLM Router Routers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenAI- and Anthropic-compatible chat completions plus named-router lifecycle management. Routes prompts across hundreds of third-party LLMs (OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, Groq, etc.) behind one API and one billing relationship. Includes conditional routing, A/B traffic splitting, provider routing, prompt caching, prompt compression, integrated web search, and a Claude-Code-compatible mode.\n\n\nContact Support:\n Name: Inworld Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,170 @@
+openapi: 3.2.0
+info:
+  title: Inworld LLM Router Routers API
+  description: 'OpenAI- and Anthropic-compatible chat completions plus named-router lifecycle management. Routes prompts across hundreds of third-party LLMs (OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, Groq, etc.) behind one API and one billing relationship. Includes conditional routing, A/B traffic splitting, provider routing, prompt caching, prompt compression, integrated web search, and a Claude-Code-compatible mode.
+
+    '
+  version: v1
+  contact:
+    name: Inworld Support
+    url: https://docs.inworld.ai/tts/resources/support
+  license:
+    name: Inworld Terms of Service
+    url: https://inworld.ai/legal/terms-of-service
+servers:
+- url: https://api.inworld.ai
+  description: Inworld Production API
+security:
+- BasicAuth: []
+tags:
+- name: Routers
+  description: Named reusable routers with provider, conditional, and split rules.
+paths:
+  /v1/routers:
+    get:
+      summary: List Routers
+      operationId: listRouters
+      tags:
+      - Routers
+      responses:
+        '200':
+          description: Routers returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListRoutersResponse'
+        4XX:
+          $ref: '#/components/responses/ErrorResponse'
+    post:
+      summary: Create Router
+      operationId: createRouter
+      tags:
+      - Routers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Router'
+      responses:
+        '200':
+          description: Created router.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Router'
+        4XX:
+          $ref: '#/components/responses/ErrorResponse'
+  /v1/routers/{routerId}:
+    parameters:
+    - name: routerId
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Get Router
+      operationId: getRouter
+      tags:
+      - Routers
+      responses:
+        '200':
+          description: Router returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Router'
+        4XX:
+          $ref: '#/components/responses/ErrorResponse'
+    patch:
+      summary: Update Router
+      operationId: updateRouter
+      tags:
+      - Routers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Router'
+      responses:
+        '200':
+          description: Updated router returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Router'
+        4XX:
+          $ref: '#/components/responses/ErrorResponse'
+    delete:
+      summary: Delete Router
+      operationId: deleteRouter
+      tags:
+      - Routers
+      responses:
+        '204':
+          description: Router deleted.
+        4XX:
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  responses:
+    ErrorResponse:
+      description: Error response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Router:
+      type: object
+      required:
+      - name
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        rules:
+          type: array
+          items:
+            type: object
+            description: Provider, conditional, or split rule.
+        defaultModel:
+          type: string
+        cache:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+            ttlSeconds:
+              type: integer
+        promptCompression:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+        webSearch:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+    ListRoutersResponse:
+      type: object
+      properties:
+        routers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Router'
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic

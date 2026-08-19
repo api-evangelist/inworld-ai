@@ -1,0 +1,169 @@
+{
+  "item": [
+    {
+      "id": "a7546bb3-2e33-4bf1-89d6-47dc2fc1106a",
+      "name": "Models",
+      "description": {
+        "content": "Discover available models.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ae6e1a83-186f-4cd8-800e-f199820cce1c",
+          "name": "List Models",
+          "request": {
+            "name": "List Models",
+            "description": {
+              "content": "List models exposed by Inworld and the Router.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "models"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e56cfe8f-51f0-4380-8d3e-434f84ed3fdf",
+              "name": "Models returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"object\": \"model\",\n      \"provider\": \"string\",\n      \"family\": \"string\",\n      \"capabilities\": [\n        \"chat\",\n        \"streaming\"\n      ],\n      \"contextWindow\": 9037,\n      \"maxOutputTokens\": 4545,\n      \"pricing\": {\n        \"inputPricePer1M\": 6645.968688573388,\n        \"outputPricePer1M\": 9027.805812386578,\n        \"currency\": \"USD\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"object\": \"model\",\n      \"provider\": \"string\",\n      \"family\": \"string\",\n      \"capabilities\": [\n        \"tool-use\",\n        \"vision\"\n      ],\n      \"contextWindow\": 567,\n      \"maxOutputTokens\": 4087,\n      \"pricing\": {\n        \"inputPricePer1M\": 9950.550772496345,\n        \"outputPricePer1M\": 9708.472407854066,\n        \"currency\": \"USD\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ea44cb71-8a0b-42f4-b6f3-468652023864",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 9941,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.inworld.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e330a8bf-ef0b-4412-b218-9d3ff088687e",
+    "name": "Inworld Models API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "List every model available behind the Inworld platform — first-party TTS, STT, and Realtime models plus all third-party LLMs reachable through the LLM Router. Returns provider, model id, capabilities (chat, vision, tool use, speech, streaming), and pricing tier metadata for runtime discovery.\n\n\nContact Support:\n Name: Inworld Support",
+      "type": "text/plain"
+    }
+  }
+}

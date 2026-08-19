@@ -1,0 +1,573 @@
+{
+  "item": [
+    {
+      "id": "c4d792a8-7427-4dbd-8724-812d8fb61399",
+      "name": "Text To Speech",
+      "description": {
+        "content": "Synthesize speech from text using Inworld voice models.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "452dda16-8abc-45a2-b8df-1c510380d7a4",
+          "name": "Synthesize Speech",
+          "request": {
+            "name": "Synthesize Speech",
+            "description": {
+              "content": "Synthesize a single audio response from text. Returns base64-encoded audio plus optional word/character/phoneme alignment metadata. Maximum 2,000 input characters per request and 16 MB output audio.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tts",
+                "v1",
+                "voice"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"<string>\",\n  \"voiceId\": \"<string>\",\n  \"modelId\": \"<string>\",\n  \"audioConfig\": {\n    \"audioEncoding\": \"<string>\",\n    \"sampleRateHertz\": 48000,\n    \"bitRate\": 128000,\n    \"speakingRate\": 1\n  },\n  \"language\": \"<string>\",\n  \"deliveryMode\": \"BALANCED\",\n  \"temperature\": 1,\n  \"timestampType\": \"<string>\",\n  \"applyTextNormalization\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4178bb99-a2cc-4abe-a81d-41538e762c7e",
+              "name": "Synthesized audio returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tts",
+                    "v1",
+                    "voice"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"Hello, world! What a wonderful day to be a text-to-speech model.\",\n  \"voiceId\": \"Dennis\",\n  \"modelId\": \"inworld-tts-2\",\n  \"audioConfig\": {\n    \"audioEncoding\": \"LINEAR16\",\n    \"sampleRateHertz\": 22050\n  },\n  \"deliveryMode\": \"BALANCED\",\n  \"applyTextNormalization\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"audioContent\": \"string\",\n  \"usage\": {\n    \"processedCharactersCount\": 594,\n    \"modelId\": \"string\"\n  },\n  \"timestampInfo\": {\n    \"wordAlignment\": {\n      \"words\": [\n        \"string\",\n        \"string\"\n      ],\n      \"wordStartTimeSeconds\": [\n        1427.4847230446685,\n        608.8301377370997\n      ],\n      \"wordEndTimeSeconds\": [\n        717.9193121886074,\n        5818.791302951498\n      ],\n      \"phoneticDetails\": [\n        {\n          \"wordIndex\": 7082,\n          \"phones\": [\n            {\n              \"phoneSymbol\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"startTimeSeconds\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"durationSeconds\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"visemeSymbol\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"phoneSymbol\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"startTimeSeconds\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"durationSeconds\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"visemeSymbol\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"isPartial\": true\n        },\n        {\n          \"wordIndex\": 8103,\n          \"phones\": [\n            {\n              \"phoneSymbol\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"startTimeSeconds\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"durationSeconds\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"visemeSymbol\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"phoneSymbol\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"startTimeSeconds\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"durationSeconds\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"visemeSymbol\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"isPartial\": false\n        }\n      ]\n    },\n    \"characterAlignment\": {\n      \"characters\": [\n        \"string\",\n        \"string\"\n      ],\n      \"characterStartTimeSeconds\": [\n        55.888184795060965,\n        7797.664526878099\n      ],\n      \"characterEndTimeSeconds\": [\n        8897.606249430115,\n        5206.455240485709\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5eb479f6-f205-46ac-8bc5-8e5baa0d44a1",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tts",
+                    "v1",
+                    "voice"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"Hello, world! What a wonderful day to be a text-to-speech model.\",\n  \"voiceId\": \"Dennis\",\n  \"modelId\": \"inworld-tts-2\",\n  \"audioConfig\": {\n    \"audioEncoding\": \"LINEAR16\",\n    \"sampleRateHertz\": 22050\n  },\n  \"deliveryMode\": \"BALANCED\",\n  \"applyTextNormalization\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6432,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f806583c-f445-4d86-a9ab-5f8e2506d7ce",
+          "name": "Stream Synthesize Speech",
+          "request": {
+            "name": "Stream Synthesize Speech",
+            "description": {
+              "content": "Stream synthesis. The response is a chunked sequence of JSON envelopes, each containing a base64 audio fragment. Use for low-latency playback of long-form text.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tts",
+                "v1",
+                "voice:stream"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"<string>\",\n  \"voiceId\": \"<string>\",\n  \"modelId\": \"<string>\",\n  \"audioConfig\": {\n    \"audioEncoding\": \"<string>\",\n    \"sampleRateHertz\": 48000,\n    \"bitRate\": 128000,\n    \"speakingRate\": 1\n  },\n  \"language\": \"<string>\",\n  \"deliveryMode\": \"BALANCED\",\n  \"temperature\": 1,\n  \"timestampType\": \"<string>\",\n  \"applyTextNormalization\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "97ea8401-f85e-4a86-bedf-ea23e32e6379",
+              "name": "Streamed audio chunks.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tts",
+                    "v1",
+                    "voice:stream"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"<string>\",\n  \"voiceId\": \"<string>\",\n  \"modelId\": \"<string>\",\n  \"audioConfig\": {\n    \"audioEncoding\": \"<string>\",\n    \"sampleRateHertz\": 48000,\n    \"bitRate\": 128000,\n    \"speakingRate\": 1\n  },\n  \"language\": \"<string>\",\n  \"deliveryMode\": \"BALANCED\",\n  \"temperature\": 1,\n  \"timestampType\": \"<string>\",\n  \"applyTextNormalization\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"audioContent\": \"string\",\n  \"timestampInfo\": {\n    \"wordAlignment\": {\n      \"words\": [\n        \"string\",\n        \"string\"\n      ],\n      \"wordStartTimeSeconds\": [\n        9672.609137324203,\n        6190.210808257141\n      ],\n      \"wordEndTimeSeconds\": [\n        7985.246077666341,\n        8981.296954041478\n      ],\n      \"phoneticDetails\": [\n        {\n          \"wordIndex\": 5668,\n          \"phones\": [\n            {\n              \"phoneSymbol\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"startTimeSeconds\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"durationSeconds\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"visemeSymbol\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"phoneSymbol\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"startTimeSeconds\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"durationSeconds\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"visemeSymbol\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"isPartial\": false\n        },\n        {\n          \"wordIndex\": 4382,\n          \"phones\": [\n            {\n              \"phoneSymbol\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"startTimeSeconds\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"durationSeconds\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"visemeSymbol\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"phoneSymbol\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"startTimeSeconds\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"durationSeconds\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"visemeSymbol\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"isPartial\": true\n        }\n      ]\n    },\n    \"characterAlignment\": {\n      \"characters\": [\n        \"string\",\n        \"string\"\n      ],\n      \"characterStartTimeSeconds\": [\n        1017.0375770604023,\n        6072.233273039679\n      ],\n      \"characterEndTimeSeconds\": [\n        4317.880355836569,\n        2006.657451804611\n      ]\n    }\n  },\n  \"usage\": {\n    \"processedCharactersCount\": 6298,\n    \"modelId\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d560abde-e0f9-41ba-96e9-fa8bab34df26",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tts",
+                    "v1",
+                    "voice:stream"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"<string>\",\n  \"voiceId\": \"<string>\",\n  \"modelId\": \"<string>\",\n  \"audioConfig\": {\n    \"audioEncoding\": \"<string>\",\n    \"sampleRateHertz\": 48000,\n    \"bitRate\": 128000,\n    \"speakingRate\": 1\n  },\n  \"language\": \"<string>\",\n  \"deliveryMode\": \"BALANCED\",\n  \"temperature\": 1,\n  \"timestampType\": \"<string>\",\n  \"applyTextNormalization\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5976,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9cee8b55-7a3e-4879-97a9-74e1058f3619",
+          "name": "WebSocket Synthesize Speech",
+          "request": {
+            "name": "WebSocket Synthesize Speech",
+            "description": {
+              "content": "Upgrade to a WebSocket connection for bidirectional streaming synthesis. Clients send `SynthesizeRequest` frames and receive chunked audio frames with timestamp metadata. Auth via `Authorization: Basic` header on the upgrade request.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tts",
+                "v1",
+                "voice:websocket"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2ee0bd8f-4873-4ca3-aef1-fc51437d4cb6",
+              "name": "Switching protocols to WebSocket.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tts",
+                    "v1",
+                    "voice:websocket"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Switching Protocols",
+              "code": 101,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "17b347bd-c9fb-48e4-bdc6-8946041ee65b",
+          "name": "List TTS Voices",
+          "request": {
+            "name": "List TTS Voices",
+            "description": {
+              "content": "List voices available for synthesis. Includes Inworld-shipped voices and any custom-cloned or designed voices in the caller's workspace.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tts",
+                "v1",
+                "voices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Optional filter expression (e.g. by tag, language, gender)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e765b4d9-6eef-4579-ad63-7ef38605a98d",
+              "name": "Voices returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tts",
+                    "v1",
+                    "voices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"voices\": [\n    {\n      \"voiceId\": \"string\",\n      \"displayName\": \"string\",\n      \"languages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"gender\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"source\": \"INWORLD\"\n    },\n    {\n      \"voiceId\": \"string\",\n      \"displayName\": \"string\",\n      \"languages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"gender\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"source\": \"DESIGN\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c2571c2c-ac7e-4038-a0e7-32454ad74111",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tts",
+                    "v1",
+                    "voices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5976,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.inworld.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b2021cf9-7659-4703-9fd0-7eb9f75a26f4",
+    "name": "Inworld Models Text To Speech API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "List every model available behind the Inworld platform — first-party TTS, STT, and Realtime models plus all third-party LLMs reachable through the LLM Router. Returns provider, model id, capabilities (chat, vision, tool use, speech, streaming), and pricing tier metadata for runtime discovery.\n\n\nContact Support:\n Name: Inworld Support",
+      "type": "text/plain"
+    }
+  }
+}

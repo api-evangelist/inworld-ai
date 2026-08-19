@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Inworld Models Text To Speech API
   description: 'List every model available behind the Inworld platform — first-party TTS, STT, and Realtime models plus all third-party LLMs reachable through the LLM Router. Returns provider, model id, capabilities (chat, vision, tool use, speech, streaming), and pricing tier metadata for runtime discovery.
@@ -109,6 +109,13 @@ paths:
         4XX:
           $ref: '#/components/responses/ErrorResponse'
 components:
+  responses:
+    ErrorResponse:
+      description: Error response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     PhoneticDetail:
       type: object
@@ -132,6 +139,28 @@ components:
                 description: Viseme label for lipsync.
         isPartial:
           type: boolean
+    CharacterAlignment:
+      type: object
+      properties:
+        characters:
+          type: array
+          items:
+            type: string
+        characterStartTimeSeconds:
+          type: array
+          items:
+            type: number
+        characterEndTimeSeconds:
+          type: array
+          items:
+            type: number
+    ListVoicesResponse:
+      type: object
+      properties:
+        voices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Voice'
     AudioConfig:
       type: object
       required:
@@ -162,30 +191,6 @@ components:
           minimum: 0.5
           maximum: 1.5
           default: 1.0
-    SynthesisUsage:
-      type: object
-      properties:
-        processedCharactersCount:
-          type: integer
-        modelId:
-          type: string
-    SynthesizeStreamChunk:
-      type: object
-      properties:
-        audioContent:
-          type: string
-          format: byte
-        timestampInfo:
-          $ref: '#/components/schemas/TimestampInfo'
-        usage:
-          $ref: '#/components/schemas/SynthesisUsage'
-    TimestampInfo:
-      type: object
-      properties:
-        wordAlignment:
-          $ref: '#/components/schemas/WordAlignment'
-        characterAlignment:
-          $ref: '#/components/schemas/CharacterAlignment'
     WordAlignment:
       type: object
       properties:
@@ -205,50 +210,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PhoneticDetail'
-    SynthesizeResponse:
-      type: object
-      properties:
-        audioContent:
-          type: string
-          format: byte
-          description: Base64-encoded audio bytes.
-        usage:
-          $ref: '#/components/schemas/SynthesisUsage'
-        timestampInfo:
-          $ref: '#/components/schemas/TimestampInfo'
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-        details:
-          type: array
-          items:
-            type: object
-    ListVoicesResponse:
-      type: object
-      properties:
-        voices:
-          type: array
-          items:
-            $ref: '#/components/schemas/Voice'
-    CharacterAlignment:
-      type: object
-      properties:
-        characters:
-          type: array
-          items:
-            type: string
-        characterStartTimeSeconds:
-          type: array
-          items:
-            type: number
-        characterEndTimeSeconds:
-          type: array
-          items:
-            type: number
     Voice:
       type: object
       properties:
@@ -272,6 +233,13 @@ components:
           - INWORLD
           - IVC
           - DESIGN
+    SynthesisUsage:
+      type: object
+      properties:
+        processedCharactersCount:
+          type: integer
+        modelId:
+          type: string
     SynthesizeRequest:
       type: object
       required:
@@ -325,13 +293,45 @@ components:
           - true
           - false
           description: Normalize numbers, dates, abbreviations, etc. before synthesis.
-  responses:
-    ErrorResponse:
-      description: Error response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    SynthesizeStreamChunk:
+      type: object
+      properties:
+        audioContent:
+          type: string
+          format: byte
+        timestampInfo:
+          $ref: '#/components/schemas/TimestampInfo'
+        usage:
+          $ref: '#/components/schemas/SynthesisUsage'
+    SynthesizeResponse:
+      type: object
+      properties:
+        audioContent:
+          type: string
+          format: byte
+          description: Base64-encoded audio bytes.
+        usage:
+          $ref: '#/components/schemas/SynthesisUsage'
+        timestampInfo:
+          $ref: '#/components/schemas/TimestampInfo'
+    TimestampInfo:
+      type: object
+      properties:
+        wordAlignment:
+          $ref: '#/components/schemas/WordAlignment'
+        characterAlignment:
+          $ref: '#/components/schemas/CharacterAlignment'
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: object
   examples:
     SynthesizeExample:
       summary: Basic synthesis with LINEAR16

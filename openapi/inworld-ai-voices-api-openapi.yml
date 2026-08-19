@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Inworld Models Voices API
   description: 'List every model available behind the Inworld platform — first-party TTS, STT, and Realtime models plus all third-party LLMs reachable through the LLM Router. Returns provider, model id, capabilities (chat, vision, tool use, speech, streaming), and pricing tier metadata for runtime discovery.
@@ -182,6 +182,88 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    Voice:
+      type: object
+      properties:
+        voiceId:
+          type: string
+        displayName:
+          type: string
+        description:
+          type: string
+        langCode:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        source:
+          type: string
+          enum:
+          - INWORLD
+          - IVC
+          - DESIGN
+        published:
+          type: boolean
+    DesignVoiceRequest:
+      type: object
+      required:
+      - displayName
+      - prompt
+      - langCode
+      properties:
+        displayName:
+          type: string
+        prompt:
+          type: string
+          description: Natural-language description of the voice (gender, age, accent, tone).
+        langCode:
+          type: string
+        referenceAudio:
+          type: string
+          format: byte
+          description: Optional base64 reference audio.
+    CloneVoiceResponse:
+      type: object
+      properties:
+        voice:
+          $ref: '#/components/schemas/Voice'
+        audioSamplesValidated:
+          type: array
+          items:
+            type: object
+            properties:
+              valid:
+                type: boolean
+              reason:
+                type: string
+    UpdateVoiceRequest:
+      type: object
+      properties:
+        displayName:
+          type: string
+        description:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+    ListVoicesResponse:
+      type: object
+      properties:
+        voices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Voice'
+        nextPageToken:
+          type: string
     CloneVoiceRequest:
       type: object
       required:
@@ -234,88 +316,6 @@ components:
           properties:
             removeBackgroundNoise:
               type: boolean
-    UpdateVoiceRequest:
-      type: object
-      properties:
-        displayName:
-          type: string
-        description:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-    CloneVoiceResponse:
-      type: object
-      properties:
-        voice:
-          $ref: '#/components/schemas/Voice'
-        audioSamplesValidated:
-          type: array
-          items:
-            type: object
-            properties:
-              valid:
-                type: boolean
-              reason:
-                type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-    DesignVoiceRequest:
-      type: object
-      required:
-      - displayName
-      - prompt
-      - langCode
-      properties:
-        displayName:
-          type: string
-        prompt:
-          type: string
-          description: Natural-language description of the voice (gender, age, accent, tone).
-        langCode:
-          type: string
-        referenceAudio:
-          type: string
-          format: byte
-          description: Optional base64 reference audio.
-    ListVoicesResponse:
-      type: object
-      properties:
-        voices:
-          type: array
-          items:
-            $ref: '#/components/schemas/Voice'
-        nextPageToken:
-          type: string
-    Voice:
-      type: object
-      properties:
-        voiceId:
-          type: string
-        displayName:
-          type: string
-        description:
-          type: string
-        langCode:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        source:
-          type: string
-          enum:
-          - INWORLD
-          - IVC
-          - DESIGN
-        published:
-          type: boolean
   securitySchemes:
     BasicAuth:
       type: http

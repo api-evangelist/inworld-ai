@@ -1,0 +1,109 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Inworld LLM Router Routers API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Routers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Routers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.inworld.ai/v1/routers"
+          },
+          "docs": "List Routers"
+        },
+        {
+          "info": {
+            "name": "Create Router",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.inworld.ai/v1/routers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Router"
+        },
+        {
+          "info": {
+            "name": "Get Router",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.inworld.ai/v1/routers/:routerId",
+            "params": [
+              {
+                "name": "routerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Router"
+        },
+        {
+          "info": {
+            "name": "Update Router",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.inworld.ai/v1/routers/:routerId",
+            "params": [
+              {
+                "name": "routerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Router"
+        },
+        {
+          "info": {
+            "name": "Delete Router",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.inworld.ai/v1/routers/:routerId",
+            "params": [
+              {
+                "name": "routerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Router"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

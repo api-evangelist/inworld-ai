@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Inworld Models Speech To Text API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Speech To Text",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Transcribe Audio",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.inworld.ai/stt/v1/transcribe",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Transcribe a base64-encoded audio payload to text. Optionally returns word timestamps and routes through the requested provider/model id.\n"
+        },
+        {
+          "info": {
+            "name": "Streaming Transcribe (WebSocket)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.inworld.ai/stt/v1/transcribe:stream"
+          },
+          "docs": "Upgrade to a WebSocket. Send PCM/Opus audio chunks and receive interim and final transcripts with word timestamps. Auth via `Authorization: Basic` on the upgrade.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
