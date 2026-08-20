@@ -72,6 +72,8 @@ apis:
   description: Realtime speech-to-speech sessions.
   humanURL: https://docs.inworld.ai/tts/tts
   tags:
+  - Real-Time
+  tags_raw:
   - Realtime
   properties:
   - type: OpenAPI
@@ -137,6 +139,8 @@ apis:
   description: Transcribe audio to text.
   humanURL: https://docs.inworld.ai/tts/tts
   tags:
+  - Speech-to-Text
+  tags_raw:
   - Speech To Text
   properties:
   - type: OpenAPI
@@ -202,6 +206,8 @@ apis:
   description: Synthesize speech from text using Inworld voice models.
   humanURL: https://docs.inworld.ai/tts/tts
   tags:
+  - Text-to-Speech
+  tags_raw:
   - Text To Speech
   properties:
   - type: OpenAPI
@@ -371,6 +377,8 @@ apis:
   description: Named reusable routers with provider, conditional, and split rules.
   humanURL: https://docs.inworld.ai/router/introduction
   tags:
+  - Router
+  tags_raw:
   - Routers
   properties:
   - type: OpenAPI
@@ -406,6 +414,16 @@ apis:
   - type: JSONSchema
     url: json-schema/inworld-router-chat-completion-schema.json
 tags:
+- Artificial Intelligence
+- Voice
+- Text-to-Speech
+- Speech-to-Text
+- Real-Time
+- LLM Routing
+- Voice Cloning
+- Conversational AI
+- Game AI
+tags_raw:
 - AI
 - Artificial Intelligence
 - Voice
