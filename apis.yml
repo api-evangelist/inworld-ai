@@ -139,7 +139,7 @@ apis:
   description: Transcribe audio to text.
   humanURL: https://docs.inworld.ai/tts/tts
   tags:
-  - Speech-to-Text
+  - Speech To Text
   tags_raw:
   - Speech To Text
   properties:
@@ -417,7 +417,7 @@ tags:
 - Artificial Intelligence
 - Voice
 - Text-to-Speech
-- Speech-to-Text
+- Speech To Text
 - Real-Time
 - LLM Routing
 - Voice Cloning
