@@ -465,6 +465,8 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/inworld-ai.png
 access: 3rd-Party
 common:
+- type: Website
+  url: https://www.inworld.ai/
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/inworld-ai/overview
 - type: AgenticAccess
