@@ -208,6 +208,8 @@ apis:
   description: Voice cloning, design, and lifecycle.
   humanURL: https://docs.inworld.ai/tts/tts
   tags:
+  - Voice
+  tags_raw:
   - Voices
   properties:
   - type: OpenAPI

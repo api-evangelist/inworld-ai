@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Inworld Models Speech To Text API
-  description: 'List every model available behind the Inworld platform — first-party TTS, STT, and Realtime models plus all third-party LLMs reachable through the LLM Router. Returns provider, model id, capabilities (chat, vision, tool use, speech, streaming), and pricing tier metadata for runtime discovery.
-
-    '
+  title: Inworld STT Speech To Text API
+  description: Inworld Speech-to-Text. Synchronous transcription and a streaming WebSocket endpoint. Multi-provider routing (provider/model id, e.g. `groq/whisper-large-v3`), 99+ languages, word timestamps, contextual prompts, end-of-turn detection, and voice-profile-aware transcription for conversational agents.
   version: v1
   contact:
     name: Inworld Support
@@ -23,9 +21,7 @@ paths:
   /stt/v1/transcribe:
     post:
       summary: Transcribe Audio
-      description: 'Transcribe a base64-encoded audio payload to text. Optionally returns word timestamps and routes through the requested provider/model id.
-
-        '
+      description: Transcribe a base64-encoded audio payload to text. Optionally returns word timestamps and routes through the requested provider/model id.
       operationId: transcribeAudio
       tags:
       - Speech To Text
@@ -50,9 +46,7 @@ paths:
   /stt/v1/transcribe:stream:
     get:
       summary: Streaming Transcribe (WebSocket)
-      description: 'Upgrade to a WebSocket. Send PCM/Opus audio chunks and receive interim and final transcripts with word timestamps. Auth via `Authorization: Basic` on the upgrade.
-
-        '
+      description: 'Upgrade to a WebSocket. Send PCM/Opus audio chunks and receive interim and final transcripts with word timestamps. Auth via `Authorization: Basic` on the upgrade.'
       operationId: streamTranscribe
       tags:
       - Speech To Text
@@ -67,19 +61,61 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  examples:
-    TranscribeExample:
-      summary: Transcribe English audio via Whisper Large v3 on Groq.
-      value:
-        transcribeConfig:
-          modelId: groq/whisper-large-v3
-          audioEncoding: LINEAR16
-          language: en-US
-          sampleRateHertz: 16000
-          numberOfChannels: 1
-        audioData:
-          content: <base64-encoded-audio>
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    TranscribeRequest:
+      type: object
+      required:
+      - transcribeConfig
+      - audioData
+      properties:
+        transcribeConfig:
+          $ref: '#/components/schemas/TranscribeConfig'
+        audioData:
+          type: object
+          required:
+          - content
+          properties:
+            content:
+              type: string
+              format: byte
+              description: Base64-encoded audio in the configured encoding.
+    TranscribeResponse:
+      type: object
+      properties:
+        transcription:
+          type: object
+          properties:
+            transcript:
+              type: string
+            isFinal:
+              type: boolean
+            wordTimestamps:
+              type: array
+              items:
+                type: object
+                properties:
+                  word:
+                    type: string
+                  startTimeSeconds:
+                    type: number
+                  endTimeSeconds:
+                    type: number
+                  confidence:
+                    type: number
+        usage:
+          type: object
+          properties:
+            transcribedAudioMs:
+              type: integer
+            modelId:
+              type: string
     TranscribeConfig:
       type: object
       required:
@@ -127,60 +163,18 @@ components:
               type: boolean
             profileId:
               type: string
-    TranscribeResponse:
-      type: object
-      properties:
-        transcription:
-          type: object
-          properties:
-            transcript:
-              type: string
-            isFinal:
-              type: boolean
-            wordTimestamps:
-              type: array
-              items:
-                type: object
-                properties:
-                  word:
-                    type: string
-                  startTimeSeconds:
-                    type: number
-                  endTimeSeconds:
-                    type: number
-                  confidence:
-                    type: number
-        usage:
-          type: object
-          properties:
-            transcribedAudioMs:
-              type: integer
-            modelId:
-              type: string
-    TranscribeRequest:
-      type: object
-      required:
-      - transcribeConfig
-      - audioData
-      properties:
+  examples:
+    TranscribeExample:
+      summary: Transcribe English audio via Whisper Large v3 on Groq.
+      value:
         transcribeConfig:
-          $ref: '#/components/schemas/TranscribeConfig'
+          modelId: groq/whisper-large-v3
+          audioEncoding: LINEAR16
+          language: en-US
+          sampleRateHertz: 16000
+          numberOfChannels: 1
         audioData:
-          type: object
-          required:
-          - content
-          properties:
-            content:
-              type: string
-              format: byte
-              description: Base64-encoded audio in the configured encoding.
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
+          content: <base64-encoded-audio>
   securitySchemes:
     BasicAuth:
       type: http

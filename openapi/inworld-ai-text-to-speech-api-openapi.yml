@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Inworld Models Text To Speech API
-  description: 'List every model available behind the Inworld platform — first-party TTS, STT, and Realtime models plus all third-party LLMs reachable through the LLM Router. Returns provider, model id, capabilities (chat, vision, tool use, speech, streaming), and pricing tier metadata for runtime discovery.
-
-    '
+  title: Inworld TTS Text To Speech API
+  description: Inworld Text-to-Speech API. Synchronous synthesis (returns base64 audio in one response), server-streamed synthesis (chunked audio for low-latency playback), and WebSocket-based bidirectional streaming synthesis. Backed by the Realtime TTS-2, Realtime TTS 1.5 Max, and Realtime TTS 1.5 Mini models with word- and character-level alignment, phoneme/viseme metadata for lipsync, custom pronunciation, pause controls, voice tags, and long-text input.
   version: v1
   contact:
     name: Inworld Support
@@ -23,9 +21,7 @@ paths:
   /tts/v1/voice:
     post:
       summary: Synthesize Speech
-      description: 'Synthesize a single audio response from text. Returns base64-encoded audio plus optional word/character/phoneme alignment metadata. Maximum 2,000 input characters per request and 16 MB output audio.
-
-        '
+      description: Synthesize a single audio response from text. Returns base64-encoded audio plus optional word/character/phoneme alignment metadata. Maximum 2,000 input characters per request and 16 MB output audio.
       operationId: synthesizeSpeech
       tags:
       - Text To Speech
@@ -50,9 +46,7 @@ paths:
   /tts/v1/voice:stream:
     post:
       summary: Stream Synthesize Speech
-      description: 'Stream synthesis. The response is a chunked sequence of JSON envelopes, each containing a base64 audio fragment. Use for low-latency playback of long-form text.
-
-        '
+      description: Stream synthesis. The response is a chunked sequence of JSON envelopes, each containing a base64 audio fragment. Use for low-latency playback of long-form text.
       operationId: streamSynthesizeSpeech
       tags:
       - Text To Speech
@@ -74,9 +68,7 @@ paths:
   /tts/v1/voice:websocket:
     get:
       summary: WebSocket Synthesize Speech
-      description: 'Upgrade to a WebSocket connection for bidirectional streaming synthesis. Clients send `SynthesizeRequest` frames and receive chunked audio frames with timestamp metadata. Auth via `Authorization: Basic` header on the upgrade request.
-
-        '
+      description: 'Upgrade to a WebSocket connection for bidirectional streaming synthesis. Clients send `SynthesizeRequest` frames and receive chunked audio frames with timestamp metadata. Auth via `Authorization: Basic` header on the upgrade request.'
       operationId: websocketSynthesizeSpeech
       tags:
       - Text To Speech
@@ -86,9 +78,7 @@ paths:
   /tts/v1/voices:
     get:
       summary: List TTS Voices
-      description: 'List voices available for synthesis. Includes Inworld-shipped voices and any custom-cloned or designed voices in the caller''s workspace.
-
-        '
+      description: List voices available for synthesis. Includes Inworld-shipped voices and any custom-cloned or designed voices in the caller's workspace.
       operationId: listTtsVoices
       tags:
       - Text To Speech
@@ -116,44 +106,19 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  examples:
+    SynthesizeExample:
+      summary: Basic synthesis with LINEAR16
+      value:
+        text: Hello, world! What a wonderful day to be a text-to-speech model.
+        voiceId: Dennis
+        modelId: inworld-tts-2
+        audioConfig:
+          audioEncoding: LINEAR16
+          sampleRateHertz: 22050
+        deliveryMode: BALANCED
+        applyTextNormalization: true
   schemas:
-    PhoneticDetail:
-      type: object
-      properties:
-        wordIndex:
-          type: integer
-        phones:
-          type: array
-          items:
-            type: object
-            properties:
-              phoneSymbol:
-                type: string
-                description: IPA phone symbol.
-              startTimeSeconds:
-                type: number
-              durationSeconds:
-                type: number
-              visemeSymbol:
-                type: string
-                description: Viseme label for lipsync.
-        isPartial:
-          type: boolean
-    CharacterAlignment:
-      type: object
-      properties:
-        characters:
-          type: array
-          items:
-            type: string
-        characterStartTimeSeconds:
-          type: array
-          items:
-            type: number
-        characterEndTimeSeconds:
-          type: array
-          items:
-            type: number
     ListVoicesResponse:
       type: object
       properties:
@@ -161,36 +126,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Voice'
-    AudioConfig:
+    Error:
       type: object
-      required:
-      - audioEncoding
       properties:
-        audioEncoding:
+        code:
+          type: integer
+        message:
           type: string
-          enum:
-          - LINEAR16
-          - MP3
-          - OGG_OPUS
-          - ALAW
-          - MULAW
-          - FLAC
-          - PCM
-          - WAV
-        sampleRateHertz:
-          type: integer
-          minimum: 8000
-          maximum: 48000
-          default: 48000
-        bitRate:
-          type: integer
-          default: 128000
-          description: Bits per second. Compressed formats only.
-        speakingRate:
-          type: number
-          minimum: 0.5
-          maximum: 1.5
-          default: 1.0
+        details:
+          type: array
+          items:
+            type: object
     WordAlignment:
       type: object
       properties:
@@ -240,6 +186,64 @@ components:
           type: integer
         modelId:
           type: string
+    SynthesizeStreamChunk:
+      type: object
+      properties:
+        audioContent:
+          type: string
+          format: byte
+        timestampInfo:
+          $ref: '#/components/schemas/TimestampInfo'
+        usage:
+          $ref: '#/components/schemas/SynthesisUsage'
+    TimestampInfo:
+      type: object
+      properties:
+        wordAlignment:
+          $ref: '#/components/schemas/WordAlignment'
+        characterAlignment:
+          $ref: '#/components/schemas/CharacterAlignment'
+    SynthesizeResponse:
+      type: object
+      properties:
+        audioContent:
+          type: string
+          format: byte
+          description: Base64-encoded audio bytes.
+        usage:
+          $ref: '#/components/schemas/SynthesisUsage'
+        timestampInfo:
+          $ref: '#/components/schemas/TimestampInfo'
+    AudioConfig:
+      type: object
+      required:
+      - audioEncoding
+      properties:
+        audioEncoding:
+          type: string
+          enum:
+          - LINEAR16
+          - MP3
+          - OGG_OPUS
+          - ALAW
+          - MULAW
+          - FLAC
+          - PCM
+          - WAV
+        sampleRateHertz:
+          type: integer
+          minimum: 8000
+          maximum: 48000
+          default: 48000
+        bitRate:
+          type: integer
+          default: 128000
+          description: Bits per second. Compressed formats only.
+        speakingRate:
+          type: number
+          minimum: 0.5
+          maximum: 1.5
+          default: 1.0
     SynthesizeRequest:
       type: object
       required:
@@ -293,58 +297,47 @@ components:
           - true
           - false
           description: Normalize numbers, dates, abbreviations, etc. before synthesis.
-    SynthesizeStreamChunk:
+    CharacterAlignment:
       type: object
       properties:
-        audioContent:
-          type: string
-          format: byte
-        timestampInfo:
-          $ref: '#/components/schemas/TimestampInfo'
-        usage:
-          $ref: '#/components/schemas/SynthesisUsage'
-    SynthesizeResponse:
+        characters:
+          type: array
+          items:
+            type: string
+        characterStartTimeSeconds:
+          type: array
+          items:
+            type: number
+        characterEndTimeSeconds:
+          type: array
+          items:
+            type: number
+    PhoneticDetail:
       type: object
       properties:
-        audioContent:
-          type: string
-          format: byte
-          description: Base64-encoded audio bytes.
-        usage:
-          $ref: '#/components/schemas/SynthesisUsage'
-        timestampInfo:
-          $ref: '#/components/schemas/TimestampInfo'
-    TimestampInfo:
-      type: object
-      properties:
-        wordAlignment:
-          $ref: '#/components/schemas/WordAlignment'
-        characterAlignment:
-          $ref: '#/components/schemas/CharacterAlignment'
-    Error:
-      type: object
-      properties:
-        code:
+        wordIndex:
           type: integer
-        message:
-          type: string
-        details:
+        phones:
           type: array
           items:
             type: object
-  examples:
-    SynthesizeExample:
-      summary: Basic synthesis with LINEAR16
-      value:
-        text: Hello, world! What a wonderful day to be a text-to-speech model.
-        voiceId: Dennis
-        modelId: inworld-tts-2
-        audioConfig:
-          audioEncoding: LINEAR16
-          sampleRateHertz: 22050
-        deliveryMode: BALANCED
-        applyTextNormalization: true
+            properties:
+              phoneSymbol:
+                type: string
+                description: IPA phone symbol.
+              startTimeSeconds:
+                type: number
+              durationSeconds:
+                type: number
+              visemeSymbol:
+                type: string
+                description: Viseme label for lipsync.
+        isPartial:
+          type: boolean
   securitySchemes:
     BasicAuth:
       type: http
       scheme: basic
+      description: 'Inworld API key. The Inworld portal issues a value already pre-encoded as `base64(apiKey:)` — send it as `Authorization: Basic <api-key>`.
+
+        '

@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
   title: Inworld LLM Router Chat Completions API
-  description: 'OpenAI- and Anthropic-compatible chat completions plus named-router lifecycle management. Routes prompts across hundreds of third-party LLMs (OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, Groq, etc.) behind one API and one billing relationship. Includes conditional routing, A/B traffic splitting, provider routing, prompt caching, prompt compression, integrated web search, and a Claude-Code-compatible mode.
-
-    '
+  description: OpenAI- and Anthropic-compatible chat completions plus named-router lifecycle management. Routes prompts across hundreds of third-party LLMs (OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, Groq, etc.) behind one API and one billing relationship. Includes conditional routing, A/B traffic splitting, provider routing, prompt caching, prompt compression, integrated web search, and a Claude-Code-compatible mode.
   version: v1
   contact:
     name: Inworld Support
@@ -23,9 +21,7 @@ paths:
   /v1/chat/completions:
     post:
       summary: Create Chat Completion
-      description: 'OpenAI-compatible chat completions. The `model` field accepts a specific model id, a `provider/model` id (e.g. `openai/gpt-4o`), `auto` for the router''s default selection, or `inworld/<router-name>` to invoke a named router. Anthropic-compatible request shapes are supported via the Anthropic-compat header set documented at `/router/anthropic-compatibility`.
-
-        '
+      description: OpenAI-compatible chat completions. The `model` field accepts a specific model id, a `provider/model` id (e.g. `openai/gpt-4o`), `auto` for the router's default selection, or `inworld/` to invoke a named router. Anthropic-compatible request shapes are supported via the Anthropic-compat header set documented at `/router/anthropic-compatibility`.
       operationId: createChatCompletion
       tags:
       - Chat Completions
@@ -64,13 +60,6 @@ paths:
         4XX:
           $ref: '#/components/responses/ErrorResponse'
 components:
-  responses:
-    ErrorResponse:
-      description: Error response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     ChatCompletionResponse:
       type: object
@@ -108,9 +97,13 @@ components:
         metadata:
           type: object
           description: Router metadata — attempts, providers tried, reasoning.
-    ChatCompletionStreamEvent:
+    Error:
       type: object
-      description: 'Server-sent event stream — `data: <json>` chunks; final `data: [DONE]`.'
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
     ChatMessage:
       type: object
       required:
@@ -216,13 +209,16 @@ components:
           type: object
         extra_body:
           type: object
-    Error:
+    ChatCompletionStreamEvent:
       type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
+      description: 'Server-sent event stream — `data: <json>` chunks; final `data: [DONE]`.'
+  responses:
+    ErrorResponse:
+      description: Error response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     BasicAuth:
       type: http

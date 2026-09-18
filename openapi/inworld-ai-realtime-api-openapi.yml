@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Inworld Models Realtime API
-  description: 'List every model available behind the Inworld platform — first-party TTS, STT, and Realtime models plus all third-party LLMs reachable through the LLM Router. Returns provider, model id, capabilities (chat, vision, tool use, speech, streaming), and pricing tier metadata for runtime discovery.
-
-    '
+  title: Inworld Realtime API
+  description: End-to-end speech-to-speech voice pipeline (STT + LLM + TTS). Connect over WebSocket or WebRTC. Event protocol is OpenAI-Realtime-API-compatible, so existing OpenAI Realtime clients can swap the base URL. Includes server-side and semantic VAD, function/tool calling, MCP server tunneling, Twilio media streams, and JWT-based session authentication.
   version: v1
   contact:
     name: Inworld Support
@@ -15,7 +13,7 @@ servers:
 - url: https://api.inworld.ai
   description: Inworld Production API
 security:
-- BasicAuth: []
+- BearerAuth: []
 tags:
 - name: Realtime
   description: Realtime speech-to-speech sessions.
@@ -23,9 +21,7 @@ paths:
   /api/v1/realtime/session:
     get:
       summary: Realtime WebSocket Session
-      description: 'Upgrade to a Realtime WebSocket session. The connection accepts a JSON event protocol compatible with the OpenAI Realtime API (`session.update`, `input_audio_buffer.append`, `input_audio_buffer.commit`, `response.create`, `conversation.item.create`, `response.cancel`, etc.). Authenticate with a short-lived JWT in the `Authorization: Bearer <jwt>` header, minted with a Realtime-only API key.
-
-        '
+      description: 'Upgrade to a Realtime WebSocket session. The connection accepts a JSON event protocol compatible with the OpenAI Realtime API (`session.update`, `input_audio_buffer.append`, `input_audio_buffer.commit`, `response.create`, `conversation.item.create`, `response.cancel`, etc.). Authenticate with a short-lived JWT in the `Authorization: Bearer ` header, minted with a Realtime-only API key.'
       operationId: realtimeWebsocket
       tags:
       - Realtime
@@ -35,9 +31,7 @@ paths:
   /v1/realtime/webrtc:
     post:
       summary: Realtime WebRTC Offer Exchange
-      description: 'Exchange a WebRTC SDP offer for an answer to open a realtime audio session. The server provisions an audio track wired to the same STT-LLM-TTS pipeline used by the WebSocket endpoint.
-
-        '
+      description: Exchange a WebRTC SDP offer for an answer to open a realtime audio session. The server provisions an audio track wired to the same STT-LLM-TTS pipeline used by the WebSocket endpoint.
       operationId: realtimeWebrtc
       tags:
       - Realtime
@@ -123,6 +117,13 @@ components:
                 type: string
               transport:
                 type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
     WebRtcOffer:
       type: object
       required:
@@ -140,14 +141,8 @@ components:
           type: string
         sessionId:
           type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
   securitySchemes:
-    BasicAuth:
+    BearerAuth:
       type: http
-      scheme: basic
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,32 @@
+# Front Door AI Index — inworld-ai — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: inworld-ai
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.inworld.ai
+  final_host: inworld.ai
+  ownership: inherited
+  owner: inworld-ai
+  shares_host_with: null
+  inherited_from: inworld.ai
+  verdict: scored
+  score: null
+  host_score: 32
+  density: null
+  words: 1576
+  tiers:
+    agentic: 5
+    core: 25
+    model: 2
+  ambiguous: 6
+  top_terms:
+    AI: 20
+    LLMs: 5
+    agent: 5
+    inference: 4
+    Anthropic: 1
+    OpenAI: 1
+    intelligence: 1
+    prompts: 1

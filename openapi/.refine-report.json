@@ -1,18 +1,15 @@
 {
   "provider": "inworld-ai",
   "sources": [
-    "inworld-ai-chat-completions-api-openapi.yml",
-    "inworld-ai-models-api-openapi.yml",
-    "inworld-ai-realtime-api-openapi.yml",
-    "inworld-ai-routers-api-openapi.yml",
-    "inworld-ai-speech-to-text-api-openapi.yml",
-    "inworld-ai-text-to-speech-api-openapi.yml",
-    "inworld-ai-voices-api-openapi.yml"
+    "_original/inworld-realtime-api-openapi.yml",
+    "_original/inworld-router-api-openapi.yml",
+    "_original/inworld-stt-api-openapi.yml",
+    "_original/inworld-tts-api-openapi.yml",
+    "_original/inworld-voice-api-openapi.yml"
   ],
   "outputs": [
-    "inworld-ai-chat-completions-api-openapi.yml",
-    "inworld-ai-models-api-openapi.yml",
     "inworld-ai-realtime-api-openapi.yml",
+    "inworld-ai-chat-completions-api-openapi.yml",
     "inworld-ai-routers-api-openapi.yml",
     "inworld-ai-speech-to-text-api-openapi.yml",
     "inworld-ai-text-to-speech-api-openapi.yml",
@@ -22,14 +19,22 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "inworld-ai-chat-completions-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "inworld-ai-models-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "inworld-ai-realtime-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "inworld-ai-routers-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "inworld-ai-speech-to-text-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "inworld-ai-text-to-speech-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "inworld-ai-voices-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (5 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "inworld-realtime-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "inworld-router-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "inworld-stt-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "inworld-tts-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "inworld-voice-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "_original/inworld-models-api-openapi.yml: archived document superseded by a larger archived document",
+    "inworld-ai-chat-completions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "inworld-ai-realtime-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "inworld-ai-routers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "inworld-ai-speech-to-text-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "inworld-ai-text-to-speech-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "inworld-ai-voices-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

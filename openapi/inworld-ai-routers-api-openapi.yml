@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
   title: Inworld LLM Router Routers API
-  description: 'OpenAI- and Anthropic-compatible chat completions plus named-router lifecycle management. Routes prompts across hundreds of third-party LLMs (OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, Groq, etc.) behind one API and one billing relationship. Includes conditional routing, A/B traffic splitting, provider routing, prompt caching, prompt compression, integrated web search, and a Claude-Code-compatible mode.
-
-    '
+  description: OpenAI- and Anthropic-compatible chat completions plus named-router lifecycle management. Routes prompts across hundreds of third-party LLMs (OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, Groq, etc.) behind one API and one billing relationship. Includes conditional routing, A/B traffic splitting, provider routing, prompt caching, prompt compression, integrated web search, and a Claude-Code-compatible mode.
   version: v1
   contact:
     name: Inworld Support
@@ -107,14 +105,21 @@ paths:
         4XX:
           $ref: '#/components/responses/ErrorResponse'
 components:
-  responses:
-    ErrorResponse:
-      description: Error response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    ListRoutersResponse:
+      type: object
+      properties:
+        routers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Router'
     Router:
       type: object
       required:
@@ -150,20 +155,13 @@ components:
           properties:
             enabled:
               type: boolean
-    ListRoutersResponse:
-      type: object
-      properties:
-        routers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Router'
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
+  responses:
+    ErrorResponse:
+      description: Error response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     BasicAuth:
       type: http
